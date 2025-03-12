@@ -1,0 +1,36 @@
+export type Application = {
+  id: string;
+  passportId: string;
+  fullName: string;
+  birthday: string;
+  sex: string;
+  passportType: string;
+  originalNationality: string;
+  nationalityCurrent: string;
+  passportNumber: string;
+  immigrationPrice: number;
+  immigrationCurrency: string;
+  immigration: string;
+  code: string;
+  job: string;
+  workPlace: string;
+
+  purpose: string;
+  placeOfIssue: string;
+  duration: string;
+  fromDate: string;
+  toDate: string;
+  speed: string;
+  notes?: string;
+  creator: string;
+  createdDate: string;
+  createdTime: string;
+  handleBy: string;
+  stage: string;
+  iref: string;
+  cost: number;
+  currency: string;
+  role: string;
+  companyId: string;
+  travelDuration: number;
+};
