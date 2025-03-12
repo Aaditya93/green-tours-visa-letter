@@ -27,13 +27,7 @@ module.exports = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "passport-2.s3.ap-southeast-1.amazonaws.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "swiftvisa1.s3.ap-south-1.amazonaws.com",
+        hostname: "visaletters123.s3.ap-southeast-1.amazonaws.com",
         port: "",
         pathname: "/**",
       },

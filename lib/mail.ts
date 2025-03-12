@@ -5,6 +5,7 @@ const Domain = process.env.DOMAIN;
 export const sendVarificationEmail = async (email: string, token: string) => {
   const ConfirmationLink = `${Domain}/auth/new-verification?token=${token}`;
   console.log(ConfirmationLink);
+  console.log(ConfirmationLink);
 
   await resend.emails.send({
     from: "Victoria Tours <noreply@bukxe.net>",
