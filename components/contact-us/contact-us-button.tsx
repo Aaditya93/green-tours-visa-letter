@@ -5,7 +5,7 @@ const ContactUsButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Phone className="h-6 w-6 text-blue-500" />
+        <Phone className="h-6 w-6 text-primary" />
       </DialogTrigger>
       <DialogContent>
         <CallbackForm />

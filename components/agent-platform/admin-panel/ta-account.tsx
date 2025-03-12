@@ -43,17 +43,20 @@ export const UserApprovalCards = (
   const { data } = UserApprovalCardsProps;
   const [selectedStaff, setSelectedStaff] = useState("");
   const salesStaff = [
-    "Mr Xia",
-    "Mr Summer",
-    "Mr Bob",
-    "Mr Sami",
-    "Mr Ifthika",
-    "Mr Vaibhav",
-    "Mr Anupam",
-    "Mr Ram",
-    "Mr Praveen",
-    "Amy",
-    "Victor",
+    "Solia",
+    "Hanna",
+    "Mochi",
+    "Jimmy Chan",
+    "Connie",
+    "Sophie",
+    "Nora",
+    "Celine",
+    "Vivi",
+    "Anne",
+    "Adora",
+    "Nina",
+    "Keats",
+    "Olivia",
     "Aaditya",
   ];
 

@@ -96,29 +96,63 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
   };
 
   return (
-    <div className="flex container mx-auto px-4 items-center justify-center">
+    <div className="flex container mx-auto py-8 px-4 items-center justify-center ">
       {!upload && (
-        <Card className="w-full max-w-md mx-auto">
-          <CardHeader className="bg-primary p-4 rounded-t-lg mb-4">
-            <CardTitle className="text-xl font-bold text-primary-foreground">
-              Visa Letter
+        <Card className="w-full max-w-md mx-auto shadow-lg border-2 border-primary/10 overflow-hidden">
+          <CardHeader className="bg-primary p-6 mb-0">
+            <CardTitle className="text-2xl font-bold text-primary-foreground flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+              Visa Letter Application
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label>Travel Type</Label>
+          <CardContent className="space-y-6 p-6">
+            <div className="space-y-3">
+              <Label className="text-base font-medium">Travel Type</Label>
               <RadioGroup
                 value={travelType}
                 onValueChange={setTravelType}
-                className="flex space-x-4"
+                className="flex flex-col sm:flex-row gap-3"
               >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="individual" id="individual" />
-                  <Label htmlFor="individual">Individual</Label>
+                <div
+                  className={`flex items-center border rounded-lg p-3 cursor-pointer transition-all ${
+                    travelType === "individual"
+                      ? "bg-primary/10 border-primary"
+                      : "border-gray-200 hover:border-primary/30"
+                  }`}
+                >
+                  <RadioGroupItem
+                    value="individual"
+                    id="individual"
+                    className="mr-2"
+                  />
+                  <Label htmlFor="individual" className="cursor-pointer">
+                    Individual Traveler
+                  </Label>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="group" id="group" />
-                  <Label htmlFor="group">Group</Label>
+                <div
+                  className={`flex items-center border rounded-lg p-3 cursor-pointer transition-all ${
+                    travelType === "group"
+                      ? "bg-primary/10 border-primary"
+                      : "border-gray-200 hover:border-primary/30"
+                  }`}
+                >
+                  <RadioGroupItem value="group" id="group" className="mr-2" />
+                  <Label htmlFor="group" className="cursor-pointer">
+                    Group Travel
+                  </Label>
                 </div>
               </RadioGroup>
             </div>
@@ -129,18 +163,25 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
                   control={form.control}
                   name="groupSize"
                   render={({ field }) => (
-                    <FormItem>
-                      <Label>Number of People</Label>
+                    <FormItem className="animate-fadeIn">
+                      <Label className="text-base font-medium">
+                        Number of People
+                      </Label>
                       <FormControl>
-                        <Input
-                          {...field}
-                          onChange={(e) => {
-                            const value = parseInt(e.target.value) || null;
-                            field.onChange(value);
-                          }}
-                          max="20"
-                          className="w-full"
-                        />
+                        <div className="flex items-center">
+                          <Input
+                            {...field}
+                            onChange={(e) => {
+                              const value = parseInt(e.target.value) || null;
+                              field.onChange(value);
+                            }}
+                            max="20"
+                            min="2"
+                            type="number"
+                            placeholder="Enter group size (2-20)"
+                            className="w-full focus:ring-2 focus:ring-primary/20"
+                          />
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -149,35 +190,66 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
               </Form>
             )}
 
-            <div className="space-y-2">
-              <Label>Duration</Label>
+            <div className="space-y-3">
+              <Label className="text-base font-medium">Visa Duration</Label>
               <RadioGroup
                 value={entryType}
                 onValueChange={(value) =>
                   setEntryType(value as keyof PriceData)
                 }
-                className="flex space-x-4"
+                className="flex flex-col sm:flex-row gap-3"
               >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="singleEntry" id="single" />
-                  <Label htmlFor="single"> 15 Days</Label>
+                <div
+                  className={`flex items-center border rounded-lg p-3 cursor-pointer transition-all ${
+                    entryType === "singleEntry"
+                      ? "bg-primary/10 border-primary"
+                      : "border-gray-200 hover:border-primary/30"
+                  }`}
+                >
+                  <RadioGroupItem
+                    value="singleEntry"
+                    id="single"
+                    className="mr-2"
+                  />
+                  <Label
+                    htmlFor="single"
+                    className="cursor-pointer flex flex-col"
+                  >
+                    <span className="font-medium">15 Days</span>
+                  </Label>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="multipleEntry" id="multiple" />
-                  <Label htmlFor="multiple">30 Days</Label>
+                <div
+                  className={`flex items-center border rounded-lg p-3 cursor-pointer transition-all ${
+                    entryType === "multipleEntry"
+                      ? "bg-primary/10 border-primary"
+                      : "border-gray-200 hover:border-primary/30"
+                  }`}
+                >
+                  <RadioGroupItem
+                    value="multipleEntry"
+                    id="multiple"
+                    className="mr-2"
+                  />
+                  <Label
+                    htmlFor="multiple"
+                    className="cursor-pointer flex flex-col"
+                  >
+                    <span className="font-medium">30 Days</span>
+                    <span className="text-sm text-gray-500"></span>
+                  </Label>
                 </div>
               </RadioGroup>
             </div>
 
-            <div className="space-y-2">
-              <Label>Processing Speed</Label>
+            <div className="space-y-3">
+              <Label className="text-base font-medium">Processing Speed</Label>
               <Select value={selectedSpeed} onValueChange={setSelectedSpeed}>
-                <SelectTrigger>
-                  <SelectValue />
+                <SelectTrigger className="w-full focus:ring-2 focus:ring-primary/20 border-gray-200 h-12">
+                  <SelectValue placeholder="Select processing time" />
                 </SelectTrigger>
                 <SelectContent>
                   {Object.entries(speedLabels).map(([value, label]) => (
-                    <SelectItem key={value} value={value}>
+                    <SelectItem key={value} value={value} className="py-2">
                       {label}
                     </SelectItem>
                   ))}
@@ -185,12 +257,40 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
               </Select>
             </div>
 
-            <div className="pt-4 border-t">
-              <div className="text-lg font-semibold mb-4">
-                Total Price: {currency} {getCurrentPrice()}
+            <div className="pt-6 border-t mt-4">
+              <div className="bg-primary/5 p-4 rounded-lg mb-4">
+                <p className="text-sm text-gray-600 mb-1">Total Amount</p>
+                <div className="text-2xl font-bold text-primary flex items-center">
+                  {currency} {getCurrentPrice().toLocaleString()}
+                  {travelType === "group" && groupSize > 1 && (
+                    <span className="text-sm text-gray-500 ml-2 font-normal">
+                      ({currency} {(getCurrentPrice() / groupSize).toFixed(2)}{" "}
+                      per person)
+                    </span>
+                  )}
+                </div>
               </div>
-              <Button onClick={handleApply} className="w-full">
-                Apply Now
+              <Button
+                onClick={handleApply}
+                className="w-full h-12 text-base font-medium transition-all hover:shadow-md"
+                disabled={
+                  travelType === "group" &&
+                  (groupSize < 2 || !form.formState.isValid)
+                }
+              >
+                Continue to Document Upload
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 ml-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
               </Button>
             </div>
           </CardContent>

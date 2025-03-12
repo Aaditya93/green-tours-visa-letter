@@ -1,8 +1,8 @@
 export const publicRoutes = [
   "/auth/new-verification",
   "/home",
-  "contact-us",
-  "about-us",
+  "/contact-us",
+  "/about-us",
 ];
 
 export const authRoutes = [

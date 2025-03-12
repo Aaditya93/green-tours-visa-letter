@@ -1,13 +1,20 @@
 "use client";
 import React from "react";
-import { Mail, Phone, Clock, MapPin, PhoneCall } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  Clock,
+  MapPin,
+  PhoneCall,
+  User,
+  AtSign,
+} from "lucide-react";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Badge } from "../ui/badge";
+import { CardContent, CardHeader, CardTitle, Card } from "../ui/card";
 import {
   Form,
   FormControl,
@@ -40,8 +47,6 @@ export const CallbackForm = () => {
     setError("");
     setSuccess("");
 
-    contactUs(values);
-
     startTransition(() => {
       contactUs(values).then((data) => {
         setError(data.error);
@@ -60,45 +65,40 @@ export const CallbackForm = () => {
   });
 
   return (
-    <div className="relative">
-      {/* Status Badge */}
-      <Badge className="absolute -top-2 right-4 bg-primary/10 text-primary hover:bg-primary/20">
-        <Clock className="w-3 h-3 mr-1" />
-        Available Now
-      </Badge>
-
-      <CardHeader className="space-y-4">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-            <PhoneCall className="h-6 w-6 text-primary" />
+    <Card className="relative shadow-md border-[hsl(var(--border))] overflow-hidden">
+      <CardHeader className="space-y-4 px-6 py-6 bg-gradient-to-br from-primary/30 via-primary/15 to-accent/10 text-foreground border-b border-primary/10 relative before:absolute before:inset-0 before:bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMxLjIgMCAyLjEuOSAyLjEgMi4xdjE5LjhjMCAxLjItLjkgMi4xLTIuMSAyLjFIMjRjLTEuMiAwLTIuMS0uOS0yLjEtMi4xVjIwLjFjMC0xLjIuOS0yLjEgMi4xLTIuMWgxMnpNMTggMzZjMS4yIDAgMi4xLjkgMi4xIDIuMXYxOS44YzAgMS4yLS45IDIuMS0yLjEgMi4xSDZjLTEuMiAwLTIuMS0uOS0yLjEtMi4xVjM4LjFjMC0xLjIuOS0yLjEgMi4xLTIuMWgxMnptMzYtMThjMS4yIDAgMi4xLjkgMi4xIDIuMXYxOS44YzAgMS4yLS45IDIuMS0yLjEgMi4xSDQyYy0xLjIgMC0yLjEtLjktMi4xLTIuMVYyMC4xYzAtMS4yLjktMi4xIDIuMS0yLjFoMTJ6IiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLW9wYWNpdHk9Ii4xNSIvPjwvZz48L3N2Zz4=')] before:opacity-10 before:pointer-events-none">
+        <div className="flex items-center gap-4">
+          <div className="w-14 h-14 rounded-full bg-primary/15 flex items-center justify-center shadow-md ring-2 ring-primary/10">
+            <PhoneCall className="h-7 w-7 text-primary" />
           </div>
-          <div>
+          <div className="space-y-1">
             <CardTitle className="text-2xl font-bold text-card-foreground">
-              Need Help With Your Visa?
+              Need Help With Your Vietnam Visa Letter?
             </CardTitle>
-            <p className="text-sm text-muted-foreground mt-1">
+            <p className="text-sm text-muted-foreground">
               Get expert assistance within 2 minutes
             </p>
           </div>
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 mt-4">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             {/* Form Fields with Enhanced Styling */}
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-sm font-medium">
+                  <FormLabel className="text-sm font-medium flex items-center gap-2">
+                    <User className="h-4 w-4 text-primary" />
                     Full Name
                   </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Enter your name"
-                      className="h-11 bg-accent/50 border-accent-foreground/20 focus:border-primary"
+                      className="h-11 bg-[hsl(var(--accent)/0.5)] border-[hsl(var(--accent-foreground)/0.2)] focus:border-[hsl(var(--primary))]"
                       {...field}
                       disabled={isPending}
                     />
@@ -113,11 +113,15 @@ export const CallbackForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-left">Email ID</FormLabel>
+                  <FormLabel className="text-left flex items-center gap-2">
+                    <AtSign className="h-4 w-4 text-primary" />
+                    Email ID
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Email ID"
                       type="text"
+                      className="h-11 bg-[hsl(var(--accent)/0.5)] border-[hsl(var(--accent-foreground)/0.2)] focus:border-[hsl(var(--primary))]"
                       {...field}
                       disabled={isPending}
                     />
@@ -132,11 +136,15 @@ export const CallbackForm = () => {
               name="mobile"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-left">Mobile Number</FormLabel>
+                  <FormLabel className="text-left flex items-center gap-2">
+                    <Phone className="h-4 w-4 text-primary" />
+                    Mobile Number
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Mobile Number"
                       type="tel"
+                      className="h-11 bg-[hsl(var(--accent)/0.5)] border-[hsl(var(--accent-foreground)/0.2)] focus:border-[hsl(var(--primary))]"
                       {...field}
                       disabled={isPending}
                     />
@@ -147,21 +155,22 @@ export const CallbackForm = () => {
             />
 
             {/* Contact Info Card */}
-            <div className="bg-card border border-border/50 rounded-lg p-4 space-y-3">
-              <h4 className="font-medium text-card-foreground">
+            <div className="bg-card border border-border/50 rounded-lg p-4 space-y-3 shadow-sm">
+              <h4 className="font-medium text-card-foreground flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-primary" />
                 Contact Us Directly
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                <div className="flex items-center gap-2 text-muted-foreground">
+                <div className="flex items-center gap-2 text-muted-foreground hover:text-primary/80 transition-colors">
                   <Mail className="h-4 w-4 text-primary" />
                   <span>support@SwiftVisa.com</span>
                 </div>
-                <div className="flex items-center gap-2 text-muted-foreground">
+                <div className="flex items-center gap-2 text-muted-foreground hover:text-primary/80 transition-colors">
                   <Phone className="h-4 w-4 text-primary" />
                   <span>1800-547-5030</span>
                 </div>
-                <div className="flex items-center gap-2 text-muted-foreground md:col-span-2">
-                  <MapPin className="h-4 w-4 text-primary" />
+                <div className="flex items-center gap-2 text-muted-foreground md:col-span-2 hover:text-primary/80 transition-colors">
+                  <Clock className="h-4 w-4 text-primary" />
                   <span>Operating Hours: 10:00 AM - 7:00 PM (Mon-Sat)</span>
                 </div>
               </div>
@@ -174,7 +183,7 @@ export const CallbackForm = () => {
             <div className="space-y-3 pt-2">
               <Button
                 type="submit"
-                className="w-full h-11 text-base font-medium bg-primary hover:bg-primary/90"
+                className="w-full h-11 text-base font-medium bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary)/0.9)] shadow-sm transition-all hover:shadow-md"
                 disabled={isPending}
               >
                 {isPending ? (
@@ -189,7 +198,7 @@ export const CallbackForm = () => {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full h-11 text-base font-medium border-2 border-primary/20 hover:border-primary/30 hover:bg-primary/5"
+                className="w-full h-11 text-base font-medium border-2 border-[hsl(var(--primary)/0.2)] hover:border-[hsl(var(--primary)/0.3)] hover:bg-[hsl(var(--primary)/0.05)] transition-all"
               >
                 <FaWhatsapp className="h-5 w-5 mr-2 text-green-500" />
                 <a
@@ -203,7 +212,7 @@ export const CallbackForm = () => {
           </form>
         </Form>
       </CardContent>
-    </div>
+    </Card>
   );
 };
 
