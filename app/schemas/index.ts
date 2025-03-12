@@ -43,13 +43,6 @@ export const PasswordResetSchema = z.object({
     message: "Password should be at least 8 characters long",
   }),
 });
-export const contactFormSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  mobile: z
-    .string()
-    .min(10, { message: "Please enter a valid mobile number." }),
-});
 
 export const TravelAgentRegisterSchema = z.object({
   name: z.string().min(3, {
@@ -71,4 +64,12 @@ export const TravelAgentRegisterSchema = z.object({
   password: z.string().min(8, {
     message: "Password should be at least 8 characters long",
   }),
+});
+
+export const contactFormSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  email: z.string().email({ message: "Please enter a valid email address." }),
+  mobile: z
+    .string()
+    .min(10, { message: "Please enter a valid mobile number." }),
 });

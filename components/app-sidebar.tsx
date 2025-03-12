@@ -126,7 +126,7 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
                   />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">BUKXE</span>
+                  <span className="truncate font-semibold">VISACAR</span>
                   <span className="truncate text-xs">Enterprise</span>
                 </div>
               </a>

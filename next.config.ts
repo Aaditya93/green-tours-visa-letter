@@ -31,6 +31,12 @@ module.exports = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "swiftvisa1.s3.ap-south-1.amazonaws.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };

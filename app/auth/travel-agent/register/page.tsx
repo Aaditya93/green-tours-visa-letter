@@ -31,7 +31,7 @@ const SignUpPage = () => {
           </p>
         </div>
       </div>
-      <div className="bg-gradient-to-b ">
+      <div className="bg-gradient-to-b from-background to-secondary">
         <RedirectLogin />
         <div className="flex min-h-screen items-center justify-center py-12 px-6">
           <Card className="w-full max-w-md shadow-lg border-0">

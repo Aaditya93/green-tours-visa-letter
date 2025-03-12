@@ -15,8 +15,8 @@ import { Toaster } from "@/components/ui/sonner";
 // });
 
 export const metadata: Metadata = {
-  title: "BUKXE",
-  description: "BUKXE is a visa application Processing System",
+  title: "VISACAR",
+  description: "VISACAR is a visa application Processing System",
 };
 
 import ThemeProvider from "@/components/theme-provider";
