@@ -9,6 +9,7 @@ import {
   Settings2,
   SquareTerminal,
 } from "lucide-react";
+
 import { RiVisaLine } from "react-icons/ri";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { TbReportMoney } from "react-icons/tb";
@@ -27,6 +28,7 @@ import {
 } from "@/components/ui/sidebar";
 import { CiSearch, CiViewTable } from "react-icons/ci";
 import { GrAnalytics } from "react-icons/gr";
+
 const today = new Date();
 const thirtyDaysAgo = new Date(today);
 const sevendaysAgo = new Date(today);
@@ -182,7 +184,7 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
-                <div className="flex aspect-square size-8 items-center  justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                <div className="flex aspect-square size-8 items-center  justify-center rounded-lg ">
                   <Image
                     src="/tours.png"
                     alt=""
@@ -202,7 +204,6 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
       </SidebarHeader>
       <SidebarContent>
         <NavProjects projects={data.Upload} />
-        {/* <NavMain items={data.navMain} /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

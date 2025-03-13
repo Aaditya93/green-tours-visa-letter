@@ -299,6 +299,7 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
       {upload && (
         <FileUpload
           entryType={entryType}
+          duration={entryType === "singleEntry" ? "15 Days" : "30 Days"}
           speed={selectedSpeed}
           currency={currency}
           isGroup={groupSize > 1}
