@@ -11,8 +11,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import AppSidebar from "@/components/agent-platform/travel-agent/app-sidebar";
-import ApplyNow from "@/components/agent-platform/travel-agent/apply-now/apply-now";
+import AppSidebar from "@/components/travel-agent/app-sidebar";
+import ApplyNow from "@/components/travel-agent/apply-now/apply-now";
 import { auth } from "@/auth";
 import { getVisaLetterPriceByCompany } from "@/actions/agent-platform/visa-letter";
 import { serializeIApplication } from "@/config/serialize";

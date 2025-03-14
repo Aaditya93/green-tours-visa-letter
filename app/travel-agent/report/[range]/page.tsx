@@ -1,4 +1,4 @@
-import AppSidebar from "@/components/agent-platform/travel-agent/app-sidebar";
+import AppSidebar from "@/components/travel-agent/app-sidebar";
 import { serializedApplications } from "@/config/serialize";
 
 import {
@@ -15,7 +15,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { getCompleteApplicationsReportPageTravelAgent } from "@/actions/application/application";
-import ReportPage from "@/components/agent-platform/travel-agent/report/report-page";
+import ReportPage from "@/components/travel-agent/report/report-page";
 import { Application } from "@/app/schemas/types";
 
 function extractDateRange(dateString: string) {

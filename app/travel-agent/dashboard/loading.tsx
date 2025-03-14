@@ -1,4 +1,4 @@
-import AppSidebar from "@/components/agent-platform/travel-agent/app-sidebar";
+import AppSidebar from "@/components/travel-agent/app-sidebar";
 import React from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";

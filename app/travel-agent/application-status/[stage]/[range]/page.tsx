@@ -1,4 +1,4 @@
-import ApplicationCardTravelAgent from "@/components/agent-platform/travel-agent/application-status/application-card";
+import ApplicationCardTravelAgent from "@/components/travel-agent/application-status/application-card";
 import CommandMenu from "@/components/command-menu";
 
 import {
@@ -19,8 +19,8 @@ import {
   SerializabledApplication,
   serializeIApplication,
 } from "@/config/serialize";
-import AppSidebar from "@/components/agent-platform/travel-agent/app-sidebar";
-import StatusSelect from "@/components/agent-platform/travel-agent/application-status/select-status";
+import AppSidebar from "@/components/travel-agent/app-sidebar";
+import StatusSelect from "@/components/travel-agent/application-status/select-status";
 import {
   getCompleteApplicationsTravelAgent,
   getIncompleteApplicationsTravelAgent,

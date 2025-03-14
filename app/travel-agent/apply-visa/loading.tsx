@@ -11,7 +11,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import AppSidebar from "@/components/agent-platform/travel-agent/app-sidebar";
+import AppSidebar from "@/components/travel-agent/app-sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const Loading = () => {

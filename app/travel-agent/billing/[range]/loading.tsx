@@ -1,6 +1,5 @@
-import AppSidebar from "@/components/agent-platform/travel-agent/app-sidebar";
+import AppSidebar from "@/components/travel-agent/app-sidebar";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,7 +14,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { DatePickerWithRange } from "@/components/agent-platform/travel-agent/billing/date-range";
+import { DatePickerWithRange } from "@/components/travel-agent/billing/date-range";
 
 export default function Loading() {
   return (

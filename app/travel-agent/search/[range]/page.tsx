@@ -1,5 +1,5 @@
-import AppSidebar from "@/components/agent-platform/travel-agent/app-sidebar";
-import VisaSearch from "@/components/agent-platform/travel-agent/search/search-card";
+import AppSidebar from "@/components/travel-agent/app-sidebar";
+import VisaSearch from "@/components/travel-agent/search/search-card";
 import {
   Breadcrumb,
   BreadcrumbItem,

@@ -20,7 +20,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import PricingTable from "../../admin-panel/price-table";
+import PricingTable from "@/components/agent-platform/admin-panel/price-table";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -55,7 +55,7 @@ const Feature = ({
 }) => (
   <div className="flex items-start space-x-4 p-6 rounded-xl  shadow-lg hover:shadow-md transition-all duration-200">
     <div className="flex-shrink-0">
-      <div className="p-3 rounded-xl bg-blue-50">
+      <div className="p-3 rounded-xl ">
         <Icon className="h-6 w-6 text-blue-600" />
       </div>
     </div>
@@ -82,7 +82,7 @@ interface PricingPageProps {
 
 const PricingPage = ({ currency, initialPriceData }: PricingPageProps) => {
   return (
-    <div className="min-h-screen bg-gradient-to-b ">
+    <div className="min-h-screen  ">
       <div className="container mx-auto px-4 py-16">
         {/* Hero Section */}
         <div className="text-center mb-20">

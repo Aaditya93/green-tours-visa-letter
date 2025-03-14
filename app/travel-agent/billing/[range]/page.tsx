@@ -11,10 +11,10 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import AppSidebar from "@/components/agent-platform/travel-agent/app-sidebar";
+import AppSidebar from "@/components/travel-agent/app-sidebar";
 import { getCompleteApplicationsTravelAgentBilling } from "@/actions/agent-platform/visa-letter";
 import { convertToApplications } from "@/lib/data";
-import BillingDashboard from "@/components/agent-platform/travel-agent/billing/billing-card";
+import BillingDashboard from "@/components/travel-agent/billing/billing-card";
 import { serializedApplications } from "@/config/serialize";
 
 function extractDateRange(dateString: string) {

@@ -1,6 +1,6 @@
 import { getCompleteApplicationsTravelAgent } from "@/actions/application/application";
 import { Application } from "@/app/schemas/types";
-import Dashboard from "@/components/agent-platform/travel-agent/dashboard/dashboard";
+import Dashboard from "@/components/travel-agent/dashboard/dashboard";
 import { serializedApplications } from "@/config/serialize";
 
 function extractUniqueUsernames(data: Application[]) {
