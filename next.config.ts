@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 
-module.exports = {
+const withNextIntl = createNextIntlPlugin();
+
+const nextConfig: NextConfig = {
   async redirects() {
     return [
       // Basic redirect
@@ -11,7 +14,6 @@ module.exports = {
       },
     ];
   },
-
   reactStrictMode: true,
   env: {
     BASE_URL: process.env.BASE_URL,
@@ -19,7 +21,6 @@ module.exports = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Disable TypeScript
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -40,8 +41,5 @@ module.exports = {
     ],
   },
 };
-const nextConfig: NextConfig = {
-  /* config options here */
-};
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

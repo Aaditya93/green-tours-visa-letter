@@ -4,6 +4,10 @@ import "./globals.css";
 
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/sonner";
+import { NextIntlClientProvider } from "next-intl";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
+import { getMessages } from "next-intl/server";
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
 //   variable: "--font-geist-sans",
@@ -25,10 +29,21 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  if (!routing.locales.includes(locale as any)) {
+    return notFound();
+  }
+  const messages = await getMessages();
   return (
     <>
-      <html lang="en" suppressHydrationWarning>
+      <html lang={locale} suppressHydrationWarning>
         <head />
         <body>
           <ThemeProvider
@@ -37,7 +52,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
             enableSystem
             disableTransitionOnChange
           >
-            <SessionProvider>{children}</SessionProvider>
+            <SessionProvider>
+              <NextIntlClientProvider messages={messages}>
+                {children}
+              </NextIntlClientProvider>
+            </SessionProvider>
             <Toaster />
           </ThemeProvider>
         </body>

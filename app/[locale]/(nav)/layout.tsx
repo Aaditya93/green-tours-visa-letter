@@ -1,7 +1,7 @@
 import "../globals.css";
 
-import SiteFooter from "../../components/navigation-bar/site-footer";
-import SiteHeader from "../../components/navigation-bar/site-header";
+import SiteFooter from "@/components/navigation-bar/site-footer";
+import SiteHeader from "@/components/navigation-bar/site-header";
 import ContactUsButton from "@/components/contact-us/contact-us-button";
 import { Toaster } from "sonner";
 export default async function RootLayout({
