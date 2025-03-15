@@ -1,6 +1,6 @@
 import { getApplicationById } from "@/actions/application/model";
-import AppSidebar from "@/components/agent-platform/travel-agent/app-sidebar";
-import ApplicationFormTravelAgent from "@/components/agent-platform/travel-agent/apply-now/application-form";
+import AppSidebar from "@/components/travel-agent/app-sidebar";
+import ApplicationFormTravelAgent from "@/components/travel-agent/apply-now/application-form";
 import Error from "@/components/application/error";
 
 import {
@@ -18,7 +18,10 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { SerializabledApplication, serializeIApplication } from "@/config/serialize";
+import {
+  SerializabledApplication,
+  serializeIApplication,
+} from "@/config/serialize";
 
 const VisaPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -55,7 +58,6 @@ const VisaPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <ApplicationFormTravelAgent Application={applicationSerialized} />
-
         </div>
       </SidebarInset>
     </SidebarProvider>

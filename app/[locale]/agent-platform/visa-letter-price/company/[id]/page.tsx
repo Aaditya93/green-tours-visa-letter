@@ -15,7 +15,7 @@ import { getVisaLetterPriceByCompany } from "@/actions/agent-platform/visa-lette
 
 import { serializeIApplication } from "@/config/serialize";
 import AppSidebar from "@/components/app-sidebar";
-import PriceForm from "@/components/agent-platform/travel-agent/visa-letter/price-form";
+import PriceForm from "@/components/travel-agent/visa-letter/price-form";
 
 const VisaLetterPricesEdit = async ({
   params,

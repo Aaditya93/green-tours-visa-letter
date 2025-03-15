@@ -1,4 +1,4 @@
-import AppSidebar from "@/components/agent-platform/travel-agent/app-sidebar";
+import AppSidebar from "@/components/travel-agent/app-sidebar";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 import {
