@@ -89,5 +89,67 @@
         }
       }
     }
+  },
+  "travelAgentApplication": {
+    "code": "code",
+    "title": "Application",
+    "visaApplication": "Visa Application",
+    "group": "Group",
+    "individual": "Individual",
+    "members": "Members",
+    "applicationDeleted": "Application has been deleted",
+    "deleteApplication": "Delete application",
+    "passportForm": {
+      "passportDetails": "Passport Details",
+      "person": "Person",
+      "passportPhoto": "Passport Photo",
+      "passportDataPage": "Passport Data Page",
+      "passportEnlarged": "Passport Enlarged",
+      "fullName": "Full Name",
+      "enterFullName": "Enter full name",
+      "dateOfBirth": "Date of Birth",
+      "pickDate": "Pick a date",
+      "sex": "Sex",
+      "selectSex": "Select Sex",
+      "male": "Male",
+      "female": "Female",
+      "currentNationality": "Current Nationality",
+      "enterCurrentNationality": "Enter current nationality",
+      "originalNationality": "Original Nationality",
+      "enterOriginalNationality": "Enter original nationality",
+      "dateOfExpiry": "Date of Expiry",
+      "passportNumber": "Passport Number",
+      "enterPassportNumber": "Enter passport number",
+      "typeOfPassport": "Type of Passport",
+      "enterPassportType": "Enter passport type",
+      "saveChanges": "Save Changes",
+      "passportUpdated": "Passport Details has been updated",
+      "errorUpdating": "Error updating passport details"
+    },
+    "manualForm": {
+      "travel_details": "Travel Details",
+      "arrival_date": "Arrival Date",
+      "departure_date": "Departure Date",
+      "embassy": "Embassy",
+      "airport": "Airport",
+      "clear_selection": "Clear Selection",
+      "select_embassy": "Select Embassy",
+      "select_airport": "Select Airport",
+      "days": "Days",
+      "pick_date": "Pick a date",
+      "type_of_visa": "Type of Visa",
+      "select_visa_type": "Select Visa Type",
+      "single_entry": "Single Entry",
+      "multiple_entry": "Multiple Entry",
+      "total_cost": "Total Cost",
+      "submit_application": "Submit Application",
+      "visa_type_required": "Visa Type is required",
+      "either_airport_embassy": "Either airport or embassy must be selected",
+      "to_date_after_from": "To date must be greater than or equal to from date",
+      "passport_validity": "The passport must be valid for at least 6 months from the date of entry into Vietnam",
+      "toast": {
+        "success": "Visa Application Form is Complete"
+      }
+    }
   }
 }

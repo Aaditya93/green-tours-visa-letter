@@ -9,6 +9,7 @@ import { deleteApplication } from "@/actions/application/model";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
 import ManualFormTravelAgent from "./manual-form";
+import { useTranslations } from "next-intl"; // Add this import
 
 interface ApplicationFormProps {
   Application: SerializabledApplication;
@@ -16,26 +17,29 @@ interface ApplicationFormProps {
 
 const ApplicationFormTravelAgent = ({ Application }: ApplicationFormProps) => {
   const router = useRouter();
+  const t = useTranslations("travelAgentApplication"); // Add translation hook
 
   const passportDetails = Application.passportDetails;
   const [calltoast, setCallToast] = useState(false);
   useEffect(() => {
     if (calltoast) {
-      toast.success("Application has been deleted", {});
+      toast.success(t("applicationDeleted"), {}); // Translate toast message
     }
-  }, [calltoast]);
+  }, [calltoast, t]);
 
   return (
     <div className="space-y-2">
       <div className="relative flex items-center justify-between p-4 ">
         <h2 className="text-2xl font-semibold">
-          Visa Application
+          {t("visaApplication")} {/* Translate heading */}
           <Badge variant={"secondary"} className=" text-sm ml-4">
-            {Application.noOfVisa > 1 ? "Group" : "Individual"}
+            {Application.noOfVisa > 1 ? t("group") : t("individual")}{" "}
+            {/* Translate badge text */}
           </Badge>
           {Application.noOfVisa > 1 && (
             <Badge variant="secondary" className="text-sm ml-4">
-              {Application.noOfVisa} Members
+              {Application.noOfVisa} {t("members")}{" "}
+              {/* Translate members text */}
             </Badge>
           )}
         </h2>
@@ -53,6 +57,7 @@ const ApplicationFormTravelAgent = ({ Application }: ApplicationFormProps) => {
               setCallToast(true);
             }}
             className="p-2 text-red-500 hover:bg-red-50"
+            aria-label={t("deleteApplication")}
           >
             <AiOutlineDelete className="w-14 h-14" />
           </Button>

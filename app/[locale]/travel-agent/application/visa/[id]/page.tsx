@@ -12,7 +12,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-
+import { getTranslations } from "next-intl/server";
 import {
   SidebarInset,
   SidebarProvider,
@@ -26,6 +26,7 @@ import {
 const VisaPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const application = await getApplicationById(id);
+  const t = await getTranslations("travelAgentApplication");
 
   if (!application) {
     return <Error />;
@@ -45,11 +46,13 @@ const VisaPage = async ({ params }: { params: Promise<{ id: string }> }) => {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">Application</BreadcrumbLink>
+                  <BreadcrumbLink href="#">{t("title")}</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Code : {application?.code}</BreadcrumbPage>
+                  <BreadcrumbPage>
+                    {t("code")} : {application?.code}
+                  </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

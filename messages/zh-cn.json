@@ -89,5 +89,67 @@
         }
       }
     }
+  },
+  "travelAgentApplication": {
+    "code": "代码",
+    "title": "申请",
+    "visaApplication": "签证申请",
+    "group": "团体",
+    "individual": "个人",
+    "members": "成员",
+    "applicationDeleted": "申请已被删除",
+    "deleteApplication": "删除申请",
+    "passportForm": {
+      "passportDetails": "护照详情",
+      "person": "个人",
+      "passportPhoto": "护照照片",
+      "passportDataPage": "护照资料页",
+      "passportEnlarged": "护照放大版",
+      "fullName": "全名",
+      "enterFullName": "输入全名",
+      "dateOfBirth": "出生日期",
+      "pickDate": "选择日期",
+      "sex": "性别",
+      "selectSex": "选择性别",
+      "male": "男性",
+      "female": "女性",
+      "currentNationality": "当前国籍",
+      "enterCurrentNationality": "输入当前国籍",
+      "originalNationality": "原始国籍",
+      "enterOriginalNationality": "输入原始国籍",
+      "dateOfExpiry": "到期日期",
+      "passportNumber": "护照号码",
+      "enterPassportNumber": "输入护照号码",
+      "typeOfPassport": "护照类型",
+      "enterPassportType": "输入护照类型",
+      "saveChanges": "保存更改",
+      "passportUpdated": "护照详情已更新",
+      "errorUpdating": "更新护照详情时出错"
+    },
+    "manualForm": {
+      "travel_details": "旅行详情",
+      "arrival_date": "到达日期",
+      "departure_date": "出发日期",
+      "embassy": "大使馆",
+      "airport": "机场",
+      "clear_selection": "清除选择",
+      "select_embassy": "选择大使馆",
+      "select_airport": "选择机场",
+      "days": "天数",
+      "pick_date": "选择日期",
+      "type_of_visa": "签证类型",
+      "select_visa_type": "选择签证类型",
+      "single_entry": "单次入境",
+      "multiple_entry": "多次入境",
+      "total_cost": "总费用",
+      "submit_application": "提交申请",
+      "visa_type_required": "需要选择签证类型",
+      "either_airport_embassy": "必须选择机场或大使馆之一",
+      "to_date_after_from": "结束日期必须大于或等于开始日期",
+      "passport_validity": "护照的有效期必须至少在入境越南之日起 6 个月以上",
+      "toast": {
+        "success": "申请已提交"
+      }
+    }
   }
 }

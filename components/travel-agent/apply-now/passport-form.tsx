@@ -43,6 +43,7 @@ import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PassportDetail } from "@/config/serialize";
+import { useTranslations } from "next-intl"; // Add this import
 
 const formatDate = (dateString: string): Date => {
   return new Date(dateString);
@@ -76,13 +77,14 @@ const PassportFormTravelAgent = ({
   noOfVisa,
   passportDetails,
 }: PassportFormProps) => {
+  const t = useTranslations("travelAgentApplication.passportForm"); // Add translation hook
   const [isChange, setChange] = useState(false);
   const [calltoast, setCallToast] = useState(false);
   useEffect(() => {
     if (calltoast) {
-      toast.success("Passport Details has been updated", {});
+      toast.success(t("passportUpdated"), {});
     }
-  }, [calltoast]);
+  }, [calltoast, t]);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof PassportFormSchema>>({
@@ -169,7 +171,7 @@ const PassportFormTravelAgent = ({
         setCallToast(true);
         setChange(false);
       } else {
-        toast.error("Error updating passport details", {});
+        toast.error(t("errorUpdating"), {});
       }
     }
     router.refresh();
@@ -181,10 +183,10 @@ const PassportFormTravelAgent = ({
         <Card>
           <CardHeader className=" border-b p-4 sm:p-3 mb-4 bg-primary rounded-t-lg">
             <CardTitle className="text-lg text-primary-foreground ">
-              Passport Details
+              {t("passportDetails")}
               {noOfVisa > 1 && (
                 <Badge variant="secondary" className="text-sm ml-4">
-                  Person {index + 1}
+                  {t("person")} {index + 1}
                 </Badge>
               )}
             </CardTitle>
@@ -192,14 +194,14 @@ const PassportFormTravelAgent = ({
           <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <Dialog>
-                <FormLabel className="text-sm">Passport Photo</FormLabel>
+                <FormLabel className="text-sm">{t("passportPhoto")}</FormLabel>
                 <DialogTrigger asChild>
                   <AspectRatio ratio={4 / 3}>
                     <Image
                       src={passportDetails.image}
                       fill
                       className="mt-2 rounded-md border border-gray-200"
-                      alt="Passport Data Page"
+                      alt={t("passportDataPage")}
                     />
                   </AspectRatio>
                 </DialogTrigger>
@@ -207,7 +209,7 @@ const PassportFormTravelAgent = ({
                   <AspectRatio ratio={16 / 9}>
                     <Image
                       src={passportDetails.image}
-                      alt="Passport Enlarged"
+                      alt={t("passportEnlarged")}
                       fill
                       className="object-cover w-full h-full rounded-lg"
                     />
@@ -221,9 +223,9 @@ const PassportFormTravelAgent = ({
                 name="full_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Full Name</FormLabel>
+                    <FormLabel>{t("fullName")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter full name" {...field} />
+                      <Input placeholder={t("enterFullName")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -235,7 +237,7 @@ const PassportFormTravelAgent = ({
                 name="birthday"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Date of Birth</FormLabel>
+                    <FormLabel>{t("dateOfBirth")}</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -249,7 +251,7 @@ const PassportFormTravelAgent = ({
                             {field.value ? (
                               format(field.value, "PPP")
                             ) : (
-                              <span>Pick a date</span>
+                              <span>{t("pickDate")}</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
@@ -278,19 +280,19 @@ const PassportFormTravelAgent = ({
                 name="sex"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Sex</FormLabel>
+                    <FormLabel>{t("sex")}</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select Sex" />
+                          <SelectValue placeholder={t("selectSex")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="Male">Male</SelectItem>
-                        <SelectItem value="Female">Female</SelectItem>
+                        <SelectItem value="Male">{t("male")}</SelectItem>
+                        <SelectItem value="Female">{t("female")}</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -303,10 +305,10 @@ const PassportFormTravelAgent = ({
                 name="current_nationality"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Current Nationality</FormLabel>
+                    <FormLabel>{t("currentNationality")}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter current nationality"
+                        placeholder={t("enterCurrentNationality")}
                         {...field}
                       />
                     </FormControl>
@@ -321,10 +323,10 @@ const PassportFormTravelAgent = ({
                 name="original_nationality"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Original Nationality</FormLabel>
+                    <FormLabel>{t("originalNationality")}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter original nationality"
+                        placeholder={t("enterOriginalNationality")}
                         {...field}
                       />
                     </FormControl>
@@ -338,7 +340,7 @@ const PassportFormTravelAgent = ({
                   name="dateOfExpiry"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Date of Expiry</FormLabel>
+                      <FormLabel>{t("dateOfExpiry")}</FormLabel>
                       <Popover>
                         <PopoverTrigger asChild>
                           <FormControl>
@@ -352,7 +354,7 @@ const PassportFormTravelAgent = ({
                               {field.value ? (
                                 format(field.value, "PPP")
                               ) : (
-                                <span>Pick a date</span>
+                                <span>{t("pickDate")}</span>
                               )}
                               <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                             </Button>
@@ -382,9 +384,12 @@ const PassportFormTravelAgent = ({
                 name="passport_number"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Passport Number</FormLabel>
+                    <FormLabel>{t("passportNumber")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter passport number" {...field} />
+                      <Input
+                        placeholder={t("enterPassportNumber")}
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -396,9 +401,9 @@ const PassportFormTravelAgent = ({
                 name="passport_type"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Type of Passport</FormLabel>
+                    <FormLabel>{t("typeOfPassport")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter passport type" {...field} />
+                      <Input placeholder={t("enterPassportType")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -406,7 +411,7 @@ const PassportFormTravelAgent = ({
               />
               {isChange && (
                 <div className="flex justify-end mt-6 pt-8">
-                  <Button type="submit">Save Changes</Button>
+                  <Button type="submit">{t("saveChanges")}</Button>
                 </div>
               )}
             </div>

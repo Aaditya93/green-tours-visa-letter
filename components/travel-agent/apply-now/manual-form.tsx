@@ -12,6 +12,7 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+
 import {
   Card,
   CardContent,
@@ -44,6 +45,7 @@ import { format } from "date-fns";
 import { Input } from "@/components/ui/input";
 import { PassportDetail, SerializabledApplication } from "@/config/serialize";
 import { Badge } from "@/components/ui/badge";
+import { useTranslations } from "next-intl";
 
 interface ManualFormProps {
   id: string;
@@ -138,6 +140,8 @@ const embassies = [
 ];
 
 const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
+  const t = useTranslations("travelAgentApplication.manualForm"); // Get translations for this namespace
+
   const ManualFormSchema = z
     .object({
       from_date: z.date(),
@@ -145,14 +149,14 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
       airport: z.string().optional(),
       embassy: z.string().optional(),
       days: z.number().optional(),
-      duration: z.string().min(1, "Visa Type is required"),
+      duration: z.string().min(1, t("visa_type_required")),
     })
     .refine((data) => data.airport || data.embassy, {
-      message: "Either airport or embassy must be selected",
+      message: t("either_airport_embassy"),
       path: ["airport"],
     })
     .refine((data) => data.airport || data.embassy, {
-      message: "Either airport or embassy must be selected",
+      message: t("either_airport_embassy"),
       path: ["embassy"],
     })
     .refine(
@@ -161,7 +165,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
         return new Date(data.to_date) >= new Date(data.from_date);
       },
       {
-        message: "To date must be greater than or equal to from date",
+        message: t("to_date_after_from"),
         path: ["to_date"],
       }
     )
@@ -193,11 +197,13 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
         return arePassportsValid;
       },
       {
-        message:
-          "The passport must be valid for at least 6 months from the date of entry into Vietnam",
+        message: t("passport_validity"),
         path: ["from_date"],
       }
     );
+
+  // Rest of your code...
+  // ... rest of your component code
 
   const form = useForm<z.infer<typeof ManualFormSchema>>({
     resolver: zodResolver(ManualFormSchema),
@@ -223,7 +229,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
   const [calltoast, setCallToast] = useState(false);
   useEffect(() => {
     if (calltoast) {
-      toast.success("Visa Application Form is Complete", {});
+      toast.success(t("toast.success"), {});
     }
   }, [calltoast]);
 
@@ -256,7 +262,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
         <Card>
           <CardHeader className="border-b p-4 sm:p-3 mb-4 bg-primary rounded-t-lg">
             <CardTitle className="text-lg font-semibold text-primary-foreground">
-              Travel Details
+              {t("travel_details")}
             </CardTitle>
           </CardHeader>
           <CardContent className="grid sm:grid-cols-2 md:grid-cols-2 gap-4 ">
@@ -267,7 +273,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel>Arrival Date</FormLabel>
+                      <FormLabel>{t("arrival_date")}</FormLabel>
                       <Popover
                         open={fromDateOpen}
                         onOpenChange={setFromDateOpen}
@@ -284,7 +290,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
                               {field.value ? (
                                 format(field.value, "PPP")
                               ) : (
-                                <span>Pick a date</span>
+                                <span>{t("pick_date")}</span>
                               )}
                               <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                             </Button>
@@ -328,7 +334,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Embassy
+                      {t("embassy")}
                       {field.value && (
                         <Label
                           className="ml-4 text-xs text-red-600"
@@ -337,7 +343,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
                             setSelectedLocation(null);
                           }}
                         >
-                          Clear Selection
+                          {t("clear_selection")}
                         </Label>
                       )}
                     </FormLabel>
@@ -351,7 +357,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select Embassy" />
+                          <SelectValue placeholder={t("select_embassy")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -367,7 +373,6 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
                 )}
               />
             </div>
-
             <div className="flex flex-col space-y-2">
               <FormField
                 control={form.control}
@@ -377,7 +382,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
 
                   return (
                     <FormItem>
-                      <FormLabel>Departure Date</FormLabel>
+                      <FormLabel>{t("departure_date")}</FormLabel>
                       <div className="flex items-center space-x-2">
                         <FormField
                           control={form.control}
@@ -385,7 +390,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
                           render={({ field: daysField }) => (
                             <FormControl>
                               <Input
-                                placeholder="Days"
+                                placeholder={t("days")}
                                 type="number"
                                 className="w-24"
                                 {...daysField}
@@ -414,7 +419,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
                                 {field.value ? (
                                   format(field.value, "PPP")
                                 ) : (
-                                  <span>Pick a date</span>
+                                  <span>{t("pick_date")}</span>
                                 )}
                                 <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                               </Button>
@@ -459,7 +464,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Airport
+                      {t("airport")}
                       {field.value && (
                         <Label
                           className="ml-4 text-xs text-red-600"
@@ -468,7 +473,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
                             setSelectedLocation(null);
                           }}
                         >
-                          Clear Selection
+                          {t("clear_selection")}
                         </Label>
                       )}
                     </FormLabel>
@@ -482,7 +487,7 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select Airport" />
+                          <SelectValue placeholder={t("select_airport")} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -502,20 +507,22 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
               name="duration"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Type of Visa</FormLabel>
+                  <FormLabel>{t("type_of_visa")}</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select Visa Type" />
+                        <SelectValue placeholder={t("select_visa_type")} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="Single Entry">Single Entry</SelectItem>
+                      <SelectItem value="Single Entry">
+                        {t("single_entry")}
+                      </SelectItem>
                       <SelectItem value="Multiple Entry">
-                        Multiple Entry
+                        {t("multiple_entry")}
                       </SelectItem>
                     </SelectContent>
                   </Select>
@@ -529,10 +536,10 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
           <CardFooter className="flex justify-end space-x-4">
             <div className="flex justify-between space-x-4 gap-4">
               <Badge variant="secondary" className="text-lg font-semibold">
-                Total Cost: {Application.currency} {Application.cost}
+                {t("total_cost")}: {Application.currency} {Application.cost}
               </Badge>
               {!Application.isCompleted && (
-                <Button type="submit">Submit Application</Button>
+                <Button type="submit">{t("submit_application")}</Button>
               )}
             </div>
           </CardFooter>
