@@ -18,7 +18,7 @@ import { Application } from "@/app/schemas/types";
 
 // Create a hook that returns translated columns
 export function useColumns() {
-  const t = useTranslations("dashboard.columns");
+  const t = useTranslations("travelAgentDashboard.columns");
 
   return useMemo<ColumnDef<Application>[]>(
     () => [
@@ -93,7 +93,7 @@ export function useColumns() {
       },
       {
         accessorKey: "originalNationality",
-        header: t("currentNationality"),
+        header: t("nationalityCurrent"),
         cell: ({ row }) => (
           <div className="capitalize">
             {row.getValue("originalNationality")}

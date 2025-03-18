@@ -41,6 +41,7 @@ import { Label } from "@/components/ui/label";
 import { updateApplicationStages } from "@/actions/application/application";
 import { DatePickerWithRange } from "./date-range";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 interface SearchProps {
   data: Application[];
@@ -66,25 +67,15 @@ interface SearchFilters {
 
 const embassyOptions = [
   "China - Kunming",
-
   "USA -  Houston",
-
   "China - Nanning",
-
   "China - Guangzhou",
-
   "Cambodia - Sihanouk Ville",
-
   "Australia - Sydney",
-
   "China - Shanghai",
-
   "Taiwan - Taipei",
-
   "Bangladesh",
-
   "Australia - Canberra",
-
   "Japan",
 ];
 
@@ -93,9 +84,7 @@ const airportOptions = [
   "Phu Bai Airport",
   "Phu Quoc Airport",
   "Tan Son Nhat Airport",
-
   "Cam Ranh Airport",
-
   "Da Nang Airport",
   "Lien Khuong Airport",
   "Cat Bi Airport",
@@ -114,6 +103,8 @@ const airportOptions = [
 ];
 const VisaSearch = ({ Users, data }: SearchProps) => {
   const initialData = data;
+  // Add translation hook
+  const t = useTranslations("travelAgentSearch");
 
   const [filteredData, setFilteredData] = useState<Application[]>(initialData);
   const [selectedApplications, setSelectedApplications] = useState<
@@ -167,17 +158,16 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
 
   const handleSave = async () => {
     if (selectedApplications.length === 0) {
-      toast.error("Please select applications");
+      toast.error(t("pleaseSelectApplications"));
       return;
     }
     try {
       await updateApplicationStages(selectedApplications, "Processed");
-
       setSelectedApplications([]);
       window.location.reload();
     } catch (error) {
-      console.error("Error updating applications:", error);
-    } finally {
+      console.error(t("errorUpdatingApplications"), error);
+      toast.error(t("errorOccurred"));
     }
   };
 
@@ -212,6 +202,7 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
     });
     setFilteredData(initialData);
   };
+
   const handleClearDate = (
     dateField: "fromDate" | "toDate" | "createdDate"
   ) => {
@@ -222,20 +213,20 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
   };
 
   const headers = [
-    "Select",
-    "No",
-    "Full Name",
-    "Nationality",
-    "Passport Number",
-    "Iref",
-    "Creator",
-    "Airport",
-    "Embassy",
-    "Created Date",
-    "Stage",
-    "From Date",
-    "To Date",
-    "Speed",
+    t("select"),
+    t("no"),
+    t("fullName"),
+    t("nationality"),
+    t("passportNumber"),
+    t("iref"),
+    t("creator"),
+    t("airport"),
+    t("embassy"),
+    t("createdDate"),
+    t("stage"),
+    t("fromDate"),
+    t("toDate"),
+    t("speed"),
   ];
 
   const handleRowSelect = (application: Application) => {
@@ -267,7 +258,7 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
             <CardTitle className="flex items-center text-xl font-bold text-center sm:text-left text-primary-foreground">
               <FilterIcon className="mr-2 w-8 h-8 text-primary-foreground" />
-              Advanced Search
+              {t("advancedSearch")}
             </CardTitle>
             <DatePickerWithRange />
           </div>
@@ -280,7 +271,7 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
               <div key={dateField} className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-sm font-medium capitalize">
-                    {dateField.replace(/([A-Z])/g, " $1").trim()}
+                    {t(dateField)}
                   </label>
                   {searchFilters[dateField] &&
                     searchFilters[dateField] !== `Pick ${dateField}` && (
@@ -293,7 +284,7 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
                         className=" px-2 text-red-600 hover:text-red-800"
                         aria-label={`Clear ${dateField} filter`}
                       >
-                        Clear
+                        {t("clear")}
                       </Label>
                     )}
                 </div>
@@ -307,7 +298,8 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {searchFilters[dateField] || `Pick ${dateField}`}
+                      {searchFilters[dateField] ||
+                        t("pickDate", { field: t(dateField) })}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0">
@@ -330,10 +322,12 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
             {["name", "code", "passport"].map((field) => (
               <div key={field} className="space-y-2">
                 <label className="text-sm font-medium capitalize">
-                  {field === "name" ? "Full Name" : field}
+                  {field === "name" ? t("fullName") : t(field)}
                 </label>
                 <Input
-                  placeholder={`Search by ${field}`}
+                  placeholder={t("searchBy", {
+                    field: field === "name" ? t("fullName") : t(field),
+                  })}
                   value={searchFilters[field]}
                   onChange={(e) =>
                     setSearchFilters((prev) => ({
@@ -379,100 +373,29 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
                   { value: "Vanuatu", label: "Vanuatu" },
                 ],
               },
-
               {
                 name: "stage",
                 options: [
-                  { value: "Not Processed", label: "Not Processed" },
-                  { value: "Processing", label: "Processing" },
-                  { value: "Processed", label: "Processed" },
-                  { value: "Blacklist", label: "Blacklist" },
-                  { value: "Overstayed", label: "Overstayed" },
+                  { value: "Not Processed", label: t("notProcessed") },
+                  { value: "Processing", label: t("processing") },
+                  { value: "Processed", label: t("processed") },
+                  { value: "Blacklist", label: t("blacklist") },
+                  { value: "Overstayed", label: t("overstayed") },
                 ],
               },
-
               {
                 name: "airport",
-                options: [
-                  { value: "Noi Bai Airport", label: "Noi Bai Airport" },
-                  { value: "Phu Bai Airport", label: "Phu Bai Airport" },
-                  { value: "Phu Quoc Airport", label: "Phu Quoc Airport" },
-                  {
-                    value: "Tan Son Nhat Airport",
-                    label: "Tan Son Nhat Airport",
-                  },
-                  { value: "Cam Ranh Airport", label: "Cam Ranh Airport" },
-                  { value: "Da Nang Airport", label: "Da Nang Airport" },
-                  {
-                    value: "Lien Khuong Airport",
-                    label: "Lien Khuong Airport",
-                  },
-                  { value: "Cat Bi Airport", label: "Cat Bi Airport" },
-                  { value: "Cau Treo Frontier", label: "Cau Treo Frontier" },
-                  { value: "Cha Lo Frontier", label: "Cha Lo Frontier" },
-                  { value: "Ha Tien Frontier", label: "Ha Tien Frontier" },
-                  { value: "Huu Nghi Frontier", label: "Huu Nghi Frontier" },
-                  { value: "Lao Bao Frontier", label: "Lao Bao Frontier" },
-                  { value: "Lao Cai Frontier", label: "Lao Cai Frontier" },
-                  { value: "Moc Bai Frontier", label: "Moc Bai Frontier" },
-                  { value: "Mong Cai Frontier", label: "Mong Cai Frontier" },
-                  { value: "Na Meo Frontier", label: "Na Meo Frontier" },
-                  { value: "Tay Trang Frontier", label: "Tay Trang Frontier" },
-                  {
-                    value: "Thanh Thuy Frontier",
-                    label: "Thanh Thuy Frontier",
-                  },
-                  { value: "Xa Mat Frontier", label: "Xa Mat Frontier" },
-                ],
+                options: airportOptions.map((option) => ({
+                  value: option,
+                  label: option,
+                })),
               },
               {
                 name: "embassy",
-                options: [
-                  {
-                    value: "China - Kunming",
-                    label: "China - Kunming",
-                  },
-                  {
-                    value: "USA -  Houston",
-                    label: "USA -  Houston",
-                  },
-                  {
-                    value: "China - Nanning",
-                    label: "China - Nanning",
-                  },
-                  {
-                    value: "China - Guangzhou",
-                    label: "China - Guangzhou",
-                  },
-                  {
-                    value: "Cambodia - Sihanouk Ville",
-                    label: "Cambodia - Sihanouk Ville",
-                  },
-                  {
-                    value: "Australia - Sydney",
-                    label: "Australia - Sydney",
-                  },
-                  {
-                    value: "China - Shanghai",
-                    label: "China - Shanghai",
-                  },
-                  {
-                    value: "Taiwan - Taipei",
-                    label: "Taiwan - Taipei",
-                  },
-                  {
-                    value: "Bangladesh",
-                    label: "Bangladesh",
-                  },
-                  {
-                    value: "Australia - Canberra",
-                    label: "Australia - Canberra",
-                  },
-                  {
-                    value: "Japan",
-                    label: "Japan",
-                  },
-                ],
+                options: embassyOptions.map((option) => ({
+                  value: option,
+                  label: option,
+                })),
               },
               {
                 name: "speed",
@@ -491,8 +414,8 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
               {
                 name: "Type of Visa",
                 options: [
-                  { value: "Single Entry", label: "Single Entry" },
-                  { value: "Multiple Entry", label: "Multiple Entry" },
+                  { value: "Single Entry", label: t("singleEntry") },
+                  { value: "Multiple Entry", label: t("multipleEntry") },
                 ],
               },
               {
@@ -506,7 +429,7 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
               <div key={name} className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-sm font-medium capitalize">
-                    {name}
+                    {t(name)}
                   </label>
                   {searchFilters[name] && (
                     <Label
@@ -516,7 +439,7 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
                       className=" px-2 text-red-600 hover:text-red-800"
                       aria-label={`Clear ${name} filter`}
                     >
-                      Clear
+                      {t("clear")}
                     </Label>
                   )}
                 </div>
@@ -527,7 +450,9 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
                   }
                 >
                   <SelectTrigger className="focus:border-primary focus:ring focus:ring-primary/30">
-                    <SelectValue placeholder={`Select ${name}`} />
+                    <SelectValue
+                      placeholder={t("select", { field: t(name) })}
+                    />
                   </SelectTrigger>
                   <SelectContent>
                     {options.map((option) => (
@@ -546,34 +471,34 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
             <div className="flex justify-start ml-4 gap-2">
               <Select value={"Processed"}>
                 <SelectTrigger className="w-[200px]">
-                  <SelectValue placeholder="Select Stage" />
+                  <SelectValue placeholder={t("selectStage")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Processed">Processed</SelectItem>
+                  <SelectItem value="Processed">{t("processed")}</SelectItem>
                 </SelectContent>
               </Select>
               <Button variant="secondary" onClick={handleSave}>
-                Save
+                {t("save")}
               </Button>
               <Button
                 onClick={handleSearch}
                 className="flex items-center space-x-2 bg-primary text-background"
                 variant="outline"
               >
-                <span>Total Application :</span>
+                <span>{t("totalApplication")}:</span>
                 <span>{selectedApplications.length}</span>
               </Button>
             </div>
 
             <Button onClick={handleSearch} className="flex items-center">
-              <SearchIcon className="mr-2 h-4 w-4" /> Search
+              <SearchIcon className="mr-2 h-4 w-4" /> {t("search")}
             </Button>
             <Button
               variant="secondary"
               onClick={handleReset}
               className="flex items-center"
             >
-              <RefreshCwIcon className="mr-2 h-4 w-4" /> Reset
+              <RefreshCwIcon className="mr-2 h-4 w-4" /> {t("reset")}
             </Button>
           </div>
 
@@ -587,7 +512,7 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
                       key={header}
                       className="whitespace-nowrap bg-primary text-background font-bold "
                     >
-                      {header === "Select" ? (
+                      {header === t("select") ? (
                         <Checkbox
                           checked={
                             selectedApplications.length === filteredData.length
@@ -652,7 +577,7 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
     }
   `}
                         >
-                          {item.stage}
+                          {t(item.stage.toLowerCase().replace(/\s+/g, ""))}
                         </span>
                       ) : null}
                     </TableCell>

@@ -57,8 +57,8 @@ const DataTable = <TData extends { speed?: string }, TValue>({
   isLoading = false,
   error,
 }: DataTableProps<TData, TValue>) => {
-  const t = useTranslations("dashboard.dataTable");
-  const tc = useTranslations("dashboard.columns");
+  const t = useTranslations("travelAgentDashboard.dataTable");
+  const tc = useTranslations("travelAgentDashboard.columns");
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const columns = useColumns(); // Use the hook to get translated columns
 

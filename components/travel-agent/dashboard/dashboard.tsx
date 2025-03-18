@@ -18,6 +18,7 @@ import {
 import DataTable from "./data-table";
 import { Application } from "@/app/schemas/types";
 import { columns } from "./columns";
+import { useTranslations } from "next-intl";
 
 interface DashboardProps {
   data: Application[];
@@ -25,6 +26,7 @@ interface DashboardProps {
 }
 
 const Dashboard = ({ Users, data }: DashboardProps) => {
+  const t = useTranslations("travelAgentDashboard");
   const [searchSelections, setSearchSelections] = useState<string>("fullName");
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   return (
@@ -45,7 +47,7 @@ const Dashboard = ({ Users, data }: DashboardProps) => {
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Dashboard</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

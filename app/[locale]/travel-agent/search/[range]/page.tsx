@@ -17,6 +17,7 @@ import { getCompleteApplicationsDateTravelAgent } from "@/actions/application/ap
 import { serializedApplications } from "@/config/serialize";
 
 import { Application } from "@/app/schemas/types";
+import { getTranslations } from "next-intl/server";
 
 function extractDateRange(dateString: string) {
   try {
@@ -72,6 +73,7 @@ const TravelAgentSearchPage = async ({
     dateRange.to
   );
   const planObject = serializedApplications(applications ?? []);
+  const t = await getTranslations("travelAgentSearch");
 
   const Users = extractUniqueUsernames(planObject);
   return (
@@ -86,7 +88,7 @@ const TravelAgentSearchPage = async ({
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Search</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

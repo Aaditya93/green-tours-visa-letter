@@ -206,7 +206,8 @@
       "page": "Page"
     }
   },
-  "dashboard": {
+  "travelAgentDashboard": {
+    "title": "Dashboard",
     "dataTable": {
       "searchPlaceholder": "Search...",
       "searchAriaLabel": "Search applications",
@@ -246,7 +247,8 @@
       "creator": "Creator",
       "createdDate": "Created Date",
       "createdTime": "Created Time",
-      "travelDuration": "Duration",
+      "duration": "Duration",
+      "travelDuration": "Travel Duration",
       "days": "Days",
       "result": "Result",
       "stage": "Stage",
@@ -270,6 +272,56 @@
         "loading": "Loading applications...",
         "error": "Error loading applications"
       }
+    },
+    "pagination": {
+      "selectedRows": "{selected} of {total} {total, plural, =1 {row} other {rows}} selected",
+      "rowsPerPage": "Rows per page",
+      "selectRowsPerPage": "Select rows per page",
+      "pageInfo": "Page {current} of {total}",
+      "firstPage": "Go to first page",
+      "previousPage": "Go to previous page",
+      "nextPage": "Go to next page",
+      "lastPage": "Go to last page",
+      "of": "of",
+      "page": "Page",
+      "noRecords": "No records to display",
+      "loading": "Loading records",
+      "showingEntries": "Showing {start} to {end} of {total} entries"
     }
+  },
+  "travelAgentSearch": {
+    "title": "Search",
+    "advancedSearch": "Advanced Search",
+    "search": "Search",
+    "reset": "Reset",
+    "save": "Save",
+    "clear": "Clear",
+    "select": "Select",
+    "totalApplication": "Total Application",
+    "nationality": "Nationality",
+    "fullName": "Full Name",
+    "passport": "Passport",
+    "code": "Code",
+    "createdDate": "Created Date",
+    "fromDate": "From Date",
+    "toDate": "To Date",
+    "speed": "Speed",
+    "embassy": "Embassy",
+    "airport": "Airport",
+    "creator": "Creator",
+    "stage": "Stage",
+    "typeOfVisa": "Type of Visa",
+    "selectStage": "Select Stage",
+    "processed": "Processed",
+    "pickDate": "Pick date",
+    "searchBy": "Search by",
+    "passportNumber": "Passport Number",
+    "no": "No",
+    "iref": "IREF",
+    "Type Of Visa": "Type Of Visa",
+    "notprocessed": "Not Processed",
+    "inprogress": "In Progress",
+    "completed": "Completed",
+    "pleaseSelectApplications": "Please select applications"
   }
 }
