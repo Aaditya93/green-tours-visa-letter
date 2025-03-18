@@ -419,5 +419,63 @@
       "days": " Days",
       "standard": "Standard"
     }
+  },
+  "travelsidebar": {
+    "navigation": "Navigation",
+    "branding": {
+      "name": "VISACAR",
+      "tier": "Enterprise",
+      "logoAlt": "VISACAR Logo"
+    },
+    "menu": {
+      "applyVisa": "Apply Visa",
+      "applicationStatus": "Application Status",
+      "dashboard": "Dashboard",
+      "search": "Search",
+      "report": "Report",
+      "billing": "Billing",
+      "visaLetter": "Visa Letter"
+    }
+  },
+  "traveldashboardsidebar": {
+    "visa": "Visa",
+    "clear": "Clear",
+    "navigation": "Navigation",
+    "search": {
+      "title": "Search",
+      "parameter1": "Full Name",
+      "parameter2": "Passport Number",
+      "parameter3": "Code",
+      "parameter4": "Country"
+    },
+    "filter": {
+      "title": "Filter",
+      "parameter1": "Airport",
+      "parameter2": "Embassy",
+      "parameter3": "Creator",
+      "parameter4": "Speed",
+      "parameter5": "Type of Visa"
+    },
+    "date": {
+      "title": "Date",
+      "parameter1": "Created Date",
+      "parameter2": "From Date",
+      "parameter3": "To Date"
+    },
+
+    "branding": {
+      "name": "VISACAR",
+      "tier": "Enterprise",
+      "logoAlt": "VISACAR Logo"
+    },
+    "menu": {
+      "applyVisa": "Apply Visa",
+      "applicationStatus": "Application Status",
+      "dashboard": "Dashboard",
+      "search": "Search",
+      "report": "Report",
+      "billing": "Billing",
+      "visaLetter": "Visa Letter"
+    }
   }
 }

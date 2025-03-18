@@ -25,7 +25,7 @@ interface DataTablePaginationProps<TData> {
 export function DataTablePagination<TData>({
   table,
 }: DataTablePaginationProps<TData>) {
-  const t = useTranslations("dashboard.pagination");
+  const t = useTranslations("travelAgentDashboard.pagination");
 
   const selectedRowCount = table.getFilteredSelectedRowModel().rows.length;
   const totalRowCount = table.getFilteredRowModel().rows.length;

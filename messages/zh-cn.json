@@ -416,5 +416,62 @@
       "days": "天",
       "standard": "标准"
     }
+  },
+  "travelsidebar": {
+    "navigation": "导航",
+
+    "branding": {
+      "name": "VISACAR",
+      "tier": "企业版",
+      "logoAlt": "VISACAR 标志"
+    },
+    "menu": {
+      "applyVisa": "申请签证",
+      "applicationStatus": "申请状态",
+      "dashboard": "仪表板",
+      "search": "搜索",
+      "report": "报告",
+      "billing": "账单",
+      "visaLetter": "签证信"
+    }
+  },
+  "traveldashboardsidebar": {
+    "navigation": "导航",
+    "visa": "签证",
+    "search": {
+      "title": "搜索",
+      "parameter1": "全名",
+      "parameter2": "护照号码",
+      "parameter3": "代码",
+      "parameter4": "国家"
+    },
+    "filter": {
+      "title": "筛选",
+      "parameter1": "机场",
+      "parameter2": "大使馆",
+      "parameter3": "创建者",
+      "parameter4": "速度",
+      "parameter5": "签证类型"
+    },
+    "date": {
+      "title": "日期",
+      "parameter1": "创建日期",
+      "parameter2": "起始日期",
+      "parameter3": "结束日期"
+    },
+    "branding": {
+      "name": "VISACAR",
+      "tier": "企业版",
+      "logoAlt": "VISACAR 标志"
+    },
+    "menu": {
+      "applyVisa": "申请签证",
+      "applicationStatus": "申请状态",
+      "dashboard": "仪表板",
+      "search": "搜索",
+      "report": "报告",
+      "billing": "账单",
+      "visaLetter": "签证信"
+    }
   }
 }

@@ -1,31 +1,28 @@
-"use client"
-
-
+"use client";
 
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
-
   SidebarMenuButton,
   SidebarMenuItem,
-
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 import { IconType } from "react-icons";
+import { useTranslations } from "next-intl";
 export const NavProjects = ({
   projects,
 }: {
   projects: {
-    name: string
-    url: string
-    icon: IconType
-  }[]
-}) =>{
-
+    name: string;
+    url: string;
+    icon: IconType;
+  }[];
+}) => {
+  const t = useTranslations("travelsidebar");
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+      <SidebarGroupLabel>{t("navigation")}</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
@@ -35,11 +32,9 @@ export const NavProjects = ({
                 <span>{item.name}</span>
               </a>
             </SidebarMenuButton>
-          
           </SidebarMenuItem>
         ))}
-    
       </SidebarMenu>
     </SidebarGroup>
-  )
-}
+  );
+};

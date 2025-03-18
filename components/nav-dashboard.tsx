@@ -1,12 +1,12 @@
 "use client";
-import {  startOfDay } from 'date-fns';
-import React, { useState, Dispatch, SetStateAction } from 'react'
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import { startOfDay } from "date-fns";
+import React, { useState, Dispatch, SetStateAction } from "react";
+import { ChevronRight, type LucideIcon } from "lucide-react";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -15,27 +15,32 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
-} from "@/components/ui/sidebar"
-import { Checkbox } from "@/components/ui/checkbox"
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue 
-} from "@/components/ui/select"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
-import { CalendarIcon } from "lucide-react"
-import { format } from "date-fns"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/sidebar";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 import { ColumnFiltersState } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
 
 interface FilterItem {
   title: string;
   key: string;
-  items?: { title: string;  }[];
+  items?: { title: string }[];
 }
 interface NavMainProps {
   items: {
@@ -45,7 +50,7 @@ interface NavMainProps {
     items?: {
       title: string;
       key: string;
-      items: { title: string}[];
+      items: { title: string }[];
     }[];
   }[];
   searchSelections: string;
@@ -54,49 +59,46 @@ interface NavMainProps {
   setColumnFilters: Dispatch<SetStateAction<ColumnFiltersState>>;
 }
 
-
-const  NavDashboard = ({
+const NavDashboard = ({
   items,
   searchSelections,
   setSearchSelections,
   columnFilters,
   setColumnFilters,
-
-
-}: NavMainProps)=>{
+}: NavMainProps) => {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
- const renderSearchSection = (items: { title: string; key: string }[]) => {
-  return (
-    <div className="space-y-2 p-2">
-      {items.map((item) => (
-        <div key={item.key || item.title} className="flex items-center space-x-2">
-          <Checkbox
-            id={item.title}
-            checked={searchSelections === item.key} // Changed from includes
-            onCheckedChange={(checked) =>{
-              if (checked) {
-                setSearchSelections(item.key);
-              } else {
-                setSearchSelections("fullName");
-              } }}
-          />
-          <label 
-            htmlFor={item.title} 
-            className="text-sm font-medium leading-none"
+  const renderSearchSection = (items: { title: string; key: string }[]) => {
+    return (
+      <div className="space-y-2 p-2">
+        {items.map((item) => (
+          <div
+            key={item.key || item.title}
+            className="flex items-center space-x-2"
           >
-            {item.title}
-          </label>
-        </div>
-      ))}
-    </div>
-  );
+            <Checkbox
+              id={item.title}
+              checked={searchSelections === item.key} // Changed from includes
+              onCheckedChange={(checked) => {
+                if (checked) {
+                  setSearchSelections(item.key);
+                } else {
+                  setSearchSelections("fullName");
+                }
+              }}
+            />
+            <label
+              htmlFor={item.title}
+              className="text-sm font-medium leading-none"
+            >
+              {item.title}
+            </label>
+          </div>
+        ))}
+      </div>
+    );
   };
   // Types for filter items
 
-
-
-  
-  
   const renderFilterSection = (items: FilterItem[]) => (
     <div className="space-y-2 p-2">
       {items.map((filterItem) => (
@@ -105,13 +107,15 @@ const  NavDashboard = ({
             <label className="block text-sm font-medium mb-1">
               {filterItem.title}
             </label>
-            {columnFilters.some(filter => filter.id === filterItem.key) && (
+            {columnFilters.some((filter) => filter.id === filterItem.key) && (
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => {
                   setColumnFilters(
-                    columnFilters.filter(filter => filter.id !== filterItem.key)
+                    columnFilters.filter(
+                      (filter) => filter.id !== filterItem.key
+                    )
                   );
                   if (activeFilter === filterItem.key) {
                     setActiveFilter(null);
@@ -119,14 +123,15 @@ const  NavDashboard = ({
                 }}
                 className="text-destructive hover:text-destructive/80 text-xs p-0 h-auto"
               >
-                Clear
+                clear
               </Button>
             )}
           </div>
           <Select
-            value={(columnFilters.find(
-              filter => filter.id === filterItem.key
-            )?.value as string) || ""}
+            value={
+              (columnFilters.find((filter) => filter.id === filterItem.key)
+                ?.value as string) || ""
+            }
             onValueChange={(value) => {
               setActiveFilter(filterItem.key);
               setColumnFilters(() => {
@@ -144,7 +149,9 @@ const  NavDashboard = ({
                 setActiveFilter(null);
                 setColumnFilters([]);
               }}
-              className={activeFilter === filterItem.key ? "border-primary" : ""}
+              className={
+                activeFilter === filterItem.key ? "border-primary" : ""
+              }
             >
               <SelectValue placeholder={`Select ${filterItem.title}`} />
             </SelectTrigger>
@@ -161,29 +168,27 @@ const  NavDashboard = ({
     </div>
   );
 
-  
-
-
-
-
-
   const renderDateSection = (items: { title: string; key: string }[]) => {
     // Check if any filter is active besides current one
     const hasActiveFilter = columnFilters.length > 0;
-    
+
     return (
       <div className="space-y-2 p-2">
         {items.map((dateItem) => {
-          const currentFilter = columnFilters.find(filter => filter.id === dateItem.key);
+          const currentFilter = columnFilters.find(
+            (filter) => filter.id === dateItem.key
+          );
           const isDisabled = hasActiveFilter && !currentFilter;
-          
+
           return (
             <div key={dateItem.title} className="space-y-1 relative">
               <div className="flex justify-between items-center">
-                <label className={cn(
-                  "block text-sm font-medium mb-1",
-                  isDisabled && "text-muted-foreground"
-                )}>
+                <label
+                  className={cn(
+                    "block text-sm font-medium mb-1",
+                    isDisabled && "text-muted-foreground"
+                  )}
+                >
                   {dateItem.title}
                 </label>
                 {currentFilter && (
@@ -200,7 +205,7 @@ const  NavDashboard = ({
                   </Button>
                 )}
               </div>
-              <Popover 
+              <Popover
                 open={activeFilter === dateItem.key}
                 onOpenChange={(open) => {
                   if (!isDisabled && open) {
@@ -222,7 +227,7 @@ const  NavDashboard = ({
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {currentFilter ? (
-                      currentFilter.value as string
+                      (currentFilter.value as string)
                     ) : (
                       <span>{dateItem.title}</span>
                     )}
@@ -231,11 +236,20 @@ const  NavDashboard = ({
                 <PopoverContent className="w-auto p-0">
                   <Calendar
                     mode="single"
-                    selected={currentFilter ? startOfDay(new Date(currentFilter.value as string)) : undefined}
+                    selected={
+                      currentFilter
+                        ? startOfDay(new Date(currentFilter.value as string))
+                        : undefined
+                    }
                     onSelect={(date) => {
                       if (date) {
-                        const formattedDate = format(startOfDay(date), 'dd/MM/yyyy');
-                        setColumnFilters([{ id: dateItem.key, value: formattedDate }]);
+                        const formattedDate = format(
+                          startOfDay(date),
+                          "dd/MM/yyyy"
+                        );
+                        setColumnFilters([
+                          { id: dateItem.key, value: formattedDate },
+                        ]);
                         setActiveFilter(null);
                       }
                     }}
@@ -251,15 +265,16 @@ const  NavDashboard = ({
       </div>
     );
   };
+  const t = useTranslations("traveldashboardsidebar");
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Visa</SidebarGroupLabel>
+      <SidebarGroupLabel>{t("visa")}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
             <SidebarMenuItem>
               <SidebarMenuButton asChild tooltip={item.title}>
-                <a >
+                <a>
                   <item.icon />
                   <span>{item.title}</span>
                 </a>
@@ -274,10 +289,11 @@ const  NavDashboard = ({
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <SidebarMenuSub>
-                      {item.title === "Search" && renderSearchSection(item.items)}
-                      {item.title === "Filter" && renderFilterSection(item.items)}
+                      {item.title === "Search" &&
+                        renderSearchSection(item.items)}
+                      {item.title === "Filter" &&
+                        renderFilterSection(item.items)}
                       {item.title === "Date" && renderDateSection(item.items)}
-
                     </SidebarMenuSub>
                   </CollapsibleContent>
                 </>
@@ -287,7 +303,7 @@ const  NavDashboard = ({
         ))}
       </SidebarMenu>
     </SidebarGroup>
-  )
-}
+  );
+};
 
 export default NavDashboard;
