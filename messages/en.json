@@ -205,5 +205,71 @@
       "next": "Next",
       "page": "Page"
     }
+  },
+  "dashboard": {
+    "dataTable": {
+      "searchPlaceholder": "Search...",
+      "searchAriaLabel": "Search applications",
+      "columns": "Columns",
+      "noResults": "No results found",
+      "tryDifferentSearch": "Try a different search term or filter",
+      "loading": "Loading applications...",
+      "errorTitle": "Error loading data",
+      "errorMessage": "There was a problem loading your application data. Please try again later.",
+      "itemsPerPage": "Items per page",
+      "of": "of",
+      "previous": "Previous",
+      "next": "Next",
+      "filterCode": "Filter by code",
+      "filterName": "Filter by name",
+      "selectVisible": "Select visible columns"
+    },
+    "columns": {
+      "selectAll": "Select all",
+      "selectRow": "Select row",
+      "code": "Code",
+      "fullName": "Full Name",
+      "birthday": "Birthday",
+      "sex": "Sex",
+      "nationalityCurrent": "Current Nationality",
+      "originalNationality": "Original Nationality",
+      "job": "Job",
+      "workPlace": "Work Place",
+      "passportNumber": "Passport Number",
+      "passportType": "Passport Type",
+      "purpose": "Purpose",
+      "fromDate": "From Date",
+      "toDate": "To Date",
+      "placeOfIssue": "Place of Issue",
+      "typeOfVisa": "Type Of Visa",
+      "speed": "Speed",
+      "creator": "Creator",
+      "createdDate": "Created Date",
+      "createdTime": "Created Time",
+      "travelDuration": "Duration",
+      "days": "Days",
+      "result": "Result",
+      "stage": "Stage",
+      "openMenu": "Open menu",
+      "actions": "Actions",
+      "view": "View",
+      "status": {
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "pending": "Pending",
+        "processing": "Processing"
+      },
+      "stage1": {
+        "not_processed": "Not Processed",
+        "in_progress": "In Progress",
+        "completed": "Completed",
+        "unknown": "Unknown"
+      },
+      "message": {
+        "noData": "No applications found",
+        "loading": "Loading applications...",
+        "error": "Error loading applications"
+      }
+    }
   }
 }

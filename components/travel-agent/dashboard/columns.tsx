@@ -9,219 +9,255 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-
+import { useTranslations } from "next-intl";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
+import { useMemo } from "react";
 
 import { Application } from "@/app/schemas/types";
 
-export const columns: ColumnDef<Application>[] = [
+// Create a hook that returns translated columns
+export function useColumns() {
+  const t = useTranslations("dashboard.columns");
+
+  return useMemo<ColumnDef<Application>[]>(
+    () => [
+      {
+        id: "select",
+        header: ({ table }) => (
+          <Checkbox
+            checked={
+              table.getIsAllPageRowsSelected() ||
+              (table.getIsSomePageRowsSelected() && "indeterminate")
+            }
+            onCheckedChange={(value) =>
+              table.toggleAllPageRowsSelected(!!value)
+            }
+            aria-label={t("selectAll")}
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            checked={row.getIsSelected()}
+            onCheckedChange={(value) => row.toggleSelected(!!value)}
+            aria-label={t("selectRow")}
+          />
+        ),
+        enableSorting: false,
+        enableHiding: false,
+      },
+      {
+        accessorKey: "code",
+        header: t("code"),
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("code")}</div>
+        ),
+      },
+      {
+        accessorKey: "fullName",
+        header: ({ column }) => {
+          return (
+            <Button
+              variant="ghost"
+              onClick={() =>
+                column.toggleSorting(column.getIsSorted() === "asc")
+              }
+            >
+              {t("fullName")}
+              <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+          );
+        },
+        cell: ({ row }) => <div>{row.getValue("fullName")}</div>,
+      },
+      {
+        accessorKey: "birthday",
+        header: t("birthday"),
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("birthday")}</div>
+        ),
+      },
+      {
+        accessorKey: "sex",
+        header: t("sex"),
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("sex")}</div>
+        ),
+      },
+      {
+        accessorKey: "nationalityCurrent",
+        header: t("nationalityCurrent"),
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("nationalityCurrent")}</div>
+        ),
+      },
+      {
+        accessorKey: "originalNationality",
+        header: t("currentNationality"),
+        cell: ({ row }) => (
+          <div className="capitalize">
+            {row.getValue("originalNationality")}
+          </div>
+        ),
+      },
+      {
+        accessorKey: "job",
+        header: t("job"),
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("job")}</div>
+        ),
+      },
+      {
+        accessorKey: "workPlace",
+        header: t("workPlace"),
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("workPlace")}</div>
+        ),
+      },
+      {
+        accessorKey: "passportNumber",
+        header: t("passportNumber"),
+        cell: ({ row }) => <div>{row.getValue("passportNumber")}</div>,
+      },
+      {
+        accessorKey: "passportType",
+        header: t("passportType"),
+        cell: ({ row }) => <div>{row.getValue("passportType")}</div>,
+      },
+      {
+        accessorKey: "purpose",
+        header: t("purpose"),
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("purpose")}</div>
+        ),
+      },
+      {
+        accessorKey: "fromDate",
+        header: t("fromDate"),
+        filterFn: "equalsString",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("fromDate")}</div>
+        ),
+      },
+      {
+        accessorKey: "toDate",
+        header: t("toDate"),
+        filterFn: "equalsString",
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("toDate")}</div>
+        ),
+      },
+      {
+        accessorKey: "placeOfIssue",
+        header: t("placeOfIssue"),
+        filterFn: "equalsString",
+        cell: ({ row }) => <div>{row.getValue("placeOfIssue")}</div>,
+      },
+      {
+        accessorKey: "duration",
+        header: t("typeOfVisa"),
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("duration")}</div>
+        ),
+      },
+      {
+        accessorKey: "speed",
+        filterFn: "equalsString",
+        header: t("speed"),
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("speed")}</div>
+        ),
+      },
+      {
+        accessorKey: "creator",
+        header: t("creator"),
+        filterFn: "equalsString",
+        cell: ({ row }) => <div>{row.getValue("creator")}</div>,
+      },
+      {
+        accessorKey: "createdDate",
+        filterFn: "equalsString",
+        header: t("createdDate"),
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("createdDate")}</div>
+        ),
+      },
+      {
+        accessorKey: "createdTime",
+        header: t("createdTime"),
+        cell: ({ row }) => (
+          <div className="capitalize">{row.getValue("createdTime")}</div>
+        ),
+      },
+      {
+        accessorKey: "travelDuration",
+        header: t("travelDuration"),
+        cell: ({ row }) => (
+          <div className="capitalize">
+            {row.getValue("travelDuration")} {t("days")}
+          </div>
+        ),
+      },
+      {
+        accessorKey: "result",
+        header: t("result"),
+        cell: ({ row }) => {
+          return <div className="capitalize">{row.getValue("result")}</div>;
+        },
+      },
+      {
+        accessorKey: "stage",
+        header: t("stage"),
+        cell: ({ row }) => (
+          <div className="capitalize">
+            {t(
+              `stage1.${
+                (row.getValue("stage") as string)
+                  ?.toLowerCase()
+                  ?.replace(/\s+/g, "_") || "unknown"
+              }`
+            )}
+          </div>
+        ),
+      },
+      {
+        id: "actions",
+        enableHiding: false,
+        cell: ({ row }) => {
+          return (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">{t("openMenu")}</span>
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>{t("actions")}</DropdownMenuLabel>
+                <DropdownMenuItem asChild>
+                  <Link
+                    href={`/travel-agent/application/visa/${row.original.id}`}
+                  >
+                    {t("view")}
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          );
+        },
+      },
+    ],
+    [t]
+  );
+}
+
+// For backward compatibility if other components are still using the import directly
+export const columns = [
   {
     id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-
+    header: "Select",
+    cell: "Select",
     enableSorting: false,
     enableHiding: false,
   },
-
-  {
-    accessorKey: "code",
-    header: "Code",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("code")}</div>,
-  },
-  {
-    accessorKey: "fullName",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Full Name
-          <ArrowUpDown />
-        </Button>
-      );
-    },
-    cell: ({ row }) => <div>{row.getValue("fullName")}</div>,
-  },
-  {
-    accessorKey: "birthday",
-    header: "Birthday",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("birthday")}</div>
-    ),
-  },
-  {
-    accessorKey: "sex",
-    header: "Sex",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("sex")}</div>,
-  },
-  {
-    accessorKey: "nationalityCurrent",
-    header: "Current Nationality",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("nationalityCurrent")}</div>
-    ),
-  },
-  {
-    accessorKey: "originalNationality",
-    header: "Original Nationality",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("originalNationality")}</div>
-    ),
-  },
-  {
-    accessorKey: "job",
-    header: "Job",
-    cell: ({ row }) => <div className="capitalize">{row.getValue("job")}</div>,
-  },
-  {
-    accessorKey: "workPlace",
-    header: "Work Place",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("workPlace")}</div>
-    ),
-  },
-  {
-    accessorKey: "passportNumber",
-    header: "Passport Number",
-    cell: ({ row }) => <div>{row.getValue("passportNumber")}</div>,
-  },
-  {
-    accessorKey: "passportType",
-    header: "Passport Type",
-    cell: ({ row }) => <div>{row.getValue("passportType")}</div>,
-  },
-  {
-    accessorKey: "purpose",
-    header: "Purpose",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("purpose")}</div>
-    ),
-  },
-  {
-    accessorKey: "fromDate",
-    header: "From Date",
-    filterFn: "equalsString",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("fromDate")}</div>
-    ),
-  },
-  {
-    accessorKey: "toDate",
-    header: "To Date",
-    filterFn: "equalsString",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("toDate")}</div>
-    ),
-  },
-  {
-    accessorKey: "placeOfIssue",
-    header: "Place To Issue",
-    filterFn: "equalsString",
-    cell: ({ row }) => <div>{row.getValue("placeOfIssue")}</div>,
-  },
-  {
-    accessorKey: "duration",
-    header: "Type Of Visa",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("duration")}</div>
-    ),
-  },
-  {
-    accessorKey: "speed",
-    filterFn: "equalsString",
-    header: "Speed",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("speed")}</div>
-    ),
-  },
-  {
-    accessorKey: "creator",
-    header: "Creator",
-    filterFn: "equalsString",
-    cell: ({ row }) => <div>{row.getValue("creator")}</div>,
-  },
-
-  {
-    accessorKey: "createdDate",
-    filterFn: "equalsString",
-    header: "Created Date",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("createdDate")}</div>
-    ),
-  },
-  {
-    accessorKey: "createdTime",
-    header: "Created Time",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("createdTime")}</div>
-    ),
-  },
-  {
-    accessorKey: "travelDuration",
-    header: "Duration",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("travelDuration")} Days</div>
-    ),
-  },
-
-  {
-    accessorKey: "result",
-    header: "Result",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("result")}</div>
-    ),
-  },
-
-  {
-    accessorKey: "stage",
-    header: "Stage",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("stage")}</div>
-    ),
-  },
-
-  {
-    id: "actions",
-    enableHiding: false,
-
-    cell: ({ row }) => {
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-
-            <DropdownMenuItem asChild>
-              <Link href={`/travel-agent/application/visa/${row.original.id}`}>
-                View
-              </Link>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
-  },
-];
+] as ColumnDef<Application>[];

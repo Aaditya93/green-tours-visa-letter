@@ -134,7 +134,6 @@ export const addClient = async () => {
         },
       }
     );
-    console.log(result);
   } catch (error) {
     console.error("Error during adding client:", error);
     return { error: "Internal server error" };
@@ -147,7 +146,6 @@ export const createClientList = async () => {
     const result = await ClientList.create({
       name: "Olivia",
     });
-    console.log(result);
   } catch (error) {
     console.error("Error during creating client list:", error);
     return { error: "Internal server error" };
