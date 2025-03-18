@@ -2,5 +2,92 @@
   "Home": {
     "title": "Home",
     "welcome": "Welcome to the home page"
+  },
+
+  "applyVisa": {
+    "title": "Apply Visa",
+    "travelType": {
+      "label": "Travel Type",
+      "individual": "Individual Traveler",
+      "group": "Group Travel"
+    },
+    "groupSize": {
+      "label": "Number of People",
+      "placeholder": "Enter group size (2-20)",
+      "validation": {
+        "min": "Group size must be at least 2",
+        "max": "Group size cannot exceed 20"
+      }
+    },
+    "visaDuration": {
+      "label": "Visa Duration",
+      "singleEntry": "15 Days",
+      "multipleEntry": "30 Days"
+    },
+    "processingSpeed": {
+      "label": "Processing Speed",
+      "speeds": {
+        "NO": "Normal",
+        "4D": "4 Days",
+        "3D": "3 Days",
+        "2D": "2 Days",
+        "1D": "1 Day",
+        "8H": "8 Hours",
+        "4H": "4 Hours",
+        "2H": "2 Hours",
+        "1H": "1 Hour"
+      }
+    },
+    "payment": {
+      "totalAmount": "Total Amount",
+      "perPerson": "per person"
+    },
+    "action": {
+      "continue": "Continue to Document Upload"
+    },
+    "uploadPassport": {
+      "title": {
+        "individual": "Individual Visa Letter Application",
+        "group": "Group Visa Letter Application"
+      },
+      "dropzone": {
+        "active": "Drop your files here",
+        "individual": "Upload your passport",
+        "group": "Upload {count} passport{plural}",
+        "uploaded": "{current}/{total} uploaded",
+        "dragOrClick": "Drag & drop or click to select",
+        "supportedFormats": "Supported formats: JPG, PNG"
+      },
+      "fileList": {
+        "title": "Selected Files: {count}",
+        "of": "/{total}"
+      },
+      "alerts": {
+        "maxFiles": "Maximum {count} passports allowed for group application",
+        "singleFile": "Only one passport allowed for individual application",
+        "sizeLimit": "Total file size exceeds 20 GB limit",
+        "noFiles": "Please select files to upload"
+      },
+      "progress": {
+        "title": "Processing Files...",
+        "complete": "{percent}% Complete",
+        "preparing": "Preparing files...",
+        "uploading": "Uploading...",
+        "almostDone": "Almost there...",
+        "finalizing": "Finalizing..."
+      },
+      "buttons": {
+        "change": "Change Passport",
+        "uploadSingle": "Upload Passport",
+        "uploadMultiple": "Upload Passports"
+      },
+      "toast": {
+        "success": "Application has been created",
+        "description": {
+          "individual": "Individual application has been created successfully",
+          "group": "Group application has been created successfully"
+        }
+      }
+    }
   }
 }

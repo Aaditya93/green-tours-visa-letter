@@ -29,6 +29,7 @@ import {
 import Image from "next/image";
 import { Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 interface FileUploadProps {
   duration: string;
   speed: string;
@@ -66,6 +67,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   onFileSelected,
   maxTotalSize = 20 * 1024 * 1024 * 1024,
 }) => {
+  const t = useTranslations("applyVisa.uploadPassport");
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -83,14 +85,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
   useEffect(() => {
     if (calltoast) {
-      toast.success("Application has been created", {
-        description: `${
-          isGroup ? "Group" : "Individual"
-        } application has been created successfully`,
+      toast.success(t("toast.success"), {
+        description: t(`toast.description.${isGroup ? "group" : "individual"}`),
       });
       setcalltoast(false);
     }
-  }, [calltoast, isGroup]);
+  }, [calltoast, isGroup, t]);
   const generatePreviews = (files: File[]) => {
     const urls = files.map((file) => URL.createObjectURL(file));
     setPreviews((prev) => [...prev, ...urls]);
@@ -139,16 +139,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
     // Check if we're trying to add more files than allowed
     if (isGroup) {
       if (selectedFiles.length + files.length > groupSize) {
-        validationErrors.push(
-          `Maximum ${groupSize} passports allowed for group application`
-        );
+        validationErrors.push(t("alerts.maxFiles", { count: groupSize }));
         return { validFiles, validationErrors };
       }
     } else {
       if (selectedFiles.length + files.length > 1) {
-        validationErrors.push(
-          "Only one passport allowed for individual application"
-        );
+        validationErrors.push(t("alerts.singleFile"));
         return { validFiles, validationErrors };
       }
     }
@@ -159,7 +155,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
         totalSize += file.size;
 
         if (totalSize > maxTotalSize) {
-          validationErrors.push(`Total file size exceeds 20 GB limit`);
+          validationErrors.push(t("alerts.sizeLimit"));
         } else {
           validFiles.push(file);
         }
@@ -208,7 +204,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
     error?: string;
   }> => {
     if (!selectedFiles.length) {
-      setErrors((prev) => [...prev, "Please select files to upload"]);
+      setErrors((prev) => [...prev, t("alerts.noFiles")]);
       return { success: false, error: "No files selected" };
     }
 
@@ -428,14 +424,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
   };
 
   return (
-    <div className="mx-auto px-4">
+    <div className=" px-4">
       <Card className="max-w-4xl">
         <CardHeader className="flex flex-row items-center justify-between bg-primary rounded-t-lg text-secondary">
           <CardTitle className="flex items-center text-2xl">
             <FileText className="mr-3 h-6 w-6" />
-            {isGroup
-              ? "Group Visa Letter Application"
-              : "Individual Visa Letter Application"}
+            {t(`title.${isGroup ? "group" : "individual"}`)}
           </CardTitle>
         </CardHeader>
 
@@ -463,20 +457,26 @@ const FileUpload: React.FC<FileUploadProps> = ({
                     <FileText className="w-12 h-12 mb-4 text-gray-500" />
                     <p className="mb-2 text-lg font-medium text-gray-700">
                       {dragActive
-                        ? "Drop your files here"
+                        ? t("dropzone.active")
                         : isGroup
-                        ? `Upload ${groupSize} passport${
-                            groupSize > 1 ? "s" : ""
-                          } (${selectedFiles.length}/${groupSize} uploaded)`
-                        : "Upload your passport"}
+                        ? t("dropzone.group", {
+                            count: groupSize,
+                            plural: groupSize > 1 ? "s" : "",
+                          }) +
+                          " " +
+                          t("dropzone.uploaded", {
+                            current: selectedFiles.length,
+                            total: groupSize,
+                          })
+                        : t("dropzone.individual")}
                     </p>
                     <p className="text-sm text-gray-500">
                       {dragActive
-                        ? "Release to upload"
-                        : "Drag & drop or click to select"}
+                        ? t("dropzone.active")
+                        : t("dropzone.dragOrClick")}
                     </p>
                     <p className="mt-2 text-xs text-gray-400">
-                      Supported formats: JPG, PNG
+                      {t("dropzone.supportedFormats")}
                     </p>
                   </div>
                   <input
@@ -507,8 +507,8 @@ const FileUpload: React.FC<FileUploadProps> = ({
               <div className="space-y-4 mt-4">
                 <div className="flex justify-between items-center">
                   <h4 className="text-lg font-medium">
-                    Selected Files: {selectedFiles.length}
-                    {isGroup ? `/${groupSize}` : ""}
+                    {t("fileList.title", { count: selectedFiles.length })}
+                    {isGroup ? t("fileList.of", { total: groupSize }) : ""}
                   </h4>
                 </div>
                 <ScrollArea className="h-96 w-full rounded-md border p-4">
@@ -553,7 +553,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
                 <DialogHeader>
                   <DialogTitle className="flex items-center gap-2">
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    Processing Files...
+                    {t("progress.title")}
                   </DialogTitle>
                 </DialogHeader>
                 <motion.div
@@ -569,16 +569,18 @@ const FileUpload: React.FC<FileUploadProps> = ({
                       animate={{ opacity: 1 }}
                       className="font-medium"
                     >
-                      {processingProgress.toFixed(0)}% Complete
+                      {t("progress.complete", {
+                        percent: processingProgress.toFixed(0),
+                      })}
                     </motion.div>
                     <p className="mt-2 text-xs opacity-70">
                       {processingProgress < 30
-                        ? "Preparing files..."
+                        ? t("progress.preparing")
                         : processingProgress < 60
-                        ? "Uploading..."
+                        ? t("progress.uploading")
                         : processingProgress < 90
-                        ? "Almost there..."
-                        : "Finalizing..."}
+                        ? t("progress.almostDone")
+                        : t("progress.finalizing")}
                     </p>
                   </div>
                 </motion.div>
@@ -590,10 +592,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
                 onClick={removeAllFiles}
                 className="w-full"
               >
-                Change Passport
+                {t("buttons.change")}
               </Button>
               <Button type="submit" onClick={uploadFiles} className="w-full">
-                Upload {isGroup ? "Passports" : "Passport"}
+                {isGroup
+                  ? t("buttons.uploadMultiple")
+                  : t("buttons.uploadSingle")}
               </Button>
             </div>
           </div>

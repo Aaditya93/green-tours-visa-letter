@@ -2,5 +2,92 @@
   "Home": {
     "title": "主页",
     "welcome": "欢迎来到主页"
+  },
+  "applyVisa": {
+    "title": "申请签证",
+    "travelType": {
+      "label": "旅行类型",
+      "individual": "个人旅行者",
+      "group": "团体旅行"
+    },
+    "groupSize": {
+      "label": "人数",
+      "placeholder": "输入人数 (2-20)",
+      "validation": {
+        "min": "人数至少为2",
+        "max": "人数不能超过20"
+      }
+    },
+    "visaDuration": {
+      "label": "签证时长",
+      "singleEntry": "15 天",
+      "multipleEntry": "30 天"
+    },
+    "processingSpeed": {
+      "label": "处理速度",
+      "speeds": {
+        "NO": "正常",
+        "4D": "4 天",
+        "3D": "3 天",
+        "2D": "2 天",
+        "1D": "1 天",
+        "8H": "8 小时",
+        "4H": "4 小时",
+        "2H": "2 小时",
+        "1H": "1 小时"
+      }
+    },
+    "payment": {
+      "totalAmount": "总金额",
+      "perPerson": "每人"
+    },
+    "action": {
+      "continue": "继续上传文件"
+    },
+    "uploadPassport": {
+      "title": {
+        "individual": "个人签证信函申请",
+        "group": "团体签证信函申请"
+      },
+      "dropzone": {
+        "active": "将文件拖到此处",
+        "individual": "上传您的护照",
+        "group": "上传 {count} 本护照",
+        "uploaded": "已上传 {current}/{total}",
+        "dragOrClick": "拖放或点击选择",
+        "supportedFormats": "支持格式: JPG, PNG"
+      },
+
+      "fileList": {
+        "title": "已选择的文件: {count}",
+        "of": "/{total}"
+      },
+      "alerts": {
+        "maxFiles": "团体申请最多允许 {count} 本护照",
+        "singleFile": "个人申请仅允许上传一本护照",
+        "sizeLimit": "总文件大小超过 20GB 限制",
+        "noFiles": "请选择文件进行上传"
+      },
+      "progress": {
+        "title": "文件处理中...",
+        "complete": "{percent}% 已完成",
+        "preparing": "正在准备文件...",
+        "uploading": "正在上传...",
+        "almostDone": "快完成了...",
+        "finalizing": "正在完成..."
+      },
+      "buttons": {
+        "change": "更换护照",
+        "uploadSingle": "上传护照",
+        "uploadMultiple": "上传多本护照"
+      },
+      "toast": {
+        "success": "申请已创建",
+        "description": {
+          "individual": "个人申请已成功创建",
+          "group": "团体申请已成功创建"
+        }
+      }
+    }
   }
 }

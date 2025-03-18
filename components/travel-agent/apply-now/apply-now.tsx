@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   Select,
   SelectContent,
@@ -39,20 +40,24 @@ interface ApplyNowProps {
   initialPriceData?: PriceData;
 }
 
-const formSchema = z.object({
-  groupSize: z
-    .number()
-    .min(2, "Group size must be at least 2")
-    .max(20, "Group size cannot exceed 20"),
-});
-
-type FormData = z.infer<typeof formSchema>;
-
 const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
+  // Get translations
+  const t = useTranslations("applyVisa");
+
   const [entryType, setEntryType] = useState<keyof PriceData>("singleEntry");
   const [selectedSpeed, setSelectedSpeed] = useState("NO");
   const [travelType, setTravelType] = useState("individual");
   const [upload, setUpload] = useState(false);
+
+  // Create schema with translated validation messages
+  const formSchema = z.object({
+    groupSize: z
+      .number()
+      .min(2, t("groupSize.validation.min"))
+      .max(20, t("groupSize.validation.max")),
+  });
+
+  type FormData = z.infer<typeof formSchema>;
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -75,16 +80,9 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
     return travelType === "individual" ? basePrice : basePrice * groupSize;
   };
 
-  const speedLabels = {
-    NO: "Normal",
-    "4D": "4 Days",
-    "3D": "3 Days",
-    "2D": "2 Days",
-    "1D": "1 Day",
-    "8H": "8 Hours",
-    "4H": "4 Hours",
-    "2H": "2 Hours",
-    "1H": "1 Hour",
+  // Get localized speed labels
+  const getSpeedLabel = (speed: string) => {
+    return t(`processingSpeed.speeds.${speed}`);
   };
 
   const handleApply = () => {
@@ -96,7 +94,7 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
   };
 
   return (
-    <div className="flex container mx-auto py-8 px-4 items-center justify-center ">
+    <div className="flex container mx-auto py-8 px-4 items-center justify-center">
       {!upload && (
         <Card className="w-full max-w-md mx-auto shadow-lg border-2 border-primary/10 overflow-hidden">
           <CardHeader className="bg-primary p-6 mb-0">
@@ -115,12 +113,14 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
                   d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                 />
               </svg>
-              Visa Letter Application
+              {t("title")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6 p-6">
             <div className="space-y-3">
-              <Label className="text-base font-medium">Travel Type</Label>
+              <Label className="text-base font-medium">
+                {t("travelType.label")}
+              </Label>
               <RadioGroup
                 value={travelType}
                 onValueChange={setTravelType}
@@ -139,7 +139,7 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
                     className="mr-2"
                   />
                   <Label htmlFor="individual" className="cursor-pointer">
-                    Individual Traveler
+                    {t("travelType.individual")}
                   </Label>
                 </div>
                 <div
@@ -151,7 +151,7 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
                 >
                   <RadioGroupItem value="group" id="group" className="mr-2" />
                   <Label htmlFor="group" className="cursor-pointer">
-                    Group Travel
+                    {t("travelType.group")}
                   </Label>
                 </div>
               </RadioGroup>
@@ -165,7 +165,7 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
                   render={({ field }) => (
                     <FormItem className="animate-fadeIn">
                       <Label className="text-base font-medium">
-                        Number of People
+                        {t("groupSize.label")}
                       </Label>
                       <FormControl>
                         <div className="flex items-center">
@@ -178,7 +178,7 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
                             max="20"
                             min="2"
                             type="number"
-                            placeholder="Enter group size (2-20)"
+                            placeholder={t("groupSize.placeholder")}
                             className="w-full focus:ring-2 focus:ring-primary/20"
                           />
                         </div>
@@ -191,7 +191,9 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
             )}
 
             <div className="space-y-3">
-              <Label className="text-base font-medium">Visa Duration</Label>
+              <Label className="text-base font-medium">
+                {t("visaDuration.label")}
+              </Label>
               <RadioGroup
                 value={entryType}
                 onValueChange={(value) =>
@@ -215,7 +217,9 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
                     htmlFor="single"
                     className="cursor-pointer flex flex-col"
                   >
-                    <span className="font-medium">15 Days</span>
+                    <span className="font-medium">
+                      {t("visaDuration.singleEntry")}
+                    </span>
                   </Label>
                 </div>
                 <div
@@ -234,7 +238,9 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
                     htmlFor="multiple"
                     className="cursor-pointer flex flex-col"
                   >
-                    <span className="font-medium">30 Days</span>
+                    <span className="font-medium">
+                      {t("visaDuration.multipleEntry")}
+                    </span>
                     <span className="text-sm text-gray-500"></span>
                   </Label>
                 </div>
@@ -242,15 +248,17 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
             </div>
 
             <div className="space-y-3">
-              <Label className="text-base font-medium">Processing Speed</Label>
+              <Label className="text-base font-medium">
+                {t("processingSpeed.label")}
+              </Label>
               <Select value={selectedSpeed} onValueChange={setSelectedSpeed}>
                 <SelectTrigger className="w-full focus:ring-2 focus:ring-primary/20 border-gray-200 h-12">
                   <SelectValue placeholder="Select processing time" />
                 </SelectTrigger>
                 <SelectContent>
-                  {Object.entries(speedLabels).map(([value, label]) => (
-                    <SelectItem key={value} value={value} className="py-2">
-                      {label}
+                  {Object.keys(t.raw("processingSpeed.speeds")).map((speed) => (
+                    <SelectItem key={speed} value={speed} className="py-2">
+                      {getSpeedLabel(speed)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -259,13 +267,15 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
 
             <div className="pt-6 border-t mt-4">
               <div className="bg-primary/5 p-4 rounded-lg mb-4">
-                <p className="text-sm text-gray-600 mb-1">Total Amount</p>
+                <p className="text-sm text-gray-600 mb-1">
+                  {t("payment.totalAmount")}
+                </p>
                 <div className="text-2xl font-bold text-primary flex items-center">
                   {currency} {getCurrentPrice().toLocaleString()}
                   {travelType === "group" && groupSize > 1 && (
                     <span className="text-sm text-gray-500 ml-2 font-normal">
                       ({currency} {(getCurrentPrice() / groupSize).toFixed(2)}{" "}
-                      per person)
+                      {t("payment.perPerson")})
                     </span>
                   )}
                 </div>
@@ -278,7 +288,7 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
                   (groupSize < 2 || !form.formState.isValid)
                 }
               >
-                Continue to Document Upload
+                {t("action.continue")}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5 ml-2"
@@ -299,7 +309,11 @@ const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {
       {upload && (
         <FileUpload
           entryType={entryType}
-          duration={entryType === "singleEntry" ? "15 Days" : "30 Days"}
+          duration={
+            entryType === "singleEntry"
+              ? t("visaDuration.singleEntry")
+              : t("visaDuration.multipleEntry")
+          }
           speed={selectedSpeed}
           currency={currency}
           isGroup={groupSize > 1}

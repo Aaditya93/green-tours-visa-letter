@@ -16,9 +16,12 @@ import ApplyNow from "@/components/travel-agent/apply-now/apply-now";
 import { auth } from "@/auth";
 import { getVisaLetterPriceByCompany } from "@/actions/agent-platform/visa-letter";
 import { serializeIApplication } from "@/config/serialize";
+import { getTranslations } from "next-intl/server";
+
 const ApplyVisaPage = async () => {
   const session = await auth();
   const priceData = await getVisaLetterPriceByCompany(session?.user.companyId);
+  const t = await getTranslations("applyVisa");
 
   const planObj = serializeIApplication(priceData.visaLetterPrices[0]);
 
@@ -37,7 +40,7 @@ const ApplyVisaPage = async () => {
                 </BreadcrumbItem> */}
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Apply Visa</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
