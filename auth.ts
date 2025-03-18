@@ -53,6 +53,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.companyId = user.companyId;
       }
       if (token?.email) {
+        console.log("token.email", token.email);
         return token;
       }
       return null;

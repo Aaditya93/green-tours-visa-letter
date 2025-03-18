@@ -8,84 +8,184 @@ import {
 } from "./routes";
 
 import { getToken } from "next-auth/jwt";
-import createMiddleware from "next-intl/middleware";
+import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 
-export default createMiddleware(routing);
-// export async function middleware(req: NextRequest) {
-//   const { nextUrl } = req;
-//   const { pathname } = nextUrl;
-//   const secret = process.env.NEXTAUTH_SECRET;
+// Create the internationalization middleware
+const intlMiddleware = createIntlMiddleware(routing);
 
-//   const token = await getToken({
-//     req,
-//     secret,
-//     salt:
-//       process.env.NODE_ENV === "production"
-//         ? "__Secure-authjs.session-token"
-//         : "authjs.session-token",
-//     cookieName:
-//       process.env.NODE_ENV === "production"
-//         ? "__Secure-authjs.session-token"
-//         : "authjs.session-token",
-//   });
+// Function to get the current locale from a path
+function getLocaleFromPath(path) {
+  const segments = path.split("/").filter(Boolean);
+  return segments[0] && routing.locales.includes(segments[0])
+    ? segments[0]
+    : routing.defaultLocale;
+}
 
-//   const isLoggedIn = !!token;
-//   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-//   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
-//   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
-//   const isErrorRoute = nextUrl.pathname.includes("error");
+// Function to create localized URLs
+function createLocalizedUrl(path, locale, origin) {
+  // Make sure path starts with a slash but doesn't have locale prefix already
+  if (!path.startsWith("/")) {
+    path = "/" + path;
+  }
 
-//   if (isApiAuthRoute || isPublicRoute || isErrorRoute) {
-//     return NextResponse.next();
-//   }
+  // Add locale prefix if path doesn't already have it
+  if (!path.startsWith(`/${locale}/`)) {
+    path = `/${locale}${path}`;
+  }
 
-//   if (isAuthRoute) {
-//     if (isLoggedIn && token.role === "TravelAgent") {
-//       return NextResponse.redirect(new URL("/travel-agent/apply-now", nextUrl));
-//     }
-//     if (isLoggedIn) {
-//       return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
-//     }
-//     return NextResponse.next();
-//   }
+  return new URL(path, origin);
+}
 
-//   if (token) {
-//     if (pathname.startsWith("/travel-agent")) {
-//       // Only allow travel agents
-//       if (token.role === "TravelAgent") {
-//         return NextResponse.next();
-//       }
+// Function to remove locale from path for comparison
+function removeLocaleFromPath(path) {
+  const segments = path.split("/");
+  if (segments.length > 1 && routing.locales.includes(segments[1])) {
+    // Remove the locale segment and join the path back
+    return "/" + segments.slice(2).join("/");
+  }
+  return path;
+}
 
-//       // Redirect others to login
-//       return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
-//     }
+export default async function middleware(req: NextRequest) {
+  const { nextUrl } = req;
+  const { pathname } = nextUrl;
+  const secret = process.env.NEXTAUTH_SECRET;
 
-//     // Non travel-agent paths
-//     if (!pathname.startsWith("/travel-agent")) {
-//       // Redirect travel agents to their dashboard
-//       if (token.role === "TravelAgent") {
-//         return NextResponse.redirect(
-//           new URL("/travel-agent/visa-letter", nextUrl)
-//         );
-//       }
-//       // Allow regular users
-//       return NextResponse.next();
-//     }
-//   }
+  // Get locale from the current path
+  const locale = getLocaleFromPath(pathname);
 
-//   // 2. Handle auth routes
+  // Get path without locale for route matching
+  const pathWithoutLocale = removeLocaleFromPath(pathname);
 
-//   // 3. Protected routes - redirect to login if not authenticated
-//   if (!isLoggedIn) {
-//     const loginUrl = new URL("/auth/login", nextUrl);
-//     // Preserve the original URL as returnUrl
-//     loginUrl.searchParams.set("returnUrl", nextUrl.pathname);
-//     return NextResponse.redirect(loginUrl);
-//   }
+  // Check if this is an API route
+  const isApiRoute = pathname.startsWith("/api");
+  const isAuthApiRoute = pathname.startsWith(apiAuthPrefix);
 
-//   return NextResponse.next();
-// }
+  if (isApiRoute && isAuthApiRoute) {
+    return NextResponse.next();
+  }
+
+  const response = intlMiddleware(req);
+
+  // Continue with auth logic
+  const token = await getToken({
+    req,
+    secret,
+    salt:
+      process.env.NODE_ENV === "production"
+        ? "__Secure-authjs.session-token"
+        : "authjs.session-token",
+    cookieName:
+      process.env.NODE_ENV === "production"
+        ? "__Secure-authjs.session-token"
+        : "authjs.session-token",
+  });
+
+  const isLoggedIn = !!token;
+
+  // Check routes without locale prefix for better matching
+  const isPublicRoute = publicRoutes.some(
+    (route) =>
+      pathWithoutLocale === route || pathWithoutLocale.startsWith(route)
+  );
+  const isAuthRoute = authRoutes.some(
+    (route) =>
+      pathWithoutLocale === route || pathWithoutLocale.startsWith(route)
+  );
+  const isErrorRoute = pathWithoutLocale.includes("error");
+  const isTravelAgentRoute = pathWithoutLocale.startsWith("/travel-agent");
+
+  // Handle API, public and error routes
+  if (isAuthApiRoute || isPublicRoute || isErrorRoute) {
+    return response;
+  }
+
+  // Handle authentication routes
+  if (isAuthRoute) {
+    if (isLoggedIn) {
+      // Prevent redirect loop - check if we're already at the target
+      if (token.role === "TravelAgent") {
+        const targetPath = `/travel-agent/apply-now`;
+        if (!pathWithoutLocale.startsWith(targetPath)) {
+          const redirectUrl = createLocalizedUrl(
+            targetPath,
+            locale,
+            nextUrl.origin
+          );
+          return NextResponse.redirect(redirectUrl);
+        }
+      } else {
+        const targetPath = DEFAULT_LOGIN_REDIRECT;
+        if (pathWithoutLocale !== targetPath) {
+          const redirectUrl = createLocalizedUrl(
+            targetPath,
+            locale,
+            nextUrl.origin
+          );
+          return NextResponse.redirect(redirectUrl);
+        }
+      }
+    }
+    return response;
+  }
+
+  // Handle role-based routing
+  if (token) {
+    if (isTravelAgentRoute) {
+      // Only allow travel agents to access travel-agent routes
+      if (token.role === "TravelAgent") {
+        return response;
+      }
+
+      // Redirect others to dashboard - prevent redirect loop
+      const targetPath = DEFAULT_LOGIN_REDIRECT;
+      if (pathWithoutLocale !== targetPath) {
+        const redirectUrl = createLocalizedUrl(
+          targetPath,
+          locale,
+          nextUrl.origin
+        );
+        return NextResponse.redirect(redirectUrl);
+      }
+      return response;
+    }
+
+    // Non travel-agent paths - handle travel agents
+    if (!isTravelAgentRoute) {
+      if (token.role === "TravelAgent") {
+        // Redirect travel agents to their dashboard - prevent redirect loop
+        const targetPath = "/travel-agent/visa-letter";
+        if (!pathWithoutLocale.startsWith(targetPath)) {
+          const redirectUrl = createLocalizedUrl(
+            targetPath,
+            locale,
+            nextUrl.origin
+          );
+          return NextResponse.redirect(redirectUrl);
+        }
+        return response;
+      }
+    }
+  }
+
+  // Protected routes - redirect to login if not authenticated
+  if (!isLoggedIn) {
+    // Prevent redirect loop - check if we're already at the login page
+    const loginPath = "/auth/login";
+    if (!pathWithoutLocale.startsWith(loginPath)) {
+      const loginUrl = createLocalizedUrl(loginPath, locale, nextUrl.origin);
+
+      // Preserve the original URL as returnUrl
+      loginUrl.searchParams.set("returnUrl", nextUrl.pathname);
+
+      return NextResponse.redirect(loginUrl);
+    }
+    return response;
+  }
+
+  return response;
+}
 
 export const config = {
   matcher: [
