@@ -9,8 +9,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const StatusSelect = () => {
+  const t = useTranslations("travelAgentApplicationStatus.applicationStatus");
   const router = useRouter();
   const handleStatusChange = (value: string) => {
     router.push(`/travel-agent/application-status/${value}/10`);
@@ -19,12 +21,12 @@ const StatusSelect = () => {
   return (
     <Select onValueChange={handleStatusChange}>
       <SelectTrigger className="w-48">
-        <SelectValue placeholder="Select status" />
+        <SelectValue placeholder={t("selectStatus")} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="Incomplete">Incomplete</SelectItem>
-        <SelectItem value="Processing">Processing</SelectItem>
-        <SelectItem value="Complete">Complete</SelectItem>
+        <SelectItem value="Incomplete">{t("incomplete")}</SelectItem>
+        <SelectItem value="Processing">{t("processing")}</SelectItem>
+        <SelectItem value="Complete">{t("complete")}</SelectItem>
       </SelectContent>
     </Select>
   );

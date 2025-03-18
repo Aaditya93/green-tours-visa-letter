@@ -17,6 +17,7 @@ import { IoCreateOutline } from "react-icons/io5";
 import { LiaMaleSolid, LiaFemaleSolid } from "react-icons/lia";
 import Link from "next/link";
 import { deleteApplication } from "@/actions/application/model";
+import { useTranslations } from "next-intl"; // Import the translation hook
 
 import { useEffect } from "react";
 
@@ -32,6 +33,8 @@ interface ApplicationCardProps {
 const ApplicationCardTravelAgent = (
   ApplicationCardProps: ApplicationCardProps
 ) => {
+  const t = useTranslations("travelAgentApplicationStatus"); // Initialize translations
+
   const range = ApplicationCardProps.range;
   const NumRange = parseInt(range, 10);
   const pendingApplications = ApplicationCardProps.pendingApplications;
@@ -44,7 +47,7 @@ const ApplicationCardTravelAgent = (
   const [calltoast, setCallToast] = React.useState(false);
   useEffect(() => {
     if (calltoast) {
-      toast.success("Application has been deleted", {});
+      toast.success(t("toast.deleted"), {});
       setCallToast(false);
     }
   }, [calltoast]);
@@ -75,14 +78,14 @@ const ApplicationCardTravelAgent = (
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
           <CardTitle className="text-xl font-bold text-center sm:text-left text-primary-foreground">
             {stage === "Incomplete"
-              ? "Incomplete"
+              ? t("status.incomplete")
               : stage === "Complete"
-              ? "Complete"
-              : "Processing"}{" "}
-            Applications
+              ? t("status.complete")
+              : t("status.processing")}{" "}
+            {t("title1")}
           </CardTitle>
           <Badge variant={"secondary"}>
-            {pendingApplications.length} Total Applications
+            {t("labels.totalApplications")} : {pendingApplications.length}
           </Badge>
         </div>
       </CardHeader>
@@ -94,7 +97,7 @@ const ApplicationCardTravelAgent = (
             .map((app: SerializabledApplication) => (
               <div
                 key={app.code}
-                className="border-b p-4 hover:bg-primary-foreground transition-colors duration-200 relative"
+                className="border-b p-4 hover:bg-secondary transition-colors duration-200 relative"
               >
                 <Button
                   variant="link"
@@ -105,15 +108,17 @@ const ApplicationCardTravelAgent = (
                   <Link href={`/travel-agent/application/visa/${app._id}`}>
                     <PiArrowCircleRightThin className="w-5 h-5 sm:w-4 sm:h-4" />{" "}
                     {app.isCompleted
-                      ? "View Application"
-                      : "Complete The Application"}
+                      ? t("details.view")
+                      : t("actions.completeApplication")}
                   </Link>
                 </Button>
                 <div className="space-y-3">
                   <div className="flex items-start flex-wrap gap-2">
                     <Badge variant="outline">#{app.code}</Badge>
                     <Badge variant="secondary">
-                      {app.noOfVisa > 1 ? "Group" : "Individual"}
+                      {app.noOfVisa > 1
+                        ? t("labels.group")
+                        : t("labels.individual")}
                     </Badge>
                     <div>
                       {app.passportDetails[0].stage === "Not Processed" && (
@@ -139,7 +144,7 @@ const ApplicationCardTravelAgent = (
                       <div className="flex items-center space-x-2">
                         <CiUser className="w-5 h-5 flex-shrink-0 sm:w-4 sm:h-4" />
                         <div>
-                          <p className="text-xs">Name</p>
+                          <p className="text-xs">{t("details.name")}</p>
                           <p className="font text-sm">
                             {app.passportDetails[0].fullName}
                           </p>
@@ -148,7 +153,7 @@ const ApplicationCardTravelAgent = (
                       <div className="flex items-center space-x-2">
                         <CiMap className="w-5 h-5 flex-shrink-0 sm:w-4 sm:h-4" />
                         <div>
-                          <p className="text-xs">Country</p>
+                          <p className="text-xs">{t("details.country")}</p>
                           <p className="text-sm">
                             {app.passportDetails[0].nationalityCurrent}
                           </p>
@@ -157,7 +162,9 @@ const ApplicationCardTravelAgent = (
                       <div className="flex items-center space-x-2">
                         <CiPassport1 className="w-5 h-5 flex-shrink-0 sm:w-4 sm:h-4" />
                         <div>
-                          <p className="text-xs">Passport Number</p>
+                          <p className="text-xs">
+                            {t("details.passportNumber")}
+                          </p>
                           <p className="text-sm">
                             {app.passportDetails[0].passportNumber}
                           </p>
@@ -166,7 +173,7 @@ const ApplicationCardTravelAgent = (
                       <div className="flex items-center space-x-2">
                         <CiCalendar className="w-5 h-5 flex-shrink-0 sm:w-4 sm:h-4" />
                         <div>
-                          <p className="text-xs">Birthday</p>
+                          <p className="text-xs">{t("details.birthday")}</p>
                           <p className="text-sm">
                             {formatDate(app.passportDetails[0].birthday)}
                           </p>
@@ -177,7 +184,7 @@ const ApplicationCardTravelAgent = (
                           <>
                             <LiaMaleSolid className="w-5 h-5 text-primary/70 flex-shrink-0 sm:w-4 sm:h-4" />
                             <div>
-                              <p className="text-xs">Gender</p>
+                              <p className="text-xs">{t("details.gender")}</p>
                               <p className=" text-sm">
                                 {app.passportDetails[0].sex}
                               </p>
@@ -187,7 +194,7 @@ const ApplicationCardTravelAgent = (
                           <>
                             <LiaFemaleSolid className="w-5 h-5 text-primary/70 flex-shrink-0 sm:w-4 sm:h-4" />
                             <div>
-                              <p className="text-xs">Gender</p>
+                              <p className="text-xs">{t("details.gender")}</p>
                               <p className="text-sm">
                                 {app.passportDetails[0].sex}
                               </p>
@@ -199,7 +206,7 @@ const ApplicationCardTravelAgent = (
                       <div className="flex items-center space-x-2">
                         <IoCreateOutline className="w-5 h-5 text-primary/70 flex-shrink-0 sm:w-4 sm:h-4" />
                         <div>
-                          <p className="text-xs">Created By</p>
+                          <p className="text-xs">{t("details.created")}</p>
                           <p className="text-sm">{app.creator.creator}</p>
                         </div>
                       </div>
@@ -211,7 +218,9 @@ const ApplicationCardTravelAgent = (
         </div>
       </CardContent>
       <CardFooter className="bg-background p-4 sm:p-3 flex justify-between items-center">
-        <p className="text-sm">Last Updated: {formatDateTime(new Date())} </p>
+        <p className="text-sm">
+          {t("details.updated")}: {formatDateTime(new Date())}{" "}
+        </p>
         <PaginationComponentTravelAgent
           stage={stage}
           currentPage={currentPage}

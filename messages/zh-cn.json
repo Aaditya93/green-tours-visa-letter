@@ -151,5 +151,55 @@
         "success": "申请已提交"
       }
     }
+  },
+  "travelAgentApplicationStatus": {
+    "title": "申请状态",
+    "title1": "申请列表",
+    "status": {
+      "incomplete": "未完成",
+      "complete": "已完成",
+      "processing": "处理中"
+    },
+    "details": {
+      "title": "申请详情",
+      "code": "申请编码",
+      "status": "状态",
+      "name": "姓名",
+      "country": "国家",
+      "passportNumber": "护照号码",
+      "birthday": "生日",
+      "gender": "性别",
+      "created": "创建者",
+      "updated": "最后更新",
+      "actions": "操作",
+      "view": "查看",
+      "delete": "删除"
+    },
+    "labels": {
+      "totalApplications": "总申请数",
+      "group": "团体",
+      "individual": "个人"
+    },
+    "actions": {
+      "completeApplication": "完成申请"
+    },
+    "toast": {
+      "notFound": "未找到申请",
+      "deleted": "申请已被删除"
+    },
+
+    "commandMenu": {
+      "search": "搜索...",
+      "searchApplication": "搜索申请...",
+      "searchPlaceholder": "输入姓名或搜索...",
+      "noResultsFound": "未找到结果。",
+      "applications": "申请列表"
+    },
+    "applicationStatus": {
+      "selectStatus": "选择状态",
+      "incomplete": "未完成",
+      "processing": "处理中",
+      "complete": "已完成"
+    }
   }
 }

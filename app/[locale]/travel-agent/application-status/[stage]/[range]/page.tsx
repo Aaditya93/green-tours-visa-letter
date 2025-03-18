@@ -26,13 +26,14 @@ import {
   getIncompleteApplicationsTravelAgent,
   getProcessingApplicationTravelAgent,
 } from "@/actions/agent-platform/visa-letter";
-
+import { getTranslations } from "next-intl/server";
 const ApplicationPage = async ({
   params,
 }: {
   params: Promise<{ stage: string; range: string }>;
 }) => {
   const { range, stage } = await params;
+  const t = await getTranslations("travelAgentApplicationStatus");
 
   const pendingApplications =
     stage === "Incomplete"
@@ -58,7 +59,7 @@ const ApplicationPage = async ({
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Applications Status</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

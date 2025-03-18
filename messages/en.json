@@ -3,7 +3,6 @@
     "title": "Home",
     "welcome": "Welcome to the home page"
   },
-
   "applyVisa": {
     "title": "Apply Visa",
     "travelType": {
@@ -150,6 +149,61 @@
       "toast": {
         "success": "Visa Application Form is Complete"
       }
+    }
+  },
+  "travelAgentApplicationStatus": {
+    "title": "Application Status",
+    "title1": "Applications",
+    "status": {
+      "incomplete": "Incomplete",
+      "complete": "Complete",
+      "processing": "Processing"
+    },
+    "details": {
+      "title": "Application Details",
+      "code": "Application Code",
+      "status": "Status",
+      "name": "Name",
+      "country": "Country",
+      "passportNumber": "Passport Number",
+      "birthday": "Birthday",
+      "gender": "Gender",
+      "created": "Created By",
+      "updated": "Last Updated",
+      "actions": "Actions",
+      "view": "View",
+      "delete": "Delete"
+    },
+    "labels": {
+      "totalApplications": "Total Applications",
+      "group": "Group",
+      "individual": "Individual"
+    },
+    "actions": {
+      "completeApplication": "Complete The Application"
+    },
+    "toast": {
+      "notFound": "Application not found",
+      "deleted": "Application has been deleted"
+    },
+
+    "commandMenu": {
+      "search": "Search...",
+      "searchApplication": "Search Application...",
+      "searchPlaceholder": "Type a Name or search...",
+      "noResultsFound": "No results found.",
+      "applications": "Applications"
+    },
+    "applicationStatus": {
+      "selectStatus": "Select status",
+      "incomplete": "Incomplete",
+      "processing": "Processing",
+      "complete": "Complete"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page"
     }
   }
 }
