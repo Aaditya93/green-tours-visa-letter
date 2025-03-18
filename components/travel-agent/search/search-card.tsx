@@ -412,7 +412,7 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
                 ],
               },
               {
-                name: "Type of Visa",
+                name: "typeOfVisa",
                 options: [
                   { value: "Single Entry", label: t("singleEntry") },
                   { value: "Multiple Entry", label: t("multipleEntry") },
@@ -577,7 +577,7 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
     }
   `}
                         >
-                          {t(item.stage.toLowerCase().replace(/\s+/g, ""))}
+                          {item.stage}
                         </span>
                       ) : null}
                     </TableCell>

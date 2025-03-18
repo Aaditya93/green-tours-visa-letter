@@ -318,10 +318,106 @@
     "passportNumber": "Passport Number",
     "no": "No",
     "iref": "IREF",
-    "Type Of Visa": "Type Of Visa",
-    "notprocessed": "Not Processed",
-    "inprogress": "In Progress",
+    "notProcessed": "Not Processed",
+    "processing": "Processing",
+    "blacklist": "Blacklist",
+    "overstayed": "Overstayed",
     "completed": "Completed",
-    "pleaseSelectApplications": "Please select applications"
+    "pleaseSelectApplications": "Please select applications",
+    "singleEntry": "Single Entry",
+    "multipleEntry": "Multiple Entry"
+  },
+
+  "visa-letter": {
+    "limitedTimeOffer": "Limited Time Offer",
+    "heroTitle": "Streamline Your Visa Process",
+    "heroDescription": "Fast, secure, and reliable visa letter processing tailored to your timeline. Get started in minutes with our simple application process.",
+
+    "stats": {
+      "processedValue": "50k+",
+      "processedLabel": "Letters Processed",
+      "successValue": "99%",
+      "successLabel": "Success Rate",
+      "supportValue": "24/7",
+      "supportLabel": "Support Available",
+      "fastestValue": "1 Hour",
+      "fastestLabel": "Fastest Processing"
+    },
+
+    "features": {
+      "express": {
+        "title": "Express Processing",
+        "description": "Get your visa letter in as fast as 1 hour with our premium processing options."
+      },
+      "secure": {
+        "title": "Secure & Reliable",
+        "description": "Bank-level encryption and secure processing for your peace of mind."
+      },
+      "support": {
+        "title": "Round-the-Clock Support",
+        "description": "Our dedicated team is available 24/7 to assist you with any queries."
+      }
+    },
+
+    "cta": {
+      "title": "Ready to Get Started?",
+      "description": "Join thousands of satisfied customers who trust us with their visa letters.",
+      "buttonText": "Start Your Application Now"
+    },
+
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "questions": {
+        "processingTime": "How fast can I get my visa letter?",
+        "entryDifference": "What's the difference between single and multiple entry?",
+        "security": "Is my information secure?"
+      },
+      "answers": {
+        "processingTime": "Our fastest processing time is 1 hour with our premium service. We also offer various other processing speeds to match your needs and budget.",
+        "entryDifference": "Single entry allows you to enter the country once, while multiple entry permits multiple entries during the visa validity period.",
+        "security": "Yes, we use bank-level encryption and secure processing systems to protect your personal information and documents."
+      }
+    },
+
+    "news": {
+      "title": "Latest News",
+      "items": {
+        "express": {
+          "title": "New Express Processing Options Available",
+          "content": "We've added more express processing options to better serve your urgent visa letter needs."
+        },
+        "holiday": {
+          "title": "Holiday Season Processing Times",
+          "content": "Please note that processing times may be slightly longer during holiday periods."
+        },
+        "discount": {
+          "title": "Special Group Discount",
+          "content": "Apply with 5 or more people and receive a 10% discount on all processing fees."
+        },
+        "verification": {
+          "title": "New Verification Process",
+          "content": "Our streamlined verification process now makes applications even faster and more reliable."
+        }
+      }
+    },
+    "pricing": {
+      "title": "Choose Your Plan",
+      "subtitle": "Select the option that best fits your travel needs",
+      "singleEntry": "Single Entry",
+      "multipleEntry": "Multiple Entry",
+      "processingOptions": "Processing Options",
+      "currency": "Currency",
+      "perPerson": "per person"
+    },
+    "pricingTable": {
+      "title": "Visa Letter Processing Options",
+      "tableHead": "Processing Time",
+      "tableHead2": "15 Days",
+      "tableHead3": "30 Days",
+      "cta": "Popular Choice",
+      "hour": " Hour",
+      "days": " Days",
+      "standard": "Standard"
+    }
   }
 }

@@ -315,10 +315,106 @@
     "passportNumber": "护照号码",
     "no": "编号",
     "iref": "IREF",
-    "Type Of Visa": "签证类型",
-    "notprocessed": "未处理",
-    "inprogress": "进行中",
+    "notProcessed": "未处理",
+    "processing": "进行中",
     "completed": "已完成",
-    "pleaseSelectApplications": "请选择申请"
+    "blacklist": "黑名单",
+    "overstayed": "逾期逗留",
+    "pleaseSelectApplications": "请选择申请",
+    "singleEntry": "单次入境",
+    "multipleEntry": "多次入境"
+  },
+  "visa-letter": {
+    "limitedTimeOffer": "限时优惠",
+    "heroTitle": "简化您的签证流程",
+    "heroDescription": "快速、安全、可靠的签证信处理，符合您的时间需求。通过简单的申请流程，几分钟内即可开始。",
+
+    "stats": {
+      "processedValue": "50k+",
+      "processedLabel": "已处理信件",
+      "successValue": "99%",
+      "successLabel": "成功率",
+      "supportValue": "24/7",
+      "supportLabel": "全天候支持",
+      "fastestValue": "1小时",
+      "fastestLabel": "最快处理时间"
+    },
+
+    "features": {
+      "express": {
+        "title": "快速处理",
+        "description": "通过我们的高级处理选项，最快1小时内获取您的签证信。"
+      },
+      "secure": {
+        "title": "安全可靠",
+        "description": "银行级加密和安全处理，让您放心无忧。"
+      },
+      "support": {
+        "title": "全天候支持",
+        "description": "我们的专业团队全天候24/7提供帮助，解答您的任何疑问。"
+      }
+    },
+
+    "cta": {
+      "title": "准备好开始了吗？",
+      "description": "加入成千上万信赖我们处理签证信的客户。",
+      "buttonText": "立即开始申请"
+    },
+
+    "faq": {
+      "title": "常见问题",
+      "questions": {
+        "processingTime": "我多久能拿到签证信？",
+        "entryDifference": "单次入境和多次入境有什么区别？",
+        "security": "我的信息安全吗？"
+      },
+      "answers": {
+        "processingTime": "我们最快的处理时间为1小时，适用于高级服务。此外，我们还提供多种处理速度，以满足您的需求和预算。",
+        "entryDifference": "单次入境签证允许您进入该国一次，而多次入境签证则允许在签证有效期内多次入境。",
+        "security": "是的，我们采用银行级加密和安全处理系统，以保护您的个人信息和文件。"
+      }
+    },
+
+    "news": {
+      "title": "最新资讯",
+      "items": {
+        "express": {
+          "title": "新增快速处理选项",
+          "content": "我们增加了更多快速处理选项，以更好地满足您的紧急签证信需求。"
+        },
+        "holiday": {
+          "title": "假期期间的处理时间",
+          "content": "请注意，假期期间的处理时间可能会稍长。"
+        },
+        "discount": {
+          "title": "特别团体折扣",
+          "content": "5人或以上一起申请，可享受所有处理费用10%的折扣。"
+        },
+        "verification": {
+          "title": "新的验证流程",
+          "content": "我们优化的验证流程使申请更快、更可靠。"
+        }
+      }
+    },
+
+    "pricing": {
+      "title": "选择您的计划",
+      "subtitle": "选择最适合您旅行需求的选项",
+      "singleEntry": "单次入境",
+      "multipleEntry": "多次入境",
+      "processingOptions": "处理选项",
+      "currency": "货币",
+      "perPerson": "每人"
+    },
+    "pricingTable": {
+      "title": "签证信处理选项",
+      "tableHead": "处理时间",
+      "tableHead2": "15天",
+      "tableHead3": "30天",
+      "cta": "热门选择",
+      "hour": "小时",
+      "days": "天",
+      "standard": "标准"
+    }
   }
 }

@@ -9,6 +9,8 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Zap } from "lucide-react";
+import { useTranslations } from "next-intl";
+
 interface PriceEntry {
   speed: string;
   price: number;
@@ -26,39 +28,42 @@ const PricingTable = ({
   prices: PriceData;
   currency: string;
 }) => {
+  const t = useTranslations("visa-letter");
+
   const formatSpeed = (speed: string) => {
-    if (speed === "NO") return "Standard";
-    if (speed.includes("D")) return `${speed.replace("D", " Days")}`;
-    return `${speed.replace("H", " Hours")}`;
+    if (speed === "NO") return t("pricingTable.standard");
+    if (speed.includes("D"))
+      return `${speed.replace("D", t("pricingTable.days"))}`;
+    return `${speed.replace("H", t("pricingTable.hour"))}`;
   };
 
   const getProcessingIcon = (speed: string) => {
     if (speed === "NO") {
-      return <Clock className="h-4 w-4 text-gray-500" />;
+      return <Clock className="h-4 w-4 text-muted-foreground" />;
     }
-    return <Zap className="h-4 w-4 text-blue-500" />;
+    return <Zap className="h-4 w-4 text-primary" />;
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Card className="shadow-lg">
-        <CardHeader className="text-center border-b border-gray-100 bg-gradient-to-r from-blue-50 to-indigo-50">
-          <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
-            Visa Letter Processing Options
+      <Card className="shadow-lg border-primary/10">
+        <CardHeader className="text-center border-b bg-gradient-to-r from-primary/5 to-primary/10">
+          <CardTitle className="text-3xl font-bold text-primary">
+            {t("pricingTable.title")}
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead className="w-1/3 text-lg font-semibold ">
-                  Processing Time
+              <TableRow className="border-b-2 border-secondary">
+                <TableHead className="w-1/3 text-lg font-semibold text-foreground">
+                  {t("pricingTable.tableHead")}
                 </TableHead>
-                <TableHead className="text-right text-lg font-semibold ">
-                  15 Days
+                <TableHead className="text-right text-lg font-semibold text-foreground">
+                  {t("pricingTable.tableHead2")}
                 </TableHead>
-                <TableHead className="text-right text-lg font-semibold ">
-                  30 Days
+                <TableHead className="text-right text-lg font-semibold text-foreground">
+                  {t("pricingTable.tableHead3")}
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -71,8 +76,8 @@ const PricingTable = ({
                   <TableRow
                     key={item.speed}
                     className={`
-                      border-b transition-colors
-                    
+                      border-b transition-colors hover:bg-muted/30
+                      ${isPopular ? "bg-primary/5" : ""}
                     `}
                   >
                     <TableCell className="font-medium py-4">
@@ -82,9 +87,9 @@ const PricingTable = ({
                         {isPopular && (
                           <Badge
                             variant="secondary"
-                            className="ml-2 bg-blue-100 text-blue-700"
+                            className="ml-2 bg-primary/10 text-primary font-medium"
                           >
-                            Popular Choice
+                            {t("pricingTable.cta")}
                           </Badge>
                         )}
                       </div>
