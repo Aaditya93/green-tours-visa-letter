@@ -15,8 +15,10 @@ import {
 } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import AppSidebar from "@/components/travel-agent/app-sidebar";
+import { useTranslations } from "next-intl";
 
 export default function Loading() {
+  const t = useTranslations("travelAgentApplicationStatus");
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -30,7 +32,7 @@ export default function Loading() {
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Applications Status</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -42,9 +44,9 @@ export default function Loading() {
             <CardHeader className=" border-b p-4 sm:p-3 bg-primary rounded-t-lg">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
                 <CardTitle className="text-xl font-bold text-center sm:text-left text-primary-foreground">
-                  Pending Applications
+                  {t("title2")}
                 </CardTitle>
-                <Badge> Total Applications</Badge>
+                <Badge> {t("labels.totalApplications")}</Badge>
               </div>
             </CardHeader>
             <CardContent className="p-0">

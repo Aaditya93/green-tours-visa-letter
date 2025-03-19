@@ -15,9 +15,11 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/travel-agent/app-sidebar";
+import { useTranslations } from "next-intl";
 
 export default function Loading() {
   // You can add any UI inside Loading, including a Skeleton.
+  const t = useTranslations("travelAgentSearch");
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -30,7 +32,7 @@ export default function Loading() {
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Search</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -42,7 +44,7 @@ export default function Loading() {
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
                 <CardTitle className="flex items-center text-xl font-bold text-center sm:text-left text-primary-foreground">
                   <FilterIcon className="mr-2 w-8 h-8 text-primary-foreground" />
-                  Advanced Search
+                  {t("advancedSearch")}
                 </CardTitle>
               </div>
             </CardHeader>

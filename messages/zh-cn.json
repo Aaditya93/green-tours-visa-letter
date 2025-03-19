@@ -155,6 +155,7 @@
   "travelAgentApplicationStatus": {
     "title": "申请状态",
     "title1": "申请列表",
+    "title3": "申请详情",
     "status": {
       "incomplete": "未完成",
       "complete": "已完成",
@@ -499,6 +500,45 @@
       "8hours": "8小时",
       "1day": "1天",
       "3days": "3天",
+      "normal": "正常"
+    }
+  },
+  "travelBilling": {
+    "title": "账单",
+    "title1": "账单仪表板",
+    "parameter1": "预估费用",
+    "subtitle1": "所有申请的总费用",
+    "parameter2": "实际费用",
+    "subtitle2": "已完成申请的费用",
+    "parameter3": "总申请数",
+    "subtitle3": "所有申请总数",
+    "parameter4": "平均费用",
+    "subtitle4": "每个申请的平均费用",
+    "heading": "申请详情",
+    "description": "所有已完成申请及其费用的列表。",
+    "table": {
+      "code": "代码",
+      "name": "全名",
+      "country": "护照",
+      "passportNumber": "护照号码",
+      "visaType": "签证类型",
+      "birthday": "处理速度",
+      "duration": "时长",
+      "status": "状态",
+      "cost": "费用",
+      "view": "查看",
+      "speed": "速度"
+    },
+    "speeds": {
+      "all": "所有速度",
+      "1hour": "1小时",
+      "2hours": "2小时",
+      "4hours": "4小时",
+      "8hours": "8小时",
+      "1day": "1天",
+      "2days": "2天",
+      "3days": "3天",
+      "4days": "4天",
       "normal": "正常"
     }
   }

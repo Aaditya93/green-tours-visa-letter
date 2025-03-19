@@ -13,8 +13,10 @@ import {
 } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/travel-agent/app-sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslations } from "next-intl";
 
 const Loading = () => {
+  const t = useTranslations("applyVisa");
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -30,7 +32,7 @@ const Loading = () => {
                 </BreadcrumbItem> */}
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Apply Visa</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

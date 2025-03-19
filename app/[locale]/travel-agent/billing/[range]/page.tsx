@@ -16,6 +16,7 @@ import { getCompleteApplicationsTravelAgentBilling } from "@/actions/agent-platf
 import { convertToApplications } from "@/lib/data";
 import BillingDashboard from "@/components/travel-agent/billing/billing-card";
 import { serializedApplications } from "@/config/serialize";
+import { getTranslations } from "next-intl/server";
 
 function extractDateRange(dateString: string) {
   try {
@@ -65,6 +66,7 @@ const BillingPage = async ({
   );
   const Applications = convertToApplications(applications);
   const PlanObject = serializedApplications(Applications);
+  const t = await getTranslations("travelBilling");
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -80,7 +82,7 @@ const BillingPage = async ({
                 </BreadcrumbItem> */}
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Billing</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

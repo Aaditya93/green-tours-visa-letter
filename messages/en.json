@@ -154,6 +154,7 @@
   "travelAgentApplicationStatus": {
     "title": "Application Status",
     "title1": "Applications",
+    "title2": "Pending Applications",
     "status": {
       "incomplete": "Incomplete",
       "complete": "Complete",
@@ -502,6 +503,45 @@
       "8hours": "8 Hours",
       "1day": "1 Day",
       "3days": "3 Days",
+      "normal": "Normal"
+    }
+  },
+  "travelBilling": {
+    "title": "Billing",
+    "title1": "Billing Dashboard",
+    "parameter1": "Estimated Cost",
+    "subtitle1": "Total from all applications",
+    "parameter2": "Actual Cost",
+    "subtitle2": "From completed applications",
+    "parameter3": "Total Applications",
+    "subtitle3": "Total applications",
+    "parameter4": "Average Cost",
+    "subtitle4": "Per application",
+    "heading": "Applications Detail",
+    "description": "A list of all Complete applications and their cost.",
+    "table": {
+      "code": "Code",
+      "name": "Full Name",
+      "country": "Passport",
+      "passportNumber": "Passport Number",
+      "visaType": "Visa Type",
+      "birthday": "Speed",
+      "duration": "Duration",
+      "status": "Status",
+      "cost": "Cost",
+      "view": "View",
+      "speed": "Speed"
+    },
+    "speeds": {
+      "all": "All Speeds",
+      "1hour": "1 Hour",
+      "2hours": "2 Hours",
+      "4hours": "4 Hours",
+      "8hours": "8 Hours",
+      "1day": "1 Day",
+      "2days": "2 Days",
+      "3days": "3 Days",
+      "4days": "4 Days",
       "normal": "Normal"
     }
   }

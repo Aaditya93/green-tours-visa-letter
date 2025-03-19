@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { TbPresentationAnalytics } from "react-icons/tb";
-
+import { useTranslations } from "next-intl";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,7 +18,7 @@ import {
 import AppSidebar from "@/components/travel-agent/app-sidebar";
 
 export default function Loading() {
-  // You can add any UI inside Loading, including a Skeleton.
+  const t = useTranslations("travelAgentReport");
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -31,7 +31,7 @@ export default function Loading() {
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Report</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -43,7 +43,7 @@ export default function Loading() {
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
                 <CardTitle className="flex items-center text-xl font-bold text-center sm:text-left text-primary-foreground">
                   <TbPresentationAnalytics className="mr-2 w-8 h-8 text-primary-foreground" />
-                  Report
+                  {t("title")}
                 </CardTitle>
               </div>
             </CardHeader>

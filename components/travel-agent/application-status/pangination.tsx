@@ -48,7 +48,7 @@ const PaginationComponentTravelAgent = ({
             }
             aria-disabled={!showPrevious}
             className={!showPrevious ? "pointer-events-none opacity-50" : ""}
-          />
+          ></PaginationPrevious>
         </PaginationItem>
 
         {getPageNumbers().map((pageNumber) => (

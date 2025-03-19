@@ -15,8 +15,10 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { useTranslations } from "next-intl";
 
 export default function Loading() {
+  const t = useTranslations("travelAgentDashboard");
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -29,7 +31,7 @@ export default function Loading() {
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Dashboard</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
