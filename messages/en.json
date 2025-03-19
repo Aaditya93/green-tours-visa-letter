@@ -544,5 +544,18 @@
       "4days": "4 Days",
       "normal": "Normal"
     }
+  },
+  "AdminPDF": {
+    "title": "PDF",
+    "Error": "Failed to convert PDF to images",
+    "Error1": "Please select a PDF file",
+    "title1": "PDF Upload",
+    "description": " Upload, preview, and convert PDF to images",
+    "label": "PDF Preview",
+    "button": "Download All",
+    "message": "Converting PDF pages to images...",
+    "page": "Page",
+    "message1": "Converting...",
+    "message2": "Convert to Images"
   }
 }

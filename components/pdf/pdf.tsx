@@ -14,8 +14,10 @@ import {
 import { FileText, Trash2, Images, Download } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 const PDFUploader = () => {
+  const t = useTranslations("AdminPDF");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [error, setError] = useState("");
@@ -134,7 +136,7 @@ const PDFUploader = () => {
       setImages(convertedImages);
     } catch (error) {
       console.error("PDF conversion error:", error);
-      setError("Failed to convert PDF to images");
+      setError(t("Error"));
     } finally {
       setIsConverting(false);
     }
@@ -150,7 +152,7 @@ const PDFUploader = () => {
       const random = Math.random() * 1000000; // Add randomness
       return `${timestamp}-${Math.floor(random).toString(36)}`;
     } catch (error) {
-      console.error('Error generating ID:', error);
+      console.error("Error generating ID:", error);
       return Date.now().toString(36); // Fallback
     }
   };
@@ -176,27 +178,28 @@ const PDFUploader = () => {
   const handleSubmit = (event: FormSubmitEvent): void => {
     event.preventDefault();
     if (!selectedFile) {
-      setError("Please select a PDF file");
+      setError(t("Error1"));
       return;
     }
 
     // Here you would typically upload the file to a server
-
   };
 
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader className="bg-primary rounded-t-lg mb-4">
-        <CardTitle className="text-primary-foreground ">PDF Upload </CardTitle>
+        <CardTitle className="text-primary-foreground ">
+          {t("title1")}
+        </CardTitle>
       </CardHeader>
-      <CardDescription  className="text-sm justify-start ml-6 mb-4">
-          Upload, preview, and convert PDF to images
-        </CardDescription>
-     
+      <CardDescription className="text-sm justify-start ml-6 mb-4">
+        {t("description")}
+      </CardDescription>
+
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <Label htmlFor="pdfUpload">Upload PDF</Label>
+            <Label htmlFor="pdfUpload">{t("title1")}</Label>
             <Input
               id="pdfUpload"
               type="file"
@@ -226,7 +229,7 @@ const PDFUploader = () => {
 
           {previewUrl && images.length === 0 && (
             <div className="mt-4">
-              <Label>PDF Preview</Label>
+              <Label>{t("label")}</Label>
               <iframe
                 src={previewUrl}
                 className="w-full h-64 border rounded-md mt-2"
@@ -239,34 +242,29 @@ const PDFUploader = () => {
               <Button
                 type="button"
                 onClick={convertPdfToImages}
-              
                 className="flex-grow"
               >
                 <Images className="mr-2 h-4 w-4" />
-                {isConverting ? "Converting..." : "Convert to Images"}
+                {isConverting ? t("message1") : t("message2")}
               </Button>
-              </div>
-            )}
+            </div>
+          )}
 
-              {images.length > 0 && (
-                <div   className="flex items-end justify-end">
-                <Button
-                  type="button"
-                  variant="secondary"
-                  onClick={downloadAllImages}
-                 
-                >
-                  <Download className="mr-2 h-4 w-4" /> Download All
-                </Button>
-                </div>
-              )}
-
-         
+          {images.length > 0 && (
+            <div className="flex items-end justify-end">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={downloadAllImages}
+              >
+                <Download className="mr-2 h-4 w-4" />
+                {t("button")}
+              </Button>
+            </div>
+          )}
 
           {isConverting && (
-            <p className="text-center text-gray-500 mt-2">
-              Converting PDF pages to images...
-            </p>
+            <p className="text-center text-gray-500 mt-2">{t("message")}</p>
           )}
 
           {images.length > 0 && (
@@ -295,7 +293,7 @@ const PDFUploader = () => {
                     </Button>
                   </div>
                   <p className="text-center mt-2 text-sm">
-                    Page {image.pageNum}
+                    {t("page")} {image.pageNum}
                   </p>
                 </div>
               ))}

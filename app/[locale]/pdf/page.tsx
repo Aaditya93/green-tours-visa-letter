@@ -1,13 +1,11 @@
-import  AppSidebar  from "@/components/app-sidebar";
+import AppSidebar from "@/components/app-sidebar";
 import PDFUploader from "@/components/pdf/pdf";
 
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -15,9 +13,9 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-
-
-const PdfPage =() =>{
+import { useTranslations } from "next-intl";
+const PdfPage = () => {
+  const t = useTranslations("AdminPDF");
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -28,12 +26,8 @@ const PdfPage =() =>{
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">Upload</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>PDF</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -45,6 +39,6 @@ const PdfPage =() =>{
       </SidebarInset>
     </SidebarProvider>
   );
-}
+};
 
 export default PdfPage;

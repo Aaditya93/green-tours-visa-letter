@@ -541,5 +541,18 @@
       "4days": "4天",
       "normal": "正常"
     }
+  },
+  "AdminPDF": {
+    "title": "PDF",
+    "Error": "PDF 转换为图片失败",
+    "Error1": "请选择一个 PDF 文件",
+    "title1": "PDF 上传",
+    "description": "上传、预览并将 PDF 转换为图片",
+    "label": "PDF 预览",
+    "button": "全部下载",
+    "message": "正在将 PDF 页面转换为图片...",
+    "page": "页面",
+    "message1": "转换中...",
+    "message2": "转换为图片"
   }
 }
