@@ -8,7 +8,7 @@ import {
   DataSpeedChart,
   DataUserBarChart,
 } from "@/components/report/data";
-
+import { getTranslations } from "next-intl/server";
 import { UserBarChart } from "@/components/report/user-bar-chart";
 import { CountryChart } from "@/components/report/country-chart";
 import { DataPieChartCountry } from "@/components/report/data-country";
@@ -21,6 +21,7 @@ const ReportPage = async ({ Application }: ReportPageProps) => {
   const LineChart = DataMainLineChart(Application);
   const barchart = DataUserBarChart(Application);
   const pieChart = DataPieChartCountry(Application);
+  const t = await getTranslations("travelReport");
 
   const speedChart = DataSpeedChart(Application);
 
@@ -31,7 +32,7 @@ const ReportPage = async ({ Application }: ReportPageProps) => {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
             <CardTitle className="flex items-center text-xl font-bold text-center sm:text-left text-primary-foreground">
               <TbPresentationAnalytics className="mr-2 w-8 h-8 text-primary-foreground" />
-              Report
+              {t("title")}
             </CardTitle>
             <DatePickerWithRange />
           </div>

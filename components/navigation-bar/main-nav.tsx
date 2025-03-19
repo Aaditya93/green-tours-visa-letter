@@ -9,9 +9,9 @@ export const MainNav = () => {
 
   return (
     <div className="mr-4 hidden md:flex">
-      <div className="relative w-16 h-16 bg-background">
+      <div className="relative w-10 h-10 bg-background">
         <Image
-          src="/favicon.ico"
+          src="/tours.png"
           alt="VISACAR Logo"
           fill
           className="object-contain p-1"

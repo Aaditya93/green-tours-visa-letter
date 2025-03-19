@@ -477,5 +477,32 @@
       "billing": "Billing",
       "visaLetter": "Visa Letter"
     }
+  },
+  "travelReport": {
+    "title": "Report",
+    "lineChart": {
+      "title": "Total Applications",
+      "subtitle": "Applications from",
+      "label": "Applications"
+    },
+    "userChart": {
+      "title": "Employee",
+      "subtitle": "Showing Applications Per Employee",
+      "label": "Total Applications"
+    },
+    "countryChart": {
+      "title": "Country",
+      "subtitle": "Showing Applications Per Country",
+      "label": "Total Applications"
+    },
+    "speedChart": {
+      "title": "Speed",
+      "label": "Total Applications",
+      "4hours": "4 Hours",
+      "8hours": "8 Hours",
+      "1day": "1 Day",
+      "3days": "3 Days",
+      "normal": "Normal"
+    }
   }
 }

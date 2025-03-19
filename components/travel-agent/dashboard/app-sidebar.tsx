@@ -295,7 +295,7 @@ const AppSidebar = ({
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
-                <div className="flex aspect-square size-8 items-center  justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                <div className="flex aspect-square size-8 items-center  justify-center rounded-lg text-sidebar-primary-foreground">
                   <Image
                     src="/tours.png"
                     alt=""

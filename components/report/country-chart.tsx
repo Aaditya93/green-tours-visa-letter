@@ -1,7 +1,6 @@
-
 "use client";
 
-import { Label, Pie, PieChart } from "recharts"
+import { Label, Pie, PieChart } from "recharts";
 import React from "react";
 import {
   Card,
@@ -9,46 +8,46 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
+import { useTranslations } from "next-intl";
 
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  
- 
-} satisfies ChartConfig
 interface CountryData {
-    Country: string;
-    TotalApplication: number;
-    fill: string;
-  }
-  
-export const CountryChart = ({data}:{data: CountryData[]}) =>{
-  
-   const total = React.useMemo(
-      () => ({
-        total: data?.reduce((acc, curr) => acc + curr.TotalApplication, 0) || 0,
-      }),
-      [data]
-    );
+  Country: string;
+  TotalApplication: number;
+  fill: string;
+}
+
+export const CountryChart = ({ data }: { data: CountryData[] }) => {
+  const t = useTranslations("travelReport.countryChart");
+
+  const total = React.useMemo(
+    () => ({
+      total: data?.reduce((acc, curr) => acc + curr.TotalApplication, 0) || 0,
+    }),
+    [data]
+  );
+
+  const chartConfig = {
+    visitors: {
+      label: "Visitors",
+    },
+  } satisfies ChartConfig;
 
   return (
     <Card className="flex flex-col rounded-none">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Country</CardTitle>
-        <CardDescription>Showing Applications Per Country</CardDescription>
+        <CardTitle>{t("title")}</CardTitle>
+        <CardDescription>{t("subtitle")}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-
           className="mx-auto aspect-square max-h-[340px]"
         >
           <PieChart>
@@ -86,10 +85,10 @@ export const CountryChart = ({data}:{data: CountryData[]}) =>{
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                        Total Application
+                          {t("label")}
                         </tspan>
                       </text>
-                    )
+                    );
                   }
                 }}
               />
@@ -97,7 +96,6 @@ export const CountryChart = ({data}:{data: CountryData[]}) =>{
           </PieChart>
         </ChartContainer>
       </CardContent>
-     
     </Card>
-  )
-}
+  );
+};

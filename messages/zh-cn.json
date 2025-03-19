@@ -473,5 +473,33 @@
       "billing": "账单",
       "visaLetter": "签证信"
     }
+  },
+
+  "travelReport": {
+    "title": "报告",
+    "lineChart": {
+      "title": "总申请数",
+      "subtitle": "申请来源",
+      "label": "申请数"
+    },
+    "userChart": {
+      "title": "员工",
+      "subtitle": "显示每位员工的申请数",
+      "label": "总申请数"
+    },
+    "countryChart": {
+      "title": "国家",
+      "subtitle": "显示每个国家的申请数",
+      "label": "总申请数"
+    },
+    "speedChart": {
+      "title": "速度",
+      "label": "总申请数",
+      "4hours": "4小时",
+      "8hours": "8小时",
+      "1day": "1天",
+      "3days": "3天",
+      "normal": "正常"
+    }
   }
 }

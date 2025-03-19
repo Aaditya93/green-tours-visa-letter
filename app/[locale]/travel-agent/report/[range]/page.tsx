@@ -18,6 +18,8 @@ import { getCompleteApplicationsReportPageTravelAgent } from "@/actions/applicat
 import ReportPage from "@/components/travel-agent/report/report-page";
 import { Application } from "@/app/schemas/types";
 
+import { getTranslations } from "next-intl/server";
+
 function extractDateRange(dateString: string) {
   try {
     if (!dateString) {
@@ -67,6 +69,7 @@ const SearchPage = async ({
   const planObject = serializedApplications(
     applications ?? []
   ) as Application[];
+  const t = await getTranslations("travelReport");
 
   return (
     <SidebarProvider>
@@ -80,7 +83,7 @@ const SearchPage = async ({
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Report</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

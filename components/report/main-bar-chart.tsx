@@ -16,58 +16,48 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { useTranslations } from "next-intl";
 
-const chartConfig = {
-  views: {
-    label: "Applications",
-  },
-  totalApplication: {
-    label: "Total Application",
-    color: "hsl(var(--chart-1))",
-  },
-} satisfies ChartConfig;
 interface ChartData {
   date: string;
   totalApplication: number;
-
 }
 export const MainLineChart = ({ data }: { data: ChartData[] }) => {
+  const t = useTranslations("travelReport.lineChart");
   const total = React.useMemo(
     () => ({
       total: data?.reduce((acc, curr) => acc + curr.totalApplication, 0) || 0,
     }),
     [data]
   );
-  
-  
 
+  const chartConfig = {
+    views: {
+      label: t("label"),
+    },
+    totalApplication: {
+      label: t("title"),
+      color: "hsl(var(--chart-1))",
+    },
+  } satisfies ChartConfig;
 
   return (
     <Card className="rounded-none ">
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle>Total Applications</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
           <CardDescription>
-            Applications from {data[0]?.date} to {data[data.length - 1]?.date}
+            {t("subtitle")} {data[0]?.date} to {data[data.length - 1]?.date}
           </CardDescription>
         </div>
         <div className="flex">
-        
-              <button
-               
-                className="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6"
-                
-              >
-                <span className="text-xs text-muted-foreground">
-                  Total Applications
-                </span>
-                <span className="text-lg font-bold leading-none sm:text-3xl">
-                {total.total}
-                </span>
-              </button>
-             
-            
-          </div>
+          <button className="flex flex-1 flex-col justify-center gap-1 border-t px-6 py-4 text-left even:border-l data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-8 sm:py-6">
+            <span className="text-xs text-muted-foreground">{t("title")}</span>
+            <span className="text-lg font-bold leading-none sm:text-3xl">
+              {total.total}
+            </span>
+          </button>
+        </div>
       </CardHeader>
       <CardContent className="px-2 sm:p-6">
         <ChartContainer
