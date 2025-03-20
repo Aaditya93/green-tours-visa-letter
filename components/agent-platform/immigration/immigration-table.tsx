@@ -21,6 +21,7 @@ import { Application } from "@/app/schemas/types";
 import { Button } from "@/components/ui/button";
 import { downloadFileImmigration } from "@/lib/data-client";
 import { MoreHorizontal } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type DurationCategory =
   | "NO"
@@ -146,12 +147,15 @@ const ImmigrationTable: React.FC<{
 
     return result;
   }, [applications, currency, durationColumns]);
+  const t = useTranslations("immigrationPayment");
 
   return (
     <Card className="mt-4">
       <CardHeader className="rounded-t-lg border-b bg-secondary mb-0">
         <CardTitle className="flex items-center justify-between mb-0 px-4">
-          <div>{days} Days</div>
+          <div>
+            {days} {t("days")}
+          </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="h-8 w-8 p-0">
@@ -160,7 +164,7 @@ const ImmigrationTable: React.FC<{
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuLabel>{t("actions")}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => {
@@ -172,7 +176,7 @@ const ImmigrationTable: React.FC<{
                   );
                 }}
               >
-                Download .xlsx
+                {t("download")} .xlsx
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => {
@@ -185,7 +189,7 @@ const ImmigrationTable: React.FC<{
                   );
                 }}
               >
-                Download Pdf
+                {t("download")} Pdf
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => {
@@ -197,7 +201,7 @@ const ImmigrationTable: React.FC<{
                   );
                 }}
               >
-                Download .csv
+                {t("download")} .csv
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -208,7 +212,7 @@ const ImmigrationTable: React.FC<{
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-32">DATE</TableHead>
+                <TableHead className="w-32">{t("date")}</TableHead>
                 {durationColumns.map((col) => (
                   <TableHead key={col} className="text-right">
                     {col}
@@ -216,7 +220,9 @@ const ImmigrationTable: React.FC<{
                 ))}
               </TableRow>
               <TableRow>
-                <TableCell>Avg. Price ({currency})</TableCell>
+                <TableCell>
+                  {t("price")} ({currency})
+                </TableCell>
                 {durationColumns.map((col) => (
                   <TableCell key={col} className="text-right text-red-500">
                     {currency}{" "}
@@ -239,7 +245,7 @@ const ImmigrationTable: React.FC<{
                 </TableRow>
               ))}
               <TableRow className="font-bold bg-muted">
-                <TableCell>Number of pax</TableCell>
+                <TableCell>{t("noOfPax")}</TableCell>
                 {durationColumns.map((col) => (
                   <TableCell key={col} className="text-right">
                     {transformedData.data.reduce(
@@ -250,7 +256,9 @@ const ImmigrationTable: React.FC<{
                 ))}
               </TableRow>
               <TableRow className="font-bold">
-                <TableCell>Total ({currency})</TableCell>
+                <TableCell>
+                  {t("total")} ({currency})
+                </TableCell>
                 {durationColumns.map((col) => (
                   <TableCell key={col} className="text-right">
                     {currency}{" "}
@@ -268,10 +276,10 @@ const ImmigrationTable: React.FC<{
             <TableFooter>
               <TableRow>
                 <TableCell colSpan={5} className="font-bold">
-                  Total (Pax): {transformedData.summary.totalPax} Pax
+                  {t("totalPax")}: {transformedData.summary.totalPax} {t("pax")}
                 </TableCell>
                 <TableCell colSpan={5} className="font-bold text-right">
-                  Total: {currency}{" "}
+                  {t("total")}: {currency}{" "}
                   {transformedData.summary.totalAmount.toLocaleString()}
                 </TableCell>
               </TableRow>

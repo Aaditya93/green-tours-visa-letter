@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { useTranslations } from "next-intl";
 import {
   approveTravelAgent,
   regjectTravelAgent,
@@ -40,6 +40,7 @@ interface UserApprovalCardsProps {
 export const UserApprovalCards = (
   UserApprovalCardsProps: UserApprovalCardsProps
 ) => {
+  const t = useTranslations("adminPanel.card");
   const { data } = UserApprovalCardsProps;
   const [selectedStaff, setSelectedStaff] = useState("");
   const salesStaff = [
@@ -114,35 +115,35 @@ export const UserApprovalCards = (
           </CardHeader>
           <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-6 ">
             <div className="space-y-1">
-              <p className="text-sm text-gray-500">Email</p>
+              <p className="text-sm text-gray-500">{t("email")}</p>
               <p className="text-base font-medium">{user.email}</p>
             </div>
             <div className="space-y-1">
-              <p className="text-sm text-gray-500">Company</p>
+              <p className="text-sm text-gray-500">{t("company")}</p>
               <p className="text-base font-medium">{user.company}</p>
             </div>
             <div className="space-y-1">
-              <p className="text-sm text-gray-500">Country</p>
+              <p className="text-sm text-gray-500">{t("country")}</p>
               <p className="text-base font-medium">{user.country}</p>
             </div>
             <div className="space-y-1">
-              <p className="text-sm text-gray-500">Created At</p>
+              <p className="text-sm text-gray-500">{t("createdAt")}</p>
               <p className="text-base font-medium">
                 {formatDate(user.createdAt)}
               </p>
             </div>
             <div className="space-y-1">
-              <p className="text-sm text-gray-500">Address</p>
+              <p className="text-sm text-gray-500">{t("address")}</p>
               <p className="text-base font-medium">{user.address}</p>
             </div>
             <div className="space-y-1">
               <Select value={selectedStaff} onValueChange={setSelectedStaff}>
                 <SelectTrigger className="mt-4">
-                  <SelectValue placeholder="Select Staff Member" />
+                  <SelectValue placeholder={t("select")} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Sales Staff</SelectLabel>
+                    <SelectLabel>{t("sales")}</SelectLabel>
                     {salesStaff.map((staff) => (
                       <SelectItem key={staff} value={staff}>
                         {staff}
@@ -158,14 +159,14 @@ export const UserApprovalCards = (
               onClick={() => handleApprove(user._id)}
               className="flex-1 bg-green-500 "
             >
-              Approve
+              {t("approve")}
             </Button>
             <Button
               onClick={() => handleReject(user._id)}
               variant="destructive"
               className="flex-1"
             >
-              Reject
+              {t("reject")}
             </Button>
           </CardFooter>
         </Card>

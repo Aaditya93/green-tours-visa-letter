@@ -530,7 +530,8 @@
       "status": "Status",
       "cost": "Cost",
       "view": "View",
-      "speed": "Speed"
+      "speed": "Speed",
+      "days": "Days"
     },
     "speeds": {
       "all": "All Speeds",
@@ -557,5 +558,202 @@
     "page": "Page",
     "message1": "Converting...",
     "message2": "Convert to Images"
+  },
+  "appSidebar": {
+    "navigation": "Navigation",
+    "branding": {
+      "name": "VISACAR",
+      "tier": "Enterprise",
+      "logoAlt": "VISACAR Logo"
+    },
+    "menu": {
+      "agentPlatform": "Agent Platform",
+      "adminPanel": "Admin Panel",
+      "visaLetterPrice": "Visa Letter Prices",
+      "immgrationPrice": "Immgration Prices",
+      "aPayment": "A-Payment",
+      "iPayment": "I-Payment",
+      "billing": "Billing",
+      "dashboard": "Dashboard",
+      "report": "Report",
+      "pdf": "PDF",
+      "search": "Search"
+    }
+  },
+  "appSiderbarDashboard": {
+    "visa": "Visa",
+    "clear": "Clear",
+    "navigation": "Navigation",
+    "search": {
+      "title": "Search",
+      "parameter1": "Full Name",
+      "parameter2": "Passport Number",
+      "parameter3": "Code",
+      "parameter4": "Country"
+    },
+    "filter": {
+      "title": "Filter",
+      "parameter1": "Airport",
+      "parameter2": "Embassy",
+      "parameter3": "Creator",
+      "parameter4": "Speed",
+      "parameter5": "Type of Visa"
+    },
+    "date": {
+      "title": "Date",
+      "parameter1": "Created Date",
+      "parameter2": "From Date",
+      "parameter3": "To Date"
+    },
+
+    "branding": {
+      "name": "VISACAR",
+      "tier": "Enterprise",
+      "logoAlt": "VISACAR Logo"
+    },
+    "menu": {
+      "agentPlatform": "Agent Platform",
+      "adminPanel": "Admin Panel",
+      "visaLetterPrice": "Visa Letter Prices",
+      "immgrationPrice": "Immgration Prices",
+      "aPayment": "A-Payment",
+      "iPayment": "I-Payment",
+      "billing": "Billing",
+      "dashboard": "Dashboard",
+      "report": "Report",
+      "pdf": "PDF",
+      "search": "Search"
+    }
+  },
+  "adminBilling": {
+    "title": "Billing",
+    "title1": "Billing Dashboard",
+    "parameter1": "Estimated Cost",
+    "subtitle1": "Total from all applications",
+    "parameter2": "Actual Cost",
+    "subtitle2": "From completed applications",
+    "parameter3": "Total Applications",
+    "subtitle3": "Processed Applications",
+    "parameter4": "Average Cost",
+    "subtitle4": "Per application",
+    "days": "Days",
+    "actions": "Actions",
+    "download": "Download",
+    "date": "Date",
+    "price": "Avg. Price",
+    "total": "Total",
+    "noOfPax": "Number of pax",
+    "totalPax": "Total Pax",
+    "pax": "Pax",
+    "selectCompany": "Select Company"
+  },
+  "adminPanel": {
+    "title": "Admin Panel",
+    "title1": "Pending Approval",
+    "title2": "Total Applications",
+    "card": {
+      "email": "Email",
+      "country": "Country",
+      "Company": "Company",
+      "address": "Address",
+      "createdAt": "Created At",
+      "approve": "Approve",
+      "reject": "Reject",
+      "select": "Select Staff Member",
+      "sales": "Sales Staff"
+    }
+  },
+  "immigrationPayment": {
+    "title": "I-Payment",
+    "title1": "Immigration Dashboard",
+    "parameter1": "Estimated Cost",
+    "subtitle1": "Total from all applications",
+    "parameter2": "Actual Cost",
+    "subtitle2": "From completed applications",
+    "parameter3": "Total Applications",
+    "subtitle3": "Processed Applications",
+    "parameter4": "Average Cost",
+    "subtitle4": "Per application",
+    "days": "Days",
+    "actions": "Actions",
+    "download": "Download",
+    "date": "Date",
+    "price": "Avg. Price",
+    "total": "Total",
+    "noOfPax": "Number of pax",
+    "totalPax": "Total Pax",
+    "pax": "Pax"
+  },
+  "agentPayment": {
+    "title": "A-Payment",
+    "title1": "Payment Dashboard",
+    "parameter1": "Estimated Cost",
+    "subtitle1": "Total from all applications",
+    "parameter2": "Actual Cost",
+    "subtitle2": "From completed applications",
+    "parameter3": "Total Applications",
+    "subtitle3": "Total applications",
+    "parameter4": "Average Cost",
+    "subtitle4": "Per application",
+    "heading": "Applications Detail",
+    "description": "A list of all Complete applications and their cost.",
+    "table": {
+      "code": "Code",
+      "name": "Full Name",
+      "country": "Passport",
+      "passportNumber": "Passport Number",
+      "visaType": "Visa Type",
+      "birthday": "Speed",
+      "duration": "Duration",
+      "status": "Status",
+      "cost": "Cost",
+      "view": "View",
+      "speed": "Speed",
+      "days": "Days"
+    },
+    "speeds": {
+      "all": "All Speeds",
+      "1hour": "1 Hour",
+      "2hours": "2 Hours",
+      "4hours": "4 Hours",
+      "8hours": "8 Hours",
+      "1day": "1 Day",
+      "2days": "2 Days",
+      "3days": "3 Days",
+      "4days": "4 Days",
+      "normal": "Normal"
+    },
+    "selectCompany": "Select Company"
+  },
+  "immigrationPrices": {
+    "title": "Immgration Prices",
+    "subtitle": " Total Immigration Centers",
+    "action": " Edit Prices",
+    "id": "ID",
+    "immigration": "Immigration",
+    "lastPriceUpdated": "Last Price Updated",
+    "lastUpdated": "Last Updated",
+    "days": "Days",
+    "action1": "Save Changes"
+  },
+  "visaLetterPrices": {
+    "title": "Visa Letter Prices",
+    "subtitle": "Total Companies",
+    "action": "Edit Prices",
+    "id": "ID",
+    "company": "Company",
+    "action1": "Configure Pricing",
+    "action2": "Save Changes",
+    "days": "Days",
+    "phoneNumber": "Phone Number",
+    "email": "Email",
+    "address": "Address",
+    "country": "Country",
+    "clientManger": "Client Manager",
+    "lastUpdated": "Last Updated",
+    "search": "Search...",
+    "search1": "Search Company...",
+    "search2": "Type a Name or search...",
+    "result": "No results found."
   }
 }

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { type DialogProps } from "@radix-ui/react-dialog";
-
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -50,6 +50,7 @@ const CommandMenu = ({ companies = [], ...props }: CommandMenuProps) => {
     setOpen(false);
     command();
   }, []);
+  const t = useTranslations("visaLetterPrices");
 
   return (
     <>
@@ -61,17 +62,17 @@ const CommandMenu = ({ companies = [], ...props }: CommandMenuProps) => {
         onClick={() => setOpen(true)}
         {...props}
       >
-        <span className="hidden lg:inline-flex">Search Company...</span>
-        <span className="inline-flex lg:hidden">Search...</span>
+        <span className="hidden lg:inline-flex">{t("search1")}</span>
+        <span className="inline-flex lg:hidden">{t("search")}</span>
         <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
           <span className="text-xs">⌘</span>K
         </kbd>
       </Button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a Name or search..." />
+        <CommandInput placeholder={t("search2")} />
         <CommandList className="min-h-[400px]">
-          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandEmpty>{t("result")}</CommandEmpty>
           <CommandGroup>
             {companies.map((company) => (
               <CommandItem

@@ -17,6 +17,7 @@ import AppSidebar from "@/components/app-sidebar";
 
 import { getImmigrationCostAll } from "@/actions/agent-platform/immigration-cost";
 import ImmigrationCard from "@/components/agent-platform/admin-panel/immigration-card";
+import { getTranslations } from "next-intl/server";
 
 const VisaLetterPrices = async ({
   params,
@@ -26,6 +27,7 @@ const VisaLetterPrices = async ({
   const { range } = await params;
   const prices = await getImmigrationCostAll();
   const planObj = serializeIApplication(prices);
+  const t = await getTranslations("immigrationPrices");
 
   return (
     <SidebarProvider>
@@ -39,7 +41,7 @@ const VisaLetterPrices = async ({
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Apply Visa</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

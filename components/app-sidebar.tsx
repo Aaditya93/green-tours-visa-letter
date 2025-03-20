@@ -1,13 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { LifeBuoy, Send, SquareTerminal } from "lucide-react";
+import { SquareTerminal } from "lucide-react";
 import { NavMain } from "./nav-main";
 import { GrAnalytics } from "react-icons/gr";
 import { BsFiletypePdf } from "react-icons/bs";
 import { CiViewTable } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
-
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import { NavProjects } from "@/components/nav-projects";
@@ -32,83 +32,67 @@ const seven = sevendaysAgo.toISOString().split("T")[0];
 
 const to = today.toISOString().split("T")[0];
 
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
-    {
-      title: "Agent Platform",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "Admin Panel",
-          url: "/agent-platform/admin-panel",
-        },
-        {
-          title: "Visa Letter Prices",
-          url: "/agent-platform/visa-letter-price/10",
-        },
-        {
-          title: "Immgration Prices",
-          url: `/agent-platform/immigration-price/10`,
-        },
-        {
-          title: "A-Payment",
-          url: `/agent-platform/payment/6777bb039da64c84fb251323/from=${seven}&to=${to}`,
-        },
-        {
-          title: "I-Payment",
-          url: `/agent-platform/payment/immigration/Hanoi/from=${seven}&to=${to}`,
-        },
-        {
-          title: "Billing",
-          url: `agent-platform/billing/677b88cc3c6259f5025f6645/from=${seven}&to=${to}`,
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-  Upload: [
-    {
-      name: "Dashboard",
-      url: "/dashboard",
-      icon: CiViewTable,
-    },
-    {
-      name: "Search",
-      url: `/search/from=${to}&to=${to}`,
-      icon: CiSearch,
-    },
-    {
-      name: "PDF",
-      url: "/pdf",
-      icon: BsFiletypePdf,
-    },
-    {
-      name: "Report",
-      url: `/report/from=${seven}&to=${to}`,
-      icon: GrAnalytics,
-    },
-  ],
-};
-
 const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
+  const t = useTranslations("appSidebar");
+  const data = {
+    navMain: [
+      {
+        title: t("menu.agentPlatform"),
+        url: "#",
+        icon: SquareTerminal,
+        isActive: true,
+        items: [
+          {
+            title: t("menu.adminPanel"),
+            url: "/agent-platform/admin-panel",
+          },
+          {
+            title: t("menu.visaLetterPrice"),
+            url: "/agent-platform/visa-letter-price/10",
+          },
+          {
+            title: t("menu.immgrationPrice"),
+            url: `/agent-platform/immigration-price/10`,
+          },
+          {
+            title: t("menu.aPayment"),
+            url: `/agent-platform/payment/6777bb039da64c84fb251323/from=${seven}&to=${to}`,
+          },
+          {
+            title: t("menu.iPayment"),
+            url: `/agent-platform/payment/immigration/Hanoi/from=${seven}&to=${to}`,
+          },
+          {
+            title: t("menu.billing"),
+            url: `agent-platform/billing/677b88cc3c6259f5025f6645/from=${seven}&to=${to}`,
+          },
+        ],
+      },
+    ],
+
+    Upload: [
+      {
+        name: t("menu.dashboard"),
+        url: "/dashboard",
+        icon: CiViewTable,
+      },
+      {
+        name: t("menu.search"),
+        url: `/search/from=${to}&to=${to}`,
+        icon: CiSearch,
+      },
+      {
+        name: t("menu.pdf"),
+        url: "/pdf",
+        icon: BsFiletypePdf,
+      },
+      {
+        name: t("menu.report"),
+        url: `/report/from=${seven}&to=${to}`,
+        icon: GrAnalytics,
+      },
+    ],
+  };
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -126,8 +110,10 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
                   />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">VISACAR</span>
-                  <span className="truncate text-xs">Enterprise</span>
+                  <span className="truncate font-semibold">
+                    {t("branding.name")}
+                  </span>
+                  <span className="truncate text-xs">{t("branding.tier")}</span>
                 </div>
               </a>
             </SidebarMenuButton>

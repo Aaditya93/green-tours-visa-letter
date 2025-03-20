@@ -24,7 +24,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Application } from "@/app/schemas/types";
 import Link from "next/link";
@@ -50,6 +50,7 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
   const companyId = params?.companyId as string;
   const today = new Date();
   const thirtyDaysAgo = new Date(today.setDate(today.getDate() - 30));
+  const t = useTranslations("agentPayment");
 
   const fromDate =
     searchParams?.get("from") || format(thirtyDaysAgo, "yyyy-MM-dd");
@@ -117,13 +118,13 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
       <CardHeader className="bg-primary rounded-t-lg">
         <div className="flex flex-row justify-between items-center">
           <CardTitle className="text-2xl font-bold tracking-tight text-primary-foreground">
-            Payment Dashboard
+            {t("title1")}
           </CardTitle>
           <div className="flex items-center gap-4">
             <div className="bg-primary-foreground rounded-lg">
               <Select value={companyId} onValueChange={handelSelect}>
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Select Company" />
+                  <SelectValue placeholder={t("selectCompany")} />
                 </SelectTrigger>
                 <SelectContent>
                   {companies.map((company) => (
@@ -143,7 +144,7 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Estimated Cost
+                {t("parameter1")}
               </CardTitle>
               <BadgeDollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
@@ -151,45 +152,41 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
               <div className="text-2xl font-bold">
                 {estimatedCost.toLocaleString()} {currency}
               </div>
-              <p className="text-xs text-muted-foreground">
-                Total from all applications
-              </p>
+              <p className="text-xs text-muted-foreground">{t("subtitle1")}</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Actual Cost</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                {t("parameter2")}
+              </CardTitle>
               <BadgeDollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
                 {actualCost.toLocaleString()} {currency}
               </div>
-              <p className="text-xs text-muted-foreground">
-                From completed applications
-              </p>
+              <p className="text-xs text-muted-foreground">{t("subtitle2")}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Total Applications
+                {t("parameter3")}
               </CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{totalApplications}</div>
-              <p className="text-xs text-muted-foreground">
-                Processed Applications
-              </p>
+              <p className="text-xs text-muted-foreground">{t("subtitle3")}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Average Cost
+                {t("parameter4")}
               </CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
@@ -197,7 +194,7 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
               <div className="text-2xl font-bold">
                 {averageCost.toFixed(2)} {currency}
               </div>
-              <p className="text-xs text-muted-foreground">Per application</p>
+              <p className="text-xs text-muted-foreground"> {t("subtitle4")}</p>
             </CardContent>
           </Card>
         </div>
@@ -206,10 +203,8 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
           <CardHeader>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
-                <CardTitle>Applications Detail</CardTitle>
-                <CardDescription>
-                  A list of all Complete applications and their cost.
-                </CardDescription>
+                <CardTitle> {t("heading")}</CardTitle>
+                <CardDescription> {t("description")}</CardDescription>
               </div>
               <div className="flex flex-col sm:flex-row gap-2">
                 <Select value={speedFilter} onValueChange={setSpeedFilter}>
@@ -217,16 +212,16 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
                     <SelectValue placeholder="Filter by speed" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Speeds</SelectItem>
-                    <SelectItem value="1H">1 Hour</SelectItem>
-                    <SelectItem value="2H">2 Hours</SelectItem>
-                    <SelectItem value="4H">4 Hours</SelectItem>
-                    <SelectItem value="8H">8 Hours</SelectItem>
-                    <SelectItem value="1D">1 Day</SelectItem>
-                    <SelectItem value="2D">2 Day</SelectItem>
-                    <SelectItem value="3D">3 Day</SelectItem>
-                    <SelectItem value="4D">4 Day</SelectItem>
-                    <SelectItem value="NO">Normal</SelectItem>
+                    <SelectItem value="all">{t("speeds.all")}</SelectItem>
+                    <SelectItem value="1H">{t("speeds.1hour")}</SelectItem>
+                    <SelectItem value="2H">{t("speeds.2hours")}</SelectItem>
+                    <SelectItem value="4H">{t("speeds.4hours")}</SelectItem>
+                    <SelectItem value="8H">{t("speeds.8hours")}</SelectItem>
+                    <SelectItem value="1D">{t("speeds.1day")}</SelectItem>
+                    <SelectItem value="2D">{t("speeds.2days")}</SelectItem>
+                    <SelectItem value="3D">{t("speeds.3days")}</SelectItem>
+                    <SelectItem value="4D">{t("speeds.4days")}</SelectItem>
+                    <SelectItem value="NO">{t("speeds.normal")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -236,16 +231,15 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Code</TableHead>
-                  <TableHead>Full Name</TableHead>
-                  <TableHead>Passport</TableHead>
-                  <TableHead>Visa Type</TableHead>
-                  <TableHead>Speed</TableHead>
-                  <TableHead>Duration</TableHead>
-                  <TableHead>Creator</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Cost</TableHead>
-                  <TableHead>View</TableHead>
+                  <TableHead>{t("table.code")}</TableHead>
+                  <TableHead>{t("table.name")}</TableHead>
+                  <TableHead>{t("table.passportNumber")}</TableHead>
+                  <TableHead>{t("table.visaType")}</TableHead>
+                  <TableHead>{t("table.speed")}</TableHead>
+                  <TableHead>{t("table.duration")}</TableHead>
+                  <TableHead>{t("table.status")}</TableHead>
+                  <TableHead>{t("table.cost")}</TableHead>
+                  <TableHead>{t("table.view")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -265,7 +259,9 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
                         {app.speed}
                       </Badge>
                     </TableCell>
-                    <TableCell>{app.travelDuration} Days</TableCell>
+                    <TableCell>
+                      {app.travelDuration} {t("table.days")}
+                    </TableCell>
                     <TableCell>{app.creator}</TableCell>
                     <TableCell>
                       <Badge
@@ -294,7 +290,9 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
                       {app.currency} {app.cost}
                     </TableCell>
                     <TableCell>
-                      <Link href={`/application/visa/${app.id}`}>View</Link>
+                      <Link href={`/application/visa/${app.id}`}>
+                        {t("table.view")}
+                      </Link>
                     </TableCell>
                   </TableRow>
                 ))}

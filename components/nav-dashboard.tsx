@@ -289,11 +289,12 @@ const NavDashboard = ({
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <SidebarMenuSub>
-                      {item.title === "Search" &&
+                      {item.title === t("search.title") &&
                         renderSearchSection(item.items)}
-                      {item.title === "Filter" &&
+                      {item.title === t("filter.title") &&
                         renderFilterSection(item.items)}
-                      {item.title === "Date" && renderDateSection(item.items)}
+                      {item.title === t("date.title") &&
+                        renderDateSection(item.items)}
                     </SidebarMenuSub>
                   </CollapsibleContent>
                 </>

@@ -7,7 +7,7 @@ export const createImmigrationCost = async () => {
   try {
     await dbConnect();
     await ImmigrationCost.create({
-      name: "Hanoi",
+      name: "Ho Chi Minh",
       lastUpdated: new Date(),
     });
   } catch (error) {

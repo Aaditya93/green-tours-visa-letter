@@ -19,6 +19,7 @@ import { convertToApplications } from "@/lib/data";
 import { serializedApplications } from "@/config/serialize";
 import ImmigrationDashboard from "@/components/agent-platform/immigration/immigration-dashboard";
 import { IApplication } from "@/db/models/application";
+import { getTranslations } from "next-intl/server";
 
 function extractDateRange(dateString: string) {
   try {
@@ -78,6 +79,7 @@ const IPaymentPage = async ({
   );
   const Applications = convertToApplications(applications as IApplication[]);
   const PlanObject = serializedApplications(Applications);
+  const t = await getTranslations("immigrationPayment");
 
   return (
     <SidebarProvider>
@@ -95,7 +97,7 @@ const IPaymentPage = async ({
                   </BreadcrumbItem> */}
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>I-Payment</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

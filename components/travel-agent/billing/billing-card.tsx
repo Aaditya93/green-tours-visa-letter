@@ -213,7 +213,9 @@ const BillingDashboard = ({ applications }: BillingDashboardProps) => {
                         {app.speed}
                       </Badge>
                     </TableCell>
-                    <TableCell>{app.travelDuration} Days</TableCell>
+                    <TableCell>
+                      {app.travelDuration} {t("table.days")}
+                    </TableCell>
                     <TableCell>
                       <Badge
                         className={`
@@ -242,7 +244,7 @@ const BillingDashboard = ({ applications }: BillingDashboardProps) => {
                     </TableCell>
                     <TableCell>
                       <Link href={`/travel-agent/application/visa/${app.id}`}>
-                        View
+                        {t("table.view")}
                       </Link>
                     </TableCell>
                   </TableRow>

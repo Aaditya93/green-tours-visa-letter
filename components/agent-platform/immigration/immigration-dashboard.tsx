@@ -16,6 +16,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import ImmigrationTable from "./immigration-table";
 import { format } from "date-fns";
 import DatePickers from "./date-range";
+import { useTranslations } from "next-intl";
 
 interface DurationGroups {
   days15: Application[];
@@ -80,13 +81,14 @@ const ImmigrationDashboard = ({ applications }: ImmigrationDashboardProps) => {
   );
   const totalApplications = applications.length;
   const averageCost = totalPayment / totalApplications;
+  const t = useTranslations("immigrationPayment");
 
   return (
     <Card className="w-full">
       <CardHeader className="bg-primary rounded-t-lg">
         <div className="flex flex-row justify-between items-center">
           <CardTitle className="text-2xl font-bold tracking-tight text-primary-foreground">
-            Immigration Dashboard
+            {t("title1")}
           </CardTitle>
           <div className="flex items-center gap-4">
             <div className="bg-primary-foreground rounded-lg">
@@ -111,7 +113,7 @@ const ImmigrationDashboard = ({ applications }: ImmigrationDashboardProps) => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Estimated Cost
+                {t("parameter1")}
               </CardTitle>
               <BadgeDollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
@@ -119,45 +121,42 @@ const ImmigrationDashboard = ({ applications }: ImmigrationDashboardProps) => {
               <div className="text-2xl font-bold">
                 {estimatedCost.toLocaleString()} {currency}
               </div>
-              <p className="text-xs text-muted-foreground">
-                Total from all applications
-              </p>
+              <p className="text-xs text-muted-foreground">{t("subtitle1")}</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Actual Cost</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                {" "}
+                {t("parameter2")}
+              </CardTitle>
               <BadgeDollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
                 {actualCost.toLocaleString()} {currency}
               </div>
-              <p className="text-xs text-muted-foreground">
-                From completed applications
-              </p>
+              <p className="text-xs text-muted-foreground">{t("subtitle2")}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Total Applications
+                {t("parameter3")}
               </CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{totalApplications}</div>
-              <p className="text-xs text-muted-foreground">
-                Processed Applications
-              </p>
+              <p className="text-xs text-muted-foreground">{t("subtitle3")}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Average Cost
+                {t("parameter4")}
               </CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
@@ -165,7 +164,7 @@ const ImmigrationDashboard = ({ applications }: ImmigrationDashboardProps) => {
               <div className="text-2xl font-bold">
                 {averageCost.toFixed(2)} {currency}
               </div>
-              <p className="text-xs text-muted-foreground">Per application</p>
+              <p className="text-xs text-muted-foreground"> {t("subtitle4")}</p>
             </CardContent>
           </Card>
         </div>

@@ -1,4 +1,4 @@
 export default {
-  locales: ["en", "fr"], // Add supported locales
+  locales: ["en", "zh"], // Add supported locales
   defaultLocale: "en",
 } as const;

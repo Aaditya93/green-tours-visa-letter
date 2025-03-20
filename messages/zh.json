@@ -527,7 +527,8 @@
       "status": "状态",
       "cost": "费用",
       "view": "查看",
-      "speed": "速度"
+      "speed": "速度",
+      "days": "天数"
     },
     "speeds": {
       "all": "所有速度",
@@ -554,5 +555,202 @@
     "page": "页面",
     "message1": "转换中...",
     "message2": "转换为图片"
+  },
+  "appSidebar": {
+    "navigation": "导航",
+    "branding": {
+      "name": "VISACAR",
+      "tier": "企业版",
+      "logoAlt": "VISACAR 标志"
+    },
+    "menu": {
+      "agentPlatform": "代理平台",
+      "adminPanel": "管理面板",
+      "visaLetterPrice": "签证邀请函价格",
+      "immgrationPrice": "移民价格",
+      "aPayment": "A-支付",
+      "iPayment": "I-支付",
+      "billing": "账单",
+      "dashboard": "仪表盘",
+      "report": "报告",
+      "pdf": "PDF",
+      "search": "搜索"
+    }
+  },
+  "appSiderbarDashboard": {
+    "visa": "签证",
+    "clear": "清除",
+    "navigation": "导航",
+    "search": {
+      "title": "搜索",
+      "parameter1": "全名",
+      "parameter2": "护照号码",
+      "parameter3": "代码",
+      "parameter4": "国家"
+    },
+    "filter": {
+      "title": "筛选",
+      "parameter1": "机场",
+      "parameter2": "大使馆",
+      "parameter3": "创建者",
+      "parameter4": "速度",
+      "parameter5": "签证类型"
+    },
+    "date": {
+      "title": "日期",
+      "parameter1": "创建日期",
+      "parameter2": "起始日期",
+      "parameter3": "结束日期"
+    },
+
+    "branding": {
+      "name": "VISACAR",
+      "tier": "企业版",
+      "logoAlt": "VISACAR 标志"
+    },
+    "menu": {
+      "agentPlatform": "代理平台",
+      "adminPanel": "管理面板",
+      "visaLetterPrice": "签证邀请函价格",
+      "immgrationPrice": "移民价格",
+      "aPayment": "A-支付",
+      "iPayment": "I-支付",
+      "billing": "账单",
+      "dashboard": "仪表盘",
+      "report": "报告",
+      "pdf": "PDF",
+      "search": "搜索"
+    }
+  },
+  "adminBilling": {
+    "title": "账单",
+    "title1": "账单仪表盘",
+    "parameter1": "预计费用",
+    "subtitle1": "所有申请的总费用",
+    "parameter2": "实际费用",
+    "subtitle2": "已完成申请的费用",
+    "parameter3": "总申请数",
+    "subtitle3": "已处理的申请",
+    "parameter4": "平均费用",
+    "subtitle4": "每个申请的费用",
+    "days": "天数",
+    "actions": "操作",
+    "download": "下载",
+    "date": "日期",
+    "price": "平均价格",
+    "total": "总计",
+    "noOfPax": "人数",
+    "totalPax": "总人数",
+    "pax": "旅客",
+    "selectCompany": "选择公司"
+  },
+  "adminPanel": {
+    "title": "管理面板",
+    "title1": "待审批",
+    "title2": "总申请数",
+    "card": {
+      "email": "电子邮件",
+      "country": "国家",
+      "Company": "公司",
+      "address": "地址",
+      "createdAt": "创建时间",
+      "approve": "批准",
+      "reject": "拒绝",
+      "select": "选择员工",
+      "sales": "销售员工"
+    }
+  },
+  "immigrationPayment": {
+    "title": "I-支付",
+    "title1": "移民仪表盘",
+    "parameter1": "预计费用",
+    "subtitle1": "所有申请的总费用",
+    "parameter2": "实际费用",
+    "subtitle2": "已完成申请的费用",
+    "parameter3": "总申请数",
+    "subtitle3": "已处理的申请",
+    "parameter4": "平均费用",
+    "subtitle4": "每个申请的费用",
+    "days": "天数",
+    "actions": "操作",
+    "download": "下载",
+    "date": "日期",
+    "price": "平均价格",
+    "total": "总计",
+    "noOfPax": "人数",
+    "totalPax": "总人数",
+    "pax": "旅客"
+  },
+  "agentPayment": {
+    "title": "A-支付",
+    "title1": "支付仪表盘",
+    "parameter1": "预计费用",
+    "subtitle1": "所有申请的总费用",
+    "parameter2": "实际费用",
+    "subtitle2": "已完成申请的费用",
+    "parameter3": "总申请数",
+    "subtitle3": "总申请数",
+    "parameter4": "平均费用",
+    "subtitle4": "每个申请的费用",
+    "heading": "申请详情",
+    "description": "所有已完成申请及其费用的列表。",
+    "table": {
+      "code": "代码",
+      "name": "全名",
+      "country": "护照",
+      "passportNumber": "护照号码",
+      "visaType": "签证类型",
+      "birthday": "速度",
+      "duration": "持续时间",
+      "status": "状态",
+      "cost": "费用",
+      "view": "查看",
+      "speed": "速度",
+      "days": "天数"
+    },
+    "speeds": {
+      "all": "所有速度",
+      "1hour": "1 小时",
+      "2hours": "2 小时",
+      "4hours": "4 小时",
+      "8hours": "8 小时",
+      "1day": "1 天",
+      "2days": "2 天",
+      "3days": "3 天",
+      "4days": "4 天",
+      "normal": "正常"
+    },
+    "selectCompany": "选择公司"
+  },
+  "immigrationPrices": {
+    "title": "移民价格",
+    "subtitle": "总移民中心",
+    "action": "编辑价格",
+    "id": "ID",
+    "immigration": "移民",
+    "lastPriceUpdated": "最后价格更新",
+    "lastUpdated": "最后更新时间",
+    "days": "天数",
+    "action1": "保存更改"
+  },
+  "visaLetterPrices": {
+    "title": "签证邀请函价格",
+    "subtitle": "总公司数",
+    "action": "编辑价格",
+    "id": "ID",
+    "company": "公司",
+    "action1": "配置定价",
+    "action2": "保存更改",
+    "days": "天数",
+    "phoneNumber": "电话号码",
+    "email": "电子邮件",
+    "address": "地址",
+    "country": "国家",
+    "clientManger": "客户经理",
+    "lastUpdated": "最后更新时间",
+    "search": "搜索...",
+    "search1": "搜索公司...",
+    "search2": "输入名称或搜索...",
+    "result": "未找到结果。"
   }
 }

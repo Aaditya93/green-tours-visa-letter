@@ -24,6 +24,7 @@ import { serializedApplications } from "@/config/serialize";
 import { IApplication } from "@/db/models/application";
 
 import Billing from "@/components/agent-platform/billing/billing-dashboard";
+import { getTranslations } from "next-intl/server";
 
 function extractDateRange(dateString: string) {
   try {
@@ -66,7 +67,7 @@ const BillingPage = async ({
   params: Promise<{ company: string; range: string }>;
 }) => {
   const { company, range } = await params;
-
+  const t = await getTranslations("adminBilling");
   const dateRange = extractDateRange(range);
   const applications = await getAllCompleteApplicationsTravelAgentCompany(
     company,
@@ -93,7 +94,7 @@ const BillingPage = async ({
                   </BreadcrumbItem> */}
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>I-Payment</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

@@ -9,11 +9,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { useTranslations } from "next-intl";
 import { Application } from "@/app/schemas/types";
-
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-
 import { format } from "date-fns";
 import DatePickers from "./date-range";
 import { SimplifiedCompany } from "@/actions/agent-platform/visa-letter";
@@ -42,6 +40,7 @@ interface BillingDashboardProps {
 }
 
 const Billing = ({ companies, applications }: BillingDashboardProps) => {
+  const t = useTranslations("adminBilling");
   const params = useParams();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -76,7 +75,7 @@ const Billing = ({ companies, applications }: BillingDashboardProps) => {
       <CardHeader className="bg-primary rounded-t-lg">
         <div className="flex flex-row justify-between items-center">
           <CardTitle className="text-2xl font-bold tracking-tight text-primary-foreground">
-            Billing Dashboard
+            {t("title1")}
           </CardTitle>
           <div className="flex items-center gap-4">
             <div className="bg-primary-foreground rounded-lg">
@@ -88,7 +87,7 @@ const Billing = ({ companies, applications }: BillingDashboardProps) => {
                 <SelectTrigger className="w-[180px]">
                   <SelectValue>
                     {companies.find((c) => c.id === companyId)?.name ||
-                      "Select Company"}
+                      t("selectCompany")}
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
@@ -111,7 +110,7 @@ const Billing = ({ companies, applications }: BillingDashboardProps) => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Estimated Cost
+                {t("parameter1")}
               </CardTitle>
               <BadgeDollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
@@ -119,45 +118,42 @@ const Billing = ({ companies, applications }: BillingDashboardProps) => {
               <div className="text-2xl font-bold">
                 {estimatedCost} {currency}
               </div>
-              <p className="text-xs text-muted-foreground">
-                Total from all applications
-              </p>
+              <p className="text-xs text-muted-foreground">{t("subtitle1")}</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Actual Cost</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                {" "}
+                {t("parameter2")}
+              </CardTitle>
               <BadgeDollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
                 {actualCost.toLocaleString()} {currency}
               </div>
-              <p className="text-xs text-muted-foreground">
-                From completed applications
-              </p>
+              <p className="text-xs text-muted-foreground">{t("subtitle2")}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Total Applications
+                {t("parameter3")}
               </CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{totalApplications}</div>
-              <p className="text-xs text-muted-foreground">
-                Processed Applications
-              </p>
+              <p className="text-xs text-muted-foreground">{t("subtitle3")}</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Average Cost
+                {t("parameter4")}
               </CardTitle>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
@@ -165,7 +161,7 @@ const Billing = ({ companies, applications }: BillingDashboardProps) => {
               <div className="text-2xl font-bold">
                 {averageCost.toFixed(2)} {currency}
               </div>
-              <p className="text-xs text-muted-foreground">Per application</p>
+              <p className="text-xs text-muted-foreground"> {t("subtitle4")}</p>
             </CardContent>
           </Card>
         </div>

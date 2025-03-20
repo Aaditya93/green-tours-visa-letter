@@ -34,6 +34,7 @@ import { useRouter } from "next/navigation";
 import { updateImmigrationPrices } from "@/actions/agent-platform/immigration-cost";
 import { Badge } from "@/components/ui/badge";
 import { convertToVietnamTime } from "./immigration-card";
+import { useTranslations } from "next-intl";
 
 // Form Schema
 const priceSchema = z.object({
@@ -158,6 +159,7 @@ const ImmigrationPriceForm = ({
       ))}
     </div>
   );
+  const t = useTranslations("immigrationPrices");
 
   return (
     <>
@@ -170,7 +172,7 @@ const ImmigrationPriceForm = ({
                 <CardTitle className="text-lg font-semibold ml-4 text-primary-foreground flex items-center space-x-4">
                   <span>{name}</span>
                   <Badge variant={"secondary"} className="text-primary">
-                    Last Updated: {convertToVietnamTime(updatedAt)}
+                    {t("lastUpdated")} {convertToVietnamTime(updatedAt)}
                   </Badge>
                 </CardTitle>
               </div>
@@ -196,13 +198,13 @@ const ImmigrationPriceForm = ({
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <Label className="text-lg font-semibold block pb-2 border-b">
-                    15 Days
+                    15 {t("days")}
                   </Label>
                   {renderPriceInputs("days15")}
                 </div>
                 <div className="space-y-4">
                   <Label className="text-lg font-semibold block pb-2 border-b">
-                    30 Days
+                    30 {t("days")}
                   </Label>
                   {renderPriceInputs("days30")}
                 </div>
@@ -210,7 +212,7 @@ const ImmigrationPriceForm = ({
             </CardContent>
             <CardFooter>
               <div className="flex justify-end w-full">
-                <Button type="submit">Save Changes</Button>
+                <Button type="submit"> {t("action1")}</Button>
               </div>
             </CardFooter>
           </Card>

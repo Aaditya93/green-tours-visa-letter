@@ -31,6 +31,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast, Toaster } from "sonner";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface PriceData {
   _id: string;
@@ -91,6 +92,7 @@ const PriceForm = ({ priceData }: PriceFormProps) => {
   const speeds = ["NO", "4D", "3D", "2D", "1D", "8H", "4H", "2H", "1H"];
   const defaultPrices = priceData.visaLetterPrices?.[0] || {};
   const router = useRouter();
+  const t = useTranslations("visaLetterPrices");
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -165,7 +167,7 @@ const PriceForm = ({ priceData }: PriceFormProps) => {
           <Card className="w-full">
             <CardHeader className="flex flex-row items-center justify-between border-b mb-2 py-3 bg-primary rounded-t-lg">
               <CardTitle className="text-md text-primary-foreground">
-                Visa Letter Prices - {priceData.name}
+                {t("title")} - {priceData.name}
               </CardTitle>
               <div className="rounded-lg">
                 <Select
@@ -191,13 +193,13 @@ const PriceForm = ({ priceData }: PriceFormProps) => {
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-4">
                   <Label className="text-lg font-semibold block pb-2 border-b">
-                    15 Days
+                    15 {t("days")}
                   </Label>
                   {renderPriceInputs("singleEntry")}
                 </div>
                 <div className="space-y-4">
                   <Label className="text-lg font-semibold block pb-2 border-b">
-                    30 Days
+                    30 {t("days")}
                   </Label>
                   {renderPriceInputs("multipleEntry")}
                 </div>
@@ -205,7 +207,7 @@ const PriceForm = ({ priceData }: PriceFormProps) => {
             </CardContent>
             <CardFooter>
               <div className="flex justify-end w-full">
-                <Button type="submit">Save Changes</Button>
+                <Button type="submit">{t("action2")}</Button>
               </div>
             </CardFooter>
           </Card>
