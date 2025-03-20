@@ -809,6 +809,7 @@ export const updateApplicationStages = async (data: any[], stage: string) => {
     }
 
     const result = await Application.bulkWrite(bulkOps);
+    console.log(result);
 
     return {
       success: true,

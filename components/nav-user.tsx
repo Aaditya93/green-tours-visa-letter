@@ -21,10 +21,11 @@ import { useSession } from "next-auth/react";
 import { SignOut } from "@/actions/auth/sign-out";
 import ModeToggle from "./theme-button";
 import LanguageSwitcher from "./navigation-bar/language-switcher";
-
+import { useTranslations } from "next-intl";
 const NavUser = () => {
   const { isMobile } = useSidebar();
   const session = useSession();
+  const t = useTranslations("navUser");
 
   return (
     <SidebarMenu>
@@ -93,7 +94,7 @@ const NavUser = () => {
 
             <DropdownMenuItem className=" text-red-600 " onClick={SignOut}>
               <LogOut />
-              Log out
+              {t("logout")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

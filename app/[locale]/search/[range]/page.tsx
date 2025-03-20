@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/sidebar";
 import { getCompleteApplicationsDate } from "@/actions/application/application";
 import { serializedApplications } from "@/config/serialize";
-
+import { getTranslations } from "next-intl/server";
 import { Application } from "@/app/schemas/types";
 import { getAllCompanies } from "@/actions/agent-platform/visa-letter";
 
@@ -77,6 +77,7 @@ const SearchPage = async ({
   const Companies = (await getAllCompanies()) ?? [];
 
   const Users = extractUniqueUsernames(planObject);
+  const t = await getTranslations("searchPage");
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -87,12 +88,9 @@ const SearchPage = async ({
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">Admin</BreadcrumbLink>
-                </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Search</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

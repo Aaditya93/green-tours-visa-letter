@@ -14,24 +14,26 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { useTranslations } from "next-intl";
 
 interface CompanyData {
   companyName: string;
   TotalApplications: number;
 }
-const chartConfig = {
-  TotalApplications: {
-    label: "Total Applications",
-    color: "hsl(var(--chart-1))",
-  },
-} satisfies ChartConfig;
 
 export const TravelAgentChart = ({ data }: { data: CompanyData[] }) => {
+  const t = useTranslations("report.travelAgentChart");
+  const chartConfig = {
+    TotalApplications: {
+      label: t("label"),
+      color: "hsl(var(--chart-1))",
+    },
+  } satisfies ChartConfig;
   return (
     <Card className="rounded-none">
       <CardHeader>
-        <CardTitle>Travel Agent</CardTitle>
-        <CardDescription>Showing Applications Per Travel Agent</CardDescription>
+        <CardTitle>{t("title")}</CardTitle>
+        <CardDescription>{t("subtitle")}</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

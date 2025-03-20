@@ -4,81 +4,84 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
+  CardFooter,
 } from "@/components/ui/card";
 import Image from "next/image";
 import { RegisterForm } from "@/components/agent-platform/auth/register-form";
 import RedirectLogin from "@/components/auth/redirect-login";
+import { ArrowRight, Briefcase } from "lucide-react";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const SignUpPage = () => {
+  const t = useTranslations("registerTravelAgent");
+
   return (
     <div className="grid lg:grid-cols-2 min-h-screen">
-      <div className="relative h-[300px] lg:h-full">
+      <div className="relative hidden lg:block">
         <Image
           src="/travel-agent.jpg"
-          alt="register"
+          alt="Travel agent working"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r " />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-primary-foreground z-10 p-8">
-          <h1 className="text-4xl font-bold text-white mb-4">
-            Join Our Travel Agent Network
-          </h1>
-          <p className="text-xl text-white/90 text-center max-w-md">
-            Connect with travelers worldwide and grow your business with our
-            cutting-edge platform.
-          </p>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30" />
+        <div className="absolute inset-0 flex flex-col items-start justify-center text-primary-foreground z-10 p-12">
+          <div className="max-w-md space-y-6">
+            <h1 className="text-5xl font-bold text-white">{t("title")}</h1>
+            <p className="text-lg text-white/80">{t("subtitle")}</p>
+            <div className="pt-2">
+              <div className="flex items-center gap-2 mt-4">
+                <ArrowRight className="h-5 w-5 text-primary" />
+                <p className="text-white/90"> {t("marketing1")}</p>
+              </div>
+              <div className="flex items-center gap-2 mt-2">
+                <ArrowRight className="h-5 w-5 text-primary" />
+                <p className="text-white/90">{t("marketing2")}</p>
+              </div>
+              <div className="flex items-center gap-2 mt-2">
+                <ArrowRight className="h-5 w-5 text-primary" />
+                <p className="text-white/90">{t("marketing3")}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="bg-gradient-to-b from-background to-secondary">
+
+      <div className="bg-gradient-to-b from-background to-secondary/20">
         <RedirectLogin />
-        <div className="flex min-h-screen items-center justify-center py-12 px-6">
-          <Card className="w-full max-w-md shadow-lg border-0">
-            <CardHeader className="space-y-2 pb-2">
+        <div className="flex min-h-screen items-center justify-center py-12 px-6 lg:px-10">
+          <Card className="w-full max-w-md shadow-xl border-0 overflow-hidden">
+            <CardHeader className="space-y-3 pb-4 pt-6">
               <div className="flex items-center gap-2 mb-2">
-                <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-primary-foreground"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <CardTitle className="text-2xl font-bold">
-                  Travel Agent Account
+                <Briefcase className="h-6 w-6 text-primary" />
+                <CardTitle className="text-2xl font-bold text-primary">
+                  {t("title1")}
                 </CardTitle>
               </div>
-              <CardDescription className="text-base">
-                Join our network of professional travel agents and start booking
-                immediately
-              </CardDescription>
             </CardHeader>
-            <CardContent className="w-full pt-4">
+            <CardContent className="w-full pt-2">
               <RegisterForm />
-              <div className="mt-6 text-center text-sm text-muted-foreground">
-                By registering, you agree to our{" "}
-                <a
-                  href="#"
-                  className="font-medium text-primary hover:text-primary/80"
-                >
-                  Terms of Service
-                </a>{" "}
-                and{" "}
-                <a
-                  href="#"
-                  className="font-medium text-primary hover:text-primary/80"
-                >
-                  Privacy Policy
-                </a>
-              </div>
             </CardContent>
+            <CardFooter className="flex flex-col space-y-4 pb-6 pt-2">
+              <div className="text-center text-sm text-muted-foreground">
+                {t("subtitle1")}{" "}
+                <Link
+                  href="#"
+                  className="font-medium text-primary hover:text-primary/80 underline-offset-4 hover:underline"
+                >
+                  {t("subtitle2")}
+                </Link>{" "}
+                {t("subtitle3")}{" "}
+                <Link
+                  href="#"
+                  className="font-medium text-primary hover:text-primary/80 underline-offset-4 hover:underline"
+                >
+                  {t("subtitle4")}
+                </Link>
+              </div>
+            </CardFooter>
           </Card>
         </div>
       </div>

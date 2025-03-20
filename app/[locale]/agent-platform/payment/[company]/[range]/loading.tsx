@@ -16,8 +16,10 @@ import {
 } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DatePickerWithRange } from "@/components/agent-platform/payment/date-range";
+import { useTranslations } from "next-intl";
 
 export default function Loading() {
+  const t = useTranslations("agentPayment");
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -30,7 +32,7 @@ export default function Loading() {
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Payment</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -41,7 +43,7 @@ export default function Loading() {
             <CardHeader className="bg-primary rounded-t-lg ">
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <CardTitle className="text-2xl font-bold tracking-tight text-primary-foreground">
-                  Payment Dashboard
+                  {t("title1")}
                 </CardTitle>
                 <DatePickerWithRange />
               </div>

@@ -9,14 +9,13 @@ import {
   StaffChartData,
   TravelAgentChartData,
 } from "./data";
-
 import { CountryChart } from "./country-chart";
 import { DataPieChartCountry } from "./data-country";
-
 import { SpeedChart } from "./speed-chart";
 import { TravelAgentChart } from "./travel-agent";
 import { SimplifiedCompany } from "@/actions/agent-platform/visa-letter";
 import { StaffChart } from "./staff-chart";
+import { getTranslations } from "next-intl/server";
 
 interface ReportPageProps {
   Application: Application[];
@@ -34,12 +33,11 @@ const ReportPage = async ({
   Application,
 }: ReportPageProps) => {
   const LineChart = DataMainLineChart(Application);
-
   const pieChart = DataPieChartCountry(Application);
   const speedChart = DataSpeedChart(Application);
   const travelAgentChart = TravelAgentChartData(Application, companies);
   const staffChart = StaffChartData(Application, clientList);
-
+  const t = await getTranslations("report");
   return (
     <div className="container mx-auto  ">
       <Card className="w-full ">
@@ -47,7 +45,7 @@ const ReportPage = async ({
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
             <CardTitle className="flex items-center text-xl font-bold text-center sm:text-left text-primary-foreground">
               <TbPresentationAnalytics className="mr-2 w-8 h-8 text-primary-foreground" />
-              Report
+              {t("title")}
             </CardTitle>
             <DatePickerWithRange />
           </div>

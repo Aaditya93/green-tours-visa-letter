@@ -206,6 +206,7 @@
 
   "travelAgentDashboard": {
     "title": "仪表板",
+
     "dataTable": {
       "searchPlaceholder": "搜索...",
       "searchAriaLabel": "搜索申请",
@@ -252,6 +253,7 @@
       "stage": "阶段",
       "openMenu": "打开菜单",
       "actions": "操作",
+      "download": "下载",
       "view": "查看",
       "status": {
         "approved": "已批准",
@@ -752,5 +754,129 @@
     "search1": "搜索公司...",
     "search2": "输入名称或搜索...",
     "result": "未找到结果。"
+  },
+  "navUser": {
+    "theme": "主题切换",
+    "dark": "深色",
+    "light": "浅色",
+    "system": "系统",
+    "logout": "登出"
+  },
+  "loginPage": {
+    "brand": "VISACAR",
+    "marketing1": "快速便捷获取签证邀请函",
+    "marketing2": "已处理 10 万+ 份签证邀请函",
+    "travelAgentButton": "旅行代理门户",
+    "title": "欢迎回来",
+    "subtitle": "输入您的凭据以访问您的账户",
+    "button1": "VISACAR 新用户？",
+    "button2": "创建账户",
+    "button3": "需要帮助？",
+    "button4": "联系客服",
+    "email": "电子邮件",
+    "password": "密码",
+    "forgot": "忘记密码？"
+  },
+  "registerPage": {
+    "brand": "VISACAR",
+    "title": "欢迎来到 VISACAR",
+    "marketing1": "获取签证函的快速便捷方式",
+    "title1": "创建账户",
+    "subtitle": "请输入您的详细信息以创建账户",
+    "subtitle1": "注册即表示您同意我们的",
+    "subtitle2": "服务条款",
+    "subtitle3": "和",
+    "subtitle4": "隐私政策",
+    "action": "登录",
+    "action2": "使用邮箱注册",
+    "name": "姓名",
+    "email": "邮箱",
+    "password": "密码"
+  },
+  "registerTravelAgent": {
+    "title": "签证邀请函处理门户",
+    "subtitle": "使用我们高效的处理系统简化您的签证邀请函申请。为您的客户提供快速、可靠的旅行文件。",
+    "action": "创建账户",
+    "action2": "登录",
+    "marketing1": "快速生成签证邀请函",
+    "marketing2": "安全的文件处理",
+    "marketing3": "24/7 客户支持",
+    "title1": "旅行代理账户",
+    "name": "姓名",
+    "phoneNumber": "电话号码",
+    "email": "电子邮件",
+    "company": "公司",
+    "password": "密码",
+    "address": "地址",
+    "country": "国家",
+    "subtitle1": "注册即表示您同意我们的",
+    "subtitle2": "服务条款",
+    "subtitle3": "和",
+    "subtitle4": "隐私政策",
+    "action1": "创建账户"
+  },
+  "report": {
+    "title": "报告",
+    "staffChart": {
+      "title": "员工",
+      "subtitle": "显示每位员工的申请数量",
+      "label": "总申请数"
+    },
+    "travelAgentChart": {
+      "title": "旅行代理",
+      "subtitle": "显示每位旅行代理的申请数量",
+      "label": "总申请数"
+    },
+    "speedChart": {
+      "title": "速度",
+      "label": "总申请数",
+      "4hours": "4 小时",
+      "8hours": "8 小时",
+      "1day": "1 天",
+      "3days": "3 天",
+      "normal": "普通"
+    }
+  },
+  "searchPage": {
+    "title": "搜索",
+    "advancedSearch": "高级搜索",
+    "search": "搜索",
+    "reset": "重置",
+    "save": "保存",
+    "clear": "清除",
+    "select": "选择",
+    "totalApplication": "总申请数",
+    "nationality": "国籍",
+    "fullName": "全名",
+    "passport": "护照",
+    "code": "代码",
+    "createdDate": "创建日期",
+    "fromDate": "起始日期",
+    "toDate": "结束日期",
+    "speed": "速度",
+    "embassy": "大使馆",
+    "airport": "机场",
+    "creator": "创建者",
+    "stage": "阶段",
+    "typeOfVisa": "签证类型",
+    "selectStage": "选择阶段",
+    "pickDate": "选择日期",
+    "searchBy": "搜索方式",
+    "passportNumber": "护照号码",
+    "no": "否",
+    "iref": "IREF",
+    "download": "下载",
+    "actions": "操作",
+    "notProcessed": "未处理",
+    "processing": "处理中",
+    "processed": "已处理",
+    "selectimmigration": "选择移民状态",
+    "entire": "全部",
+    "blacklist": "黑名单",
+    "overstayed": "逾期滞留",
+    "completed": "已完成",
+    "pleaseSelectApplications": "请选择申请",
+    "singleEntry": "单次入境",
+    "multipleEntry": "多次入境"
   }
 }

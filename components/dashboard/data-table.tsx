@@ -2,6 +2,7 @@
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import {
   ColumnDef,
@@ -31,7 +32,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Dispatch, SetStateAction } from "react";
-import { DataTablePagination } from "./data-table-pagination";
+import { DataTablePagination } from "@/components/dashboard/data-table-pagination";
+import { useColumns } from "./columns";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
+
 interface DataTableProps<TData extends { speed?: string }, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -39,17 +44,23 @@ interface DataTableProps<TData extends { speed?: string }, TValue> {
   columnFilters: ColumnFiltersState;
   setColumnFilters: Dispatch<SetStateAction<ColumnFiltersState>>;
   setSearchSelections: Dispatch<SetStateAction<string>>;
+  isLoading?: boolean;
+  error?: string;
 }
 
 const DataTable = <TData extends { speed?: string }, TValue>({
   columnFilters,
   setColumnFilters,
   searchSelections,
-  columns,
   data,
   setSearchSelections,
+  isLoading = false,
+  error,
 }: DataTableProps<TData, TValue>) => {
+  const t = useTranslations("travelAgentDashboard.dataTable");
+  const tc = useTranslations("travelAgentDashboard.columns");
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const columns = useColumns(); // Use the hook to get translated columns
 
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({
@@ -69,7 +80,7 @@ const DataTable = <TData extends { speed?: string }, TValue>({
       speed: true,
       status: true,
       notes: true,
-      handleBy: true,
+      handleBy: false,
     });
 
   const [rowSelection, setRowSelection] = React.useState({});
@@ -122,11 +133,21 @@ const DataTable = <TData extends { speed?: string }, TValue>({
     }
   };
 
+  if (error) {
+    return (
+      <Alert variant="destructive" className="my-4">
+        <AlertCircle className="h-4 w-4" />
+        <AlertTitle>{t("errorTitle")}</AlertTitle>
+        <AlertDescription>{t("errorMessage")}</AlertDescription>
+      </Alert>
+    );
+  }
+
   return (
     <div className="w-full">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Search ..."
+          placeholder={t("searchPlaceholder")}
           value={
             (table
               .getColumn(`${searchSelections}`)
@@ -138,11 +159,13 @@ const DataTable = <TData extends { speed?: string }, TValue>({
               ?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
+          disabled={isLoading}
+          aria-label={t("searchAriaLabel")}
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown />
+            <Button variant="outline" className="ml-auto" disabled={isLoading}>
+              {t("columns")} <ChevronDown className="ml-2 h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -162,13 +185,14 @@ const DataTable = <TData extends { speed?: string }, TValue>({
                       column.toggleVisibility(!!value)
                     }
                   >
-                    {column.id}
+                    {tc(column.id)}
                   </DropdownMenuCheckboxItem>
                 );
               })}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -190,7 +214,19 @@ const DataTable = <TData extends { speed?: string }, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  <div className="flex items-center justify-center">
+                    <Loader2 className="h-6 w-6 animate-spin mr-2" />
+                    <span>{t("loading")}</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -215,13 +251,18 @@ const DataTable = <TData extends { speed?: string }, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  <div className="flex flex-col items-center justify-center text-muted-foreground">
+                    <CheckCircle2 className="h-10 w-10 mb-2" />
+                    <p>{t("noResults")}</p>
+                    <p className="text-sm">{t("tryDifferentSearch")}</p>
+                  </div>
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
+
       <div className="flex items-center justify-start space-x-2 py-4">
         <DataTablePagination table={table} />
       </div>

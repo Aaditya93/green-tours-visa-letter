@@ -9,38 +9,40 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { useTranslations } from "next-intl";
 
 interface SpeedData {
   speed: string;
   Applications: number;
   fill: string;
 }
-const chartConfig = {
-  Applications: {
-    label: "Total Applications",
-  },
-  "4H": {
-    label: "4 Hours",
-  },
-  "8H": {
-    label: "8 Hours",
-  },
-  "1D": {
-    label: "1 Day",
-  },
-  "3D": {
-    label: "3 Days",
-  },
-  NO: {
-    label: "Normal",
-  },
-} satisfies ChartConfig;
 
 export const SpeedChart = ({ data }: { data: SpeedData[] }) => {
+  const t = useTranslations("report.speedChart");
+  const chartConfig = {
+    Applications: {
+      label: t("label"),
+    },
+    "4H": {
+      label: t("4hours"),
+    },
+    "8H": {
+      label: t("8hours"),
+    },
+    "1D": {
+      label: t("1day"),
+    },
+    "3D": {
+      label: t("3days"),
+    },
+    NO: {
+      label: t("normal"),
+    },
+  } satisfies ChartConfig;
   return (
     <Card className="rounded-none ">
       <CardHeader>
-        <CardTitle>Speed Chart</CardTitle>
+        <CardTitle>{t("title")}</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

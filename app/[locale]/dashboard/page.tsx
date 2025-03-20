@@ -2,7 +2,7 @@ import { getCompleteApplications } from "@/actions/application/application";
 import Dashboard from "@/components/dashboard/dashboard";
 import { serializedApplications } from "@/config/serialize";
 
-import { Application } from "../schemas/types";
+import { Application } from "@/app/schemas/types";
 
 function extractUniqueUsernames(data: Application[]) {
   // Get unique creator names

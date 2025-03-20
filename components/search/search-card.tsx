@@ -53,6 +53,7 @@ import {
 import DateRangePicker from "./date-range";
 import { toast } from "sonner";
 import { SimplifiedCompany } from "@/actions/agent-platform/visa-letter";
+import { useTranslations } from "next-intl";
 
 interface SearchProps {
   data: Application[];
@@ -132,6 +133,7 @@ const airportOptions = [
 
 const VisaSearch = ({ Users, data, companies }: SearchProps) => {
   const initialData = data;
+  const t = useTranslations("searchPage");
 
   const [filteredData, setFilteredData] = useState<Application[]>(initialData);
   const [selectedApplications, setSelectedApplications] = useState<
@@ -290,23 +292,21 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
   };
 
   const headers = [
-    "Select",
-    "No",
-    "Full Name",
-    "Nationality",
-    "Passport Number",
-    "Iref",
-    "Immigration",
-    "Creator",
-    "Airport",
-    "Embassy",
-    "Created Date",
-    "Stage",
-    "From Date",
-    "To Date",
-    "Speed",
+    t("select"),
+    t("no"),
+    t("fullName"),
+    t("nationality"),
+    t("passportNumber"),
+    t("iref"),
+    t("creator"),
+    t("airport"),
+    t("embassy"),
+    t("createdDate"),
+    t("stage"),
+    t("fromDate"),
+    t("toDate"),
+    t("speed"),
   ];
-
   const handleRowSelect = (application: Application) => {
     const isSelected = selectedApplications.some(
       (app) => app.passportId === application.passportId
@@ -336,7 +336,7 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
             <CardTitle className="flex items-center text-xl font-bold text-center sm:text-left text-primary-foreground">
               <FilterIcon className="mr-2 w-8 h-8 text-primary-foreground" />
-              Advanced Search
+              {t("advancedSearch")}
             </CardTitle>
             <DateRangePicker />
           </div>
@@ -349,7 +349,7 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
               <div key={dateField} className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-sm font-medium capitalize">
-                    {dateField.replace(/([A-Z])/g, " $1").trim()}
+                    {t(dateField)}
                   </label>
                   {searchFilters[dateField] &&
                     searchFilters[dateField] !== `Pick ${dateField}` && (
@@ -362,7 +362,7 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
                         className=" px-2 text-red-600 hover:text-red-800"
                         aria-label={`Clear ${dateField} filter`}
                       >
-                        Clear
+                        {t("clear")}
                       </Label>
                     )}
                 </div>
@@ -376,7 +376,8 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {searchFilters[dateField] || `Pick ${dateField}`}
+                      {searchFilters[dateField] ||
+                        t("pickDate", { field: t(dateField) })}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0">
@@ -396,13 +397,15 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
             ))}
 
             {/* Input Fields */}
-            {["name", "code", "passport", "iref"].map((field) => (
+            {["name", "code", "passport"].map((field) => (
               <div key={field} className="space-y-2">
                 <label className="text-sm font-medium capitalize">
-                  {field === "name" ? "Full Name" : field}
+                  {field === "name" ? t("fullName") : t(field)}
                 </label>
                 <Input
-                  placeholder={`Search by ${field}`}
+                  placeholder={t("searchBy", {
+                    field: field === "name" ? t("fullName") : t(field),
+                  })}
                   value={searchFilters[field]}
                   onChange={(e) =>
                     setSearchFilters((prev) => ({
@@ -418,8 +421,7 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
             {/* Select Dropdowns */}
             {[
               {
-                name: "Country",
-                key: "nationality",
+                name: "nationality",
                 options: [
                   { value: "Australia", label: "Australia" },
                   { value: "Bangladesh", label: "Bangladesh" },
@@ -449,136 +451,32 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
                   { value: "Vanuatu", label: "Vanuatu" },
                 ],
               },
-
               {
-                name: "Stage",
-                key: "stage",
+                name: "stage",
                 options: [
-                  { value: "Not Processed", label: "Not Processed" },
-                  { value: "Processing", label: "Processing" },
-                  { value: "Processed", label: "Processed" },
-                  { value: "Blacklist", label: "Blacklist" },
-                  { value: "Overstayed", label: "Overstayed" },
-                ],
-              },
-
-              {
-                key: "handleBy",
-                name: "Handle By",
-                options: [
-                  { value: "MR.Xia", label: "MR.Xia" },
-                  { value: "MR.SAMI", label: "MR.SAMI" },
-                  { value: "JESSY", label: "JESSY" },
-                  { value: "TONY", label: "TONY" },
-                  { value: "MR.SUMMER", label: "MR.SUMMER" },
-                  { value: "ANH THANG", label: "ANH THANG" },
-                  { value: "C.YEN", label: "C.YEN" },
-                  { value: "C.HUONG", label: "C.HUONG" },
-                  { value: "YUEHUA", label: "YUEHUA" },
-                  { value: "KHACH LE", label: "KHACH LE" },
-                  { value: "TOP", label: "TOP" },
-                  { value: "YES", label: "YES" },
-                  { value: "STT", label: "STT" },
-                  { value: "YUN YANG", label: "YUN YANG" },
-                  {
-                    value: "DAI NAM",
-                    label: "DAI NAM",
-                  },
-                  {
-                    value: "BOB",
-                    label: "BOB",
-                  },
-                ],
-              },
-
-              {
-                name: "Airport",
-                key: "airport",
-                options: [
-                  { value: "Noi Bai Airport", label: "Noi Bai Airport" },
-                  { value: "Phu Bai Airport", label: "Phu Bai Airport" },
-                  { value: "Phu Quoc Airport", label: "Phu Quoc Airport" },
-                  {
-                    value: "Tan Son Nhat Airport",
-                    label: "Tan Son Nhat Airport",
-                  },
-                  { value: "Cam Ranh Airport", label: "Cam Ranh Airport" },
-                  { value: "Da Nang Airport", label: "Da Nang Airport" },
-                  {
-                    value: "Lien Khuong Airport",
-                    label: "Lien Khuong Airport",
-                  },
-                  { value: "Cat Bi Airport", label: "Cat Bi Airport" },
-                  { value: "Cau Treo Frontier", label: "Cau Treo Frontier" },
-                  { value: "Cha Lo Frontier", label: "Cha Lo Frontier" },
-                  { value: "Ha Tien Frontier", label: "Ha Tien Frontier" },
-                  { value: "Huu Nghi Frontier", label: "Huu Nghi Frontier" },
-                  { value: "Lao Bao Frontier", label: "Lao Bao Frontier" },
-                  { value: "Lao Cai Frontier", label: "Lao Cai Frontier" },
-                  { value: "Moc Bai Frontier", label: "Moc Bai Frontier" },
-                  { value: "Mong Cai Frontier", label: "Mong Cai Frontier" },
-                  { value: "Na Meo Frontier", label: "Na Meo Frontier" },
-                  { value: "Tay Trang Frontier", label: "Tay Trang Frontier" },
-                  {
-                    value: "Thanh Thuy Frontier",
-                    label: "Thanh Thuy Frontier",
-                  },
-                  { value: "Xa Mat Frontier", label: "Xa Mat Frontier" },
+                  { value: "Not Processed", label: t("notProcessed") },
+                  { value: "Processing", label: t("processing") },
+                  { value: "Processed", label: t("processed") },
+                  { value: "Blacklist", label: t("blacklist") },
+                  { value: "Overstayed", label: t("overstayed") },
                 ],
               },
               {
-                name: "Embassy",
-                key: "embassy",
-                options: [
-                  {
-                    value: "China - Kunming",
-                    label: "China - Kunming",
-                  },
-                  {
-                    value: "USA -  Houston",
-                    label: "USA -  Houston",
-                  },
-                  {
-                    value: "China - Nanning",
-                    label: "China - Nanning",
-                  },
-                  {
-                    value: "China - Guangzhou",
-                    label: "China - Guangzhou",
-                  },
-                  {
-                    value: "Cambodia - Sihanouk Ville",
-                    label: "Cambodia - Sihanouk Ville",
-                  },
-                  {
-                    value: "Australia - Sydney",
-                    label: "Australia - Sydney",
-                  },
-                  {
-                    value: "China - Shanghai",
-                    label: "China - Shanghai",
-                  },
-                  {
-                    value: "Taiwan - Taipei",
-                    label: "Taiwan - Taipei",
-                  },
-                  {
-                    value: "Bangladesh",
-                    label: "Bangladesh",
-                  },
-                  {
-                    value: "Australia - Canberra",
-                    label: "Australia - Canberra",
-                  },
-                  {
-                    value: "Japan",
-                    label: "Japan",
-                  },
-                ],
+                name: "airport",
+                options: airportOptions.map((option) => ({
+                  value: option,
+                  label: option,
+                })),
               },
               {
-                name: "Speed",
-                key: "speed",
+                name: "embassy",
+                options: embassyOptions.map((option) => ({
+                  value: option,
+                  label: option,
+                })),
+              },
+              {
+                name: "speed",
                 options: [
                   { value: "1H", label: "1H" },
                   { value: "2H", label: "2H" },
@@ -592,63 +490,47 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
                 ],
               },
               {
-                name: "Duration",
-                key: "duration",
+                name: "typeOfVisa",
                 options: [
-                  { value: "Single Entry", label: "Single Entry" },
-                  { value: "Multiple Entry", label: "Multiple Entry" },
+                  { value: "Single Entry", label: t("singleEntry") },
+                  { value: "Multiple Entry", label: t("multipleEntry") },
                 ],
               },
               {
-                name: "Creator",
-                key: "creator",
+                name: "creator",
                 options: Users.map((user) => ({
                   value: user.username,
                   label: user.username,
                 })),
               },
-              {
-                name: "Travel Agent",
-                key: "companyId",
-                options: companies.map((company) => ({
-                  value: company.id,
-                  label: company.name,
-                })),
-              },
-              {
-                name: "Immigration",
-                key: "immigration",
-                options: [
-                  { value: "Hanoi", label: "Hanoi" },
-                  { value: "Ho Chi Minh", label: "Ho Chi Minh" },
-                ],
-              },
-            ].map(({ name, key, options }) => (
+            ].map(({ name, options }) => (
               <div key={name} className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="text-sm font-medium capitalize">
-                    {name}
+                    {t(name)}
                   </label>
-                  {searchFilters[key] && (
+                  {searchFilters[name] && (
                     <Label
                       onClick={() =>
-                        setSearchFilters((prev) => ({ ...prev, [key]: "" }))
+                        setSearchFilters((prev) => ({ ...prev, [name]: "" }))
                       }
                       className=" px-2 text-red-600 hover:text-red-800"
-                      aria-label={`Clear ${key} filter`}
+                      aria-label={`Clear ${name} filter`}
                     >
-                      Clear
+                      {t("clear")}
                     </Label>
                   )}
                 </div>
                 <Select
-                  value={searchFilters[key]}
+                  value={searchFilters[name]}
                   onValueChange={(value) =>
-                    setSearchFilters((prev) => ({ ...prev, [key]: value }))
+                    setSearchFilters((prev) => ({ ...prev, [name]: value }))
                   }
                 >
                   <SelectTrigger className="focus:border-primary focus:ring focus:ring-primary/30">
-                    <SelectValue placeholder={`Select ${name}`} />
+                    <SelectValue
+                      placeholder={t("select", { field: t(name) })}
+                    />
                   </SelectTrigger>
                   <SelectContent>
                     {options.map((option) => (
@@ -667,7 +549,7 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
             <div className="flex justify-start ml-4 gap-2">
               <Select value={Immigration} onValueChange={setImmigration}>
                 <SelectTrigger className="w-[150px]">
-                  <SelectValue placeholder="Select Immigration" />
+                  <SelectValue placeholder={`${t("selectImmigration")}`} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Ho Chi Minh">Ho Chi Minh</SelectItem>
@@ -675,7 +557,7 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
                 </SelectContent>
               </Select>
               <Input
-                placeholder="Enter IREF"
+                placeholder={`${t("entire")} IREF`}
                 value={iref}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setIref(e.target.value)
@@ -687,67 +569,69 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
                   <SelectValue placeholder="Select Stage" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Not Processed">Not Processed</SelectItem>
-                  <SelectItem value="Processing">Processing</SelectItem>
-                  <SelectItem value="Processed">Processed</SelectItem>
-                  <SelectItem value="Blacklist">Blacklist</SelectItem>
-                  <SelectItem value="Overstayed">Overstayed</SelectItem>
+                  <SelectItem value="Not Processed">
+                    {t("notProcessed")}
+                  </SelectItem>
+                  <SelectItem value="Processing">{t("processing")}</SelectItem>
+                  <SelectItem value="Processed">{t("processed")}</SelectItem>
+                  <SelectItem value="Blacklist">{t("blacklist")}</SelectItem>
+                  <SelectItem value="Overstayed">{t("overstayed")}</SelectItem>
                 </SelectContent>
               </Select>
               <Button variant="secondary" onClick={handleSave}>
-                Save
+                {t("save")}
               </Button>
               <Button
                 onClick={handleSearch}
                 className="flex items-center space-x-2 bg-primary text-background"
                 variant="outline"
               >
-                <span>Total Application :</span>
+                <span>{t("totalApplication")} :</span>
                 <span>{selectedApplications.length}</span>
               </Button>
             </div>
 
             <Button onClick={handleSearch} className="flex items-center">
-              <SearchIcon className="mr-2 h-4 w-4" /> Search
+              <SearchIcon className="mr-2 h-4 w-4" /> {t("search")}
             </Button>
             <Button
               variant="secondary"
               onClick={handleReset}
               className="flex items-center"
             >
-              <RefreshCwIcon className="mr-2 h-4 w-4" /> Reset
+              <RefreshCwIcon className="mr-2 h-4 w-4" /> {t("reset")}
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">
                   <span className="sr-only">Open menu</span>
                   <DownloadIcon />
-                  Download
+                  {t("download")}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuLabel>{t("actions")}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   onClick={() => {
                     downloadFile("xlsx", selectedApplications);
                   }}
                 >
-                  Download .xlsx
+                  {t("download")} .xlsx
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => {
                     downloadFile("pdf", selectedApplications);
                   }}
                 >
-                  Download Pdf
+                  {t("download")} Pdf
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => {
                     downloadFile("csv", selectedApplications);
                   }}
                 >
-                  Download .csv
+                  {t("download")} .csv
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

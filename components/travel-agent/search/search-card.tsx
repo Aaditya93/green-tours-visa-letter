@@ -162,7 +162,11 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
       return;
     }
     try {
-      await updateApplicationStages(selectedApplications, "Processed");
+      const result = await updateApplicationStages(
+        selectedApplications,
+        "Processed"
+      );
+      console.log(result);
       setSelectedApplications([]);
       window.location.reload();
     } catch (error) {

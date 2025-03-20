@@ -1,19 +1,20 @@
-
-import React from 'react';
-import { Button } from '@/components/ui/button';
+import React from "react";
+import { Button } from "@/components/ui/button";
 import { CiLogin } from "react-icons/ci";
-import Link from 'next/link';
-
+import Link from "next/link";
+import { useTranslations } from "next-intl";
 const RedirectLogin = () => {
-  
+  const t = useTranslations("registerPage");
   return (
     <div className="absolute top-4 right-4">
-       <Button asChild variant="ghost" className='text-base'>
-       <Link href="/auth/login"> <CiLogin/>Sign in</Link>
-    </Button>
+      <Button asChild variant="ghost" className="text-base">
+        <Link href="/auth/login">
+          {" "}
+          <CiLogin /> {t("action")}
+        </Link>
+      </Button>
     </div>
   );
-
 };
 
 export default RedirectLogin;

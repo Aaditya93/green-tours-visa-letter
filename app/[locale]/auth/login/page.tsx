@@ -13,8 +13,10 @@ import { LoginForm } from "@/components/auth/login-form";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const LoginPage = () => {
+  const t = useTranslations("loginPage");
   return (
     <div className="grid lg:grid-cols-2 min-h-screen">
       <div className="relative h-[300px] lg:h-full overflow-hidden">
@@ -30,14 +32,16 @@ const LoginPage = () => {
           <div className="backdrop-blur-sm bg-black/20 p-6 rounded-xl max-w-md border border-white/10">
             <div className="flex items-center gap-2 mb-4">
               <FaLeaf className="text-primary-foreground text-2xl" />
-              <h2 className="text-3xl font-bold drop-shadow-md">GreenTours</h2>
+              <h2 className="text-3xl font-bold drop-shadow-md">
+                {t("brand")}
+              </h2>
             </div>
             <p className="text-lg mt-2 opacity-90 leading-relaxed">
-              Your gateway to sustainable travel experiences around the world
+              {t("marketing1")}
             </p>
             <div className="flex items-center gap-2 mt-4 text-sm">
               <FaRegCompass className="text-primary-foreground" />
-              <span>Explore eco-friendly destinations with confidence</span>
+              <span>{t("marketing2")}</span>
             </div>
           </div>
         </div>
@@ -56,44 +60,44 @@ const LoginPage = () => {
             className="flex items-center gap-2"
           >
             <IoEnterOutline className="text-primary" />
-            <span className="font-medium">Travel Agent Portal</span>
+            <span className="font-medium">{t("travelAgentButton")}</span>
           </Link>
         </Button>
 
         <div className="flex items-center mb-8 lg:hidden">
           <FaLeaf className="text-primary text-2xl mr-2" />
-          <h1 className="text-2xl font-bold text-primary">GreenTours</h1>
+          <h1 className="text-2xl font-bold text-primary">{t("brand")}</h1>
         </div>
 
         <Card className="w-full max-w-md mx-auto border-primary/10 shadow-xl bg-card/80 backdrop-blur-sm">
-          <CardHeader className="space-y-2 p-6 pb-4 border-b border-primary/10">
+          <CardHeader className="space-y-2 p-6 pb-0">
             <CardTitle className="text-2xl font-bold text-primary">
-              Welcome back
+              {t("title")}
             </CardTitle>
-            <CardDescription className="text-base text-muted-foreground">
-              Enter your credentials to access your account
+            <CardDescription className="text-base ">
+              {t("subtitle")}
             </CardDescription>
           </CardHeader>
-          <CardContent className="p-6 pt-8">
+          <CardContent className="p-6 pt-6">
             <LoginForm />
           </CardContent>
-          <CardFooter className="flex flex-col items-center p-6 pt-2 text-sm text-muted-foreground">
+          <CardFooter className="flex flex-col items-center p-6 pt-2 text-sm ">
             <p>
-              New to GreenTours?{" "}
+              {t("button1")}{" "}
               <Link
                 href="/auth/register"
                 className="text-primary hover:underline font-medium transition-colors"
               >
-                Create an account
+                {t("button2")}
               </Link>
             </p>
             <p className="mt-3">
-              Need help?{" "}
+              {t("button3")}{" "}
               <Link
-                href="/support"
+                href="/contact-us"
                 className="text-primary hover:underline transition-colors"
               >
-                Contact support
+                {t("button4")}
               </Link>
             </p>
           </CardFooter>

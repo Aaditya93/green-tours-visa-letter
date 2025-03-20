@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { use } from "react";
 import { Input } from "@/components/ui/input";
 import { RegisterButton } from "@/components/auth/register-button";
 import {
@@ -19,8 +19,10 @@ import { register } from "@/actions/auth/register";
 import { useTransition, useState } from "react";
 import { FormError } from "./form-error";
 import { FormSuccess } from "./form-success";
+import { useTranslations } from "next-intl";
 
 export const RegisterForm = () => {
+  const t = useTranslations("registerPage");
   const [error, setError] = useState<string | undefined>("");
   const [success, setScuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -51,7 +53,7 @@ export const RegisterForm = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>{t("name")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -69,7 +71,7 @@ export const RegisterForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t("email")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -88,7 +90,7 @@ export const RegisterForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t("password")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}

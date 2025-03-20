@@ -18,7 +18,7 @@ import {
 import AppSidebar from "@/components/travel-agent/app-sidebar";
 
 export default function Loading() {
-  const t = useTranslations("travelAgentReport");
+  const t = useTranslations("travelReport");
   return (
     <SidebarProvider>
       <AppSidebar />

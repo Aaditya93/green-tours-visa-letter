@@ -17,6 +17,7 @@ import { registerTravelAgent } from "@/actions/agent-platform/auth/travel-agent-
 import { useTransition, useState } from "react";
 import { FormError } from "@/components/auth/form-error";
 import { FormSuccess } from "@/components/auth/form-success";
+import { useTranslations } from "next-intl";
 
 const TravelAgentRegisterSchema = z.object({
   name: z.string().min(3, {
@@ -41,6 +42,7 @@ const TravelAgentRegisterSchema = z.object({
 });
 
 export const RegisterForm = () => {
+  const t = useTranslations("registerTravelAgent");
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -93,7 +95,7 @@ export const RegisterForm = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>{t("name")}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -110,7 +112,7 @@ export const RegisterForm = () => {
                 name="phoneNumber"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
+                    <FormLabel>{t("phoneNumber")}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -133,7 +135,7 @@ export const RegisterForm = () => {
                 name="company"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Company Name</FormLabel>
+                    <FormLabel>{t("company")}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -151,7 +153,7 @@ export const RegisterForm = () => {
                 control={form.control} // Add missing control prop
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Country</FormLabel>
+                    <FormLabel>{t("country")}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -170,7 +172,7 @@ export const RegisterForm = () => {
               name="address"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Address</FormLabel>
+                  <FormLabel>{t("address")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -193,7 +195,7 @@ export const RegisterForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{t("email")}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -211,7 +213,7 @@ export const RegisterForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{t("password")}</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
@@ -232,7 +234,7 @@ export const RegisterForm = () => {
           <FormError message={error} />
 
           <Button className="w-full" variant="default" type="submit">
-            Create Account
+            {t("action1")}
           </Button>
         </form>
       </Form>

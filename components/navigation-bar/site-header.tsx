@@ -7,6 +7,7 @@ import MonbileNav from "./mobile-nav";
 import ProfileButton from "./profile-button";
 
 import { auth } from "../../auth";
+import LanguageSwitcher from "./language-switcher";
 
 export const SiteHeader = async () => {
   const session = await auth();
@@ -24,6 +25,7 @@ export const SiteHeader = async () => {
 
           {/* Group ModeSwitcher and auth buttons */}
           <div className="flex items-center space-x-2 flex-shrink-0">
+            <LanguageSwitcher />
             <ModeSwitcher />
             {session && <ProfileButton />}
             {!session && (

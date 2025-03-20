@@ -22,6 +22,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { useTranslations } from "next-intl";
 
 const chartConfig = {
   TotalApplications: {
@@ -35,11 +36,18 @@ interface StaffData {
   TotalApplications: number;
 }
 export const StaffChart = ({ data }: { data: StaffData[] }) => {
+  const t = useTranslations("report.staffChart");
+  const chartConfig = {
+    TotalApplications: {
+      label: t("label"),
+      color: "hsl(var(--chart-2))",
+    },
+  } satisfies ChartConfig;
   return (
     <Card className="rounded-none">
       <CardHeader>
-        <CardTitle>Staff Applications</CardTitle>
-        <CardDescription>Showing Applications Per Staff</CardDescription>
+        <CardTitle>{t("title")}</CardTitle>
+        <CardDescription>{t("subtitle")}</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

@@ -21,7 +21,7 @@ import { FormError } from "./form-error";
 import { FormSuccess } from "./form-success";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-
+import { useTranslations } from "next-intl";
 // Separate component for login form content
 const LoginFormContent = () => {
   const searchParams = useSearchParams();
@@ -52,6 +52,7 @@ const LoginFormContent = () => {
       password: "",
     },
   });
+  const t = useTranslations("loginPage");
 
   return (
     <div className="space-y-4">
@@ -62,7 +63,7 @@ const LoginFormContent = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>{t("email")}</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="name@example.com"
@@ -82,9 +83,9 @@ const LoginFormContent = () => {
             render={({ field }) => (
               <FormItem>
                 <div className="flex items-center justify-between">
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t("password")}</FormLabel>
                   <a href="/auth/reset" className="text-sm hover:underline">
-                    Forgot password?
+                    {t("forgot")}
                   </a>
                 </div>
                 <FormControl>
@@ -104,27 +105,6 @@ const LoginFormContent = () => {
           <LoginButton />
         </form>
       </Form>
-
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-sm uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-      </div>
-
-      <div className="text-center text-sm">
-        <span>Don&apos;t have an account?</span>{" "}
-        <Link
-          href="/auth/register"
-          className="text-primary underline hover:text-primary/80"
-        >
-          Sign up
-        </Link>
-      </div>
     </div>
   );
 };

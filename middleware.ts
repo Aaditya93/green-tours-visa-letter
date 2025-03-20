@@ -62,7 +62,7 @@ export default async function middleware(req: NextRequest) {
   const isApiRoute = pathname.startsWith("/api");
   const isAuthApiRoute = pathname.startsWith(apiAuthPrefix);
 
-  if (isApiRoute && isAuthApiRoute) {
+  if (isApiRoute || isAuthApiRoute) {
     return NextResponse.next();
   }
 
