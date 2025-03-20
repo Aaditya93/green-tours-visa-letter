@@ -18,7 +18,7 @@ export const MainNav = () => {
           priority
         />
       </div>
-      <Link href="/" className="mr-4 flex items-center gap-2 lg:mr-6">
+      <Link href="/home" className="mr-4 flex items-center gap-2 lg:mr-6">
         <span className="hidden font-bold lg:inline-block text-foreground">
           VISACAR
         </span>
@@ -46,17 +46,7 @@ export const MainNav = () => {
         >
           Contact Us
         </Link>
-        <Link
-          href="/about-us"
-          className={cn(
-            "transition-colors hover:text-primary",
-            pathname?.startsWith("/about-us")
-              ? "text-primary font-medium"
-              : "text-muted-foreground"
-          )}
-        >
-          About Us
-        </Link>
+
         <Link
           href="/travel-agent"
           className={cn(
