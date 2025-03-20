@@ -172,7 +172,7 @@ export default async function middleware(req: NextRequest) {
   // Protected routes - redirect to login if not authenticated
   if (!isLoggedIn) {
     // Prevent redirect loop - check if we're already at the login page
-    const loginPath = "/home";
+    const loginPath = "/auth/login";
     if (!pathWithoutLocale.startsWith(loginPath)) {
       const loginUrl = createLocalizedUrl(loginPath, locale, nextUrl.origin);
 

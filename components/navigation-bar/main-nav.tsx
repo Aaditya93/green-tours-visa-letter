@@ -4,9 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "../../lib/utils";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 export const MainNav = () => {
   const pathname = usePathname();
-
+  const session = useSession();
   return (
     <div className="mr-4 hidden md:flex">
       <div className="relative w-10 h-10 bg-background">
@@ -25,7 +26,11 @@ export const MainNav = () => {
       </Link>
       <nav className="flex items-center gap-4 text-sm xl:gap-6">
         <Link
-          href="/visa"
+          href={
+            session.data?.user.role == "Admin"
+              ? "/dashboard"
+              : "/travel-agent/dashboard"
+          }
           className={cn(
             "transition-colors hover:text-primary",
             pathname === "/visa"
@@ -48,7 +53,7 @@ export const MainNav = () => {
         </Link>
 
         <Link
-          href="/travel-agent"
+          href="/auth/travel-agent/register"
           className={cn(
             "transition-colors hover:text-primary",
             pathname?.startsWith("/charts")

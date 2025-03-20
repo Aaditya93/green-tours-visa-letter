@@ -32,153 +32,23 @@ export const SiteFooter = () => {
         <Separator className="bg-border" />
 
         {/* Links Section */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-          {/* Explore Visas */}
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">
-              EXPLORE VISAS
-            </h3>
-            <div className="text-muted-foreground mt-2 leading-relaxed flex flex-wrap ">
-              {[
-                "Vietnam",
-                "Indonesia",
-                "Malaysia",
-                "Azerbaijan",
-                "Egypt",
-                "Kenya",
-                "Russia",
-                "Uzbekistan",
-                "Kazakhstan",
-                "Cambodia",
-                "Mongolia",
-                "Sri Lanka",
-                "Tajikistan",
-                "Morocco",
-                "Laos",
-              ].map((country, index) => (
-                <Link
-                  key={country}
-                  href={`/visa/${country}`}
-                  className="hover:text-primary transition-colors"
-                >
-                  {country}
-                  {index !== 14 && <span className="ml-2">|</span>}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Products */}
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">PRODUCTS</h3>
-            <ul className="mt-2 space-y-1 text-muted-foreground">
-              <li>
-                <Link href="/visa" className="hover:text-primary">
-                  Visa
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Useful Links */}
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">
-              USEFUL LINKS
-            </h3>
-            <ul className="mt-2 space-y-1 text-muted-foreground">
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="#" className=" hover:underline">
-                  Blogs
-                </a>
-              </li>
-              <li>
-                <a href="#" className=" hover:underline">
-                  External Policy
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* For Agents */}
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">
-              FOR AGENTS
-            </h3>
-            <ul className="mt-2 space-y-1 text-muted-foreground">
-              <li>
-                <a
-                  href="/travel-agent"
-                  className="hover:text-primary transition-colors"
-                >
-                  Sign Up
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Others */}
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">OTHERS</h3>
-            <ul className="mt-2 space-y-1 text-muted-foreground">
-              <li>
-                <a
-                  href="/privacy"
-                  className="hover:text-primary transition-colors"
-                >
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/terms"
-                  className="hover:text-primary transition-colors"
-                >
-                  Terms and Conditions
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/cancellation"
-                  className="hover:text-primary transition-colors"
-                >
-                  Cancellation And Refund Policy
-                </a>
-              </li>
-              {/* <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Cookies
-                </a>
-              </li> */}
-            </ul>
-          </div>
-        </div>
-
-        <Separator className="bg-border" />
 
         {/* Contact & Social Media */}
         <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 md:space-x-8">
           <div className="flex items-center space-x-6">
-            <div className="bg-card p-2 rounded">
+            <div className="bg-background p-2 rounded">
               <Image
                 className="rounded-lg"
                 width={80}
                 height={80}
-                src="/favicon.ico"
+                src="/tours.png"
                 alt="SwiftVisa"
               />
             </div>
             <div className="text-sm text-muted-foreground">
-              <p>+91-81036-90599</p>
-              <p>support@SwiftVisa.com</p>
-              <p>
-                Shop No 11,Plot No 17, Jimmy Tower, near Samudra Restaurant,
-                Sector 18, Kopar Khairane, Navi Mumbai, Maharashtra 400709
-              </p>
+              <p>+84775390351</p>
+              <p>support@VISACAR.vn</p>
+              <p>7th floor, Viet A Building, so 09 Duy Tan, Cau Giay, Hanoi</p>
             </div>
           </div>
           {/* <div className="flex space-x-4">
@@ -219,7 +89,7 @@ export const SiteFooter = () => {
 
         {/* Footer Bottom */}
         <div className="text-center text-sm text-muted-foreground">
-          © 2024 — SwiftVisa Technology Private Limited
+          © 2025 — VISACAR Technology Private Limited
         </div>
       </div>
     </footer>

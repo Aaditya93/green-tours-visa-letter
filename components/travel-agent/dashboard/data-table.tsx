@@ -35,7 +35,7 @@ import { Dispatch, SetStateAction } from "react";
 import { DataTablePagination } from "@/components/dashboard/data-table-pagination";
 import { useColumns } from "./columns";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
 
 interface DataTableProps<TData extends { speed?: string }, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -252,9 +252,7 @@ const DataTable = <TData extends { speed?: string }, TValue>({
                   className="h-24 text-center"
                 >
                   <div className="flex flex-col items-center justify-center text-muted-foreground">
-                    <CheckCircle2 className="h-10 w-10 mb-2" />
                     <p>{t("noResults")}</p>
-                    <p className="text-sm">{t("tryDifferentSearch")}</p>
                   </div>
                 </TableCell>
               </TableRow>

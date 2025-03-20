@@ -27,6 +27,7 @@ export const SiteHeader = async () => {
           <div className="flex items-center space-x-2 flex-shrink-0">
             <LanguageSwitcher />
             <ModeSwitcher />
+
             {session && <ProfileButton />}
             {!session && (
               <Button asChild variant="ghost">

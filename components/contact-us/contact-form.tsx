@@ -66,16 +66,16 @@ export const CallbackForm = () => {
 
   return (
     <Card className="relative shadow-md border-[hsl(var(--border))] overflow-hidden">
-      <CardHeader className="space-y-4 px-6 py-6 bg-gradient-to-br from-primary/30 via-primary/15 to-accent/10 text-foreground border-b border-primary/10 relative before:absolute before:inset-0 before:bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMxLjIgMCAyLjEuOSAyLjEgMi4xdjE5LjhjMCAxLjItLjkgMi4xLTIuMSAyLjFIMjRjLTEuMiAwLTIuMS0uOS0yLjEtMi4xVjIwLjFjMC0xLjIuOS0yLjEgMi4xLTIuMWgxMnpNMTggMzZjMS4yIDAgMi4xLjkgMi4xIDIuMXYxOS44YzAgMS4yLS45IDIuMS0yLjEgMi4xSDZjLTEuMiAwLTIuMS0uOS0yLjEtMi4xVjM4LjFjMC0xLjIuOS0yLjEgMi4xLTIuMWgxMnptMzYtMThjMS4yIDAgMi4xLjkgMi4xIDIuMXYxOS44YzAgMS4yLS45IDIuMS0yLjEgMi4xSDQyYy0xLjIgMC0yLjEtLjktMi4xLTIuMVYyMC4xYzAtMS4yLjktMi4xIDIuMS0yLjFoMTJ6IiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLW9wYWNpdHk9Ii4xNSIvPjwvZz48L3N2Zz4=')] before:opacity-10 before:pointer-events-none">
+      <CardHeader className="space-y-4 px-6 py-6 bg-primary">
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-full bg-primary/15 flex items-center justify-center shadow-md ring-2 ring-primary/10">
-            <PhoneCall className="h-7 w-7 text-primary" />
+          <div className="w-14 h-14 rounded-full bg-white/15 flex items-center justify-center shadow-md ring-2 ring-white/20">
+            <PhoneCall className="h-7 w-7 text-white" />
           </div>
           <div className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-card-foreground">
-              Need Help With Your Vietnam Visa Letter?
+            <CardTitle className="text-2xl font-bold text-white">
+              Need Help With Your Visa Application?
             </CardTitle>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-white/80">
               Get expert assistance within 2 minutes
             </p>
           </div>
@@ -163,7 +163,7 @@ export const CallbackForm = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                 <div className="flex items-center gap-2 text-muted-foreground hover:text-primary/80 transition-colors">
                   <Mail className="h-4 w-4 text-primary" />
-                  <span>support@SwiftVisa.com</span>
+                  <span>support@VISACAR.vn</span>
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground hover:text-primary/80 transition-colors">
                   <Phone className="h-4 w-4 text-primary" />
@@ -202,7 +202,7 @@ export const CallbackForm = () => {
               >
                 <FaWhatsapp className="h-5 w-5 mr-2 text-green-500" />
                 <a
-                  href="https://api.whatsapp.com/send/?phone=918103690599"
+                  href="https://api.whatsapp.com/send/?phone=84915549136"
                   className="text-foreground"
                 >
                   Chat on WhatsApp
