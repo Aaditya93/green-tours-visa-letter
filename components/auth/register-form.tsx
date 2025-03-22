@@ -1,6 +1,4 @@
 "use client";
-
-import React, { use } from "react";
 import { Input } from "@/components/ui/input";
 import { RegisterButton } from "@/components/auth/register-button";
 import {
@@ -13,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { RegisterSchema } from "@/app/schemas";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { register } from "@/actions/auth/register";
 import { useTransition, useState } from "react";
@@ -26,6 +24,18 @@ export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setScuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+
+  const RegisterSchema = z.object({
+    name: z.string().min(3, {
+      message: t("error1"),
+    }),
+    email: z.string().email({
+      message: t("error2"),
+    }),
+    password: z.string().min(8, {
+      message: t("error3"),
+    }),
+  });
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError("");
     setScuccess("");

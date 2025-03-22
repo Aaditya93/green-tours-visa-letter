@@ -2,16 +2,15 @@
 
 import * as z from "zod";
 import ContactForm from "@/db/models/ContactFrom";
-import dbConnect from "@/db/db";
-const contactFormSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  mobile: z
-    .string()
-    .min(10, { message: "Please enter a valid mobile number." }),
-});
-export const contactUs = async (values: z.infer<typeof contactFormSchema>) => {
-  await dbConnect();
+import { getTranslations } from "next-intl/server";
+
+export const contactUs = async (values) => {
+  const t = await getTranslations("contactUs");
+  const contactFormSchema = z.object({
+    name: z.string().min(2, { message: t("error") }),
+    email: z.string().email({ message: t("error1") }),
+    mobile: z.string().min(5, { message: t("error2") }),
+  });
   try {
     const validatedFields = contactFormSchema.safeParse(values);
     if (!validatedFields.success) {

@@ -6,10 +6,12 @@ import dbConnect from "@/db/db";
 import { TravelAgentRegisterSchema } from "@/app/schemas";
 import User from "@/db/models/User";
 import bcrypt from "bcryptjs";
+import { getTranslations } from "next-intl/server";
 
 export const registerTravelAgent = async (
   values: z.infer<typeof TravelAgentRegisterSchema>
 ) => {
+  const t = await getTranslations("registerTravelAgent");
   try {
     await dbConnect();
     const validatedFields = TravelAgentRegisterSchema.safeParse(values);
@@ -44,8 +46,7 @@ export const registerTravelAgent = async (
     });
 
     return {
-      success:
-        "Our team will verify your details and notify you via email once approved.",
+      success: t("success"),
     };
   } catch (error) {
     console.error("Error during registration:", error);

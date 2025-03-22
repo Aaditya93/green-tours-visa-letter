@@ -31,17 +31,17 @@ import { contactUs } from "@/actions/contact-us/contact-us";
 
 import { FormError } from "../auth/form-error";
 import { FormSuccess } from "../auth/form-success";
-const contactFormSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Please enter a valid email address." }),
-  mobile: z
-    .string()
-    .min(10, { message: "Please enter a valid mobile number." }),
-});
+import { useTranslations } from "next-intl";
 export const CallbackForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("contactUs");
+  const contactFormSchema = z.object({
+    name: z.string().min(2, { message: t("error") }),
+    email: z.string().email({ message: t("error1") }),
+    mobile: z.string().min(5, { message: t("error2") }),
+  });
 
   const onSubmit = (values: z.infer<typeof contactFormSchema>) => {
     setError("");
@@ -73,11 +73,9 @@ export const CallbackForm = () => {
           </div>
           <div className="space-y-1">
             <CardTitle className="text-2xl font-bold text-white">
-              Need Help With Your Visa Application?
+              {t("title1")}
             </CardTitle>
-            <p className="text-sm text-white/80">
-              Get expert assistance within 2 minutes
-            </p>
+            <p className="text-sm text-white/80">{t("title2")}</p>
           </div>
         </div>
       </CardHeader>
@@ -93,11 +91,10 @@ export const CallbackForm = () => {
                 <FormItem>
                   <FormLabel className="text-sm font-medium flex items-center gap-2">
                     <User className="h-4 w-4 text-primary" />
-                    Full Name
+                    {t("input1")}
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter your name"
                       className="h-11 bg-[hsl(var(--accent)/0.5)] border-[hsl(var(--accent-foreground)/0.2)] focus:border-[hsl(var(--primary))]"
                       {...field}
                       disabled={isPending}
@@ -115,11 +112,10 @@ export const CallbackForm = () => {
                 <FormItem>
                   <FormLabel className="text-left flex items-center gap-2">
                     <AtSign className="h-4 w-4 text-primary" />
-                    Email ID
+                    {t("input2")}
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Email ID"
                       type="text"
                       className="h-11 bg-[hsl(var(--accent)/0.5)] border-[hsl(var(--accent-foreground)/0.2)] focus:border-[hsl(var(--primary))]"
                       {...field}
@@ -138,11 +134,10 @@ export const CallbackForm = () => {
                 <FormItem>
                   <FormLabel className="text-left flex items-center gap-2">
                     <Phone className="h-4 w-4 text-primary" />
-                    Mobile Number
+                    {t("input3")}
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Mobile Number"
                       type="tel"
                       className="h-11 bg-[hsl(var(--accent)/0.5)] border-[hsl(var(--accent-foreground)/0.2)] focus:border-[hsl(var(--primary))]"
                       {...field}
@@ -158,7 +153,7 @@ export const CallbackForm = () => {
             <div className="bg-card border border-border/50 rounded-lg p-4 space-y-3 shadow-sm">
               <h4 className="font-medium text-card-foreground flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-primary" />
-                Contact Us Directly
+                {t("message")}
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                 <div className="flex items-center gap-2 text-muted-foreground hover:text-primary/80 transition-colors">
@@ -171,7 +166,7 @@ export const CallbackForm = () => {
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground md:col-span-2 hover:text-primary/80 transition-colors">
                   <Clock className="h-4 w-4 text-primary" />
-                  <span>Operating Hours: 10:00 AM - 7:00 PM (Mon-Sat)</span>
+                  <span> {t("message1")}: 10:00 AM - 7:00 PM (Mon-Sat)</span>
                 </div>
               </div>
             </div>
@@ -188,10 +183,10 @@ export const CallbackForm = () => {
               >
                 {isPending ? (
                   <span className="flex items-center gap-2">
-                    <span className="animate-spin">⏳</span> Processing...
+                    <span className="animate-spin">⏳</span> {t("loading")}
                   </span>
                 ) : (
-                  "Get Expert Callback"
+                  `${t("button1")}`
                 )}
               </Button>
 
@@ -205,7 +200,7 @@ export const CallbackForm = () => {
                   href="https://api.whatsapp.com/send/?phone=84915549136"
                   className="text-foreground"
                 >
-                  Chat on WhatsApp
+                  {t("button2")}
                 </a>
               </Button>
             </div>

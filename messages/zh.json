@@ -775,7 +775,11 @@
     "button4": "联系客服",
     "email": "电子邮件",
     "password": "密码",
-    "forgot": "忘记密码？"
+    "forgot": "忘记密码？",
+    "error1": "电子邮件为必填项",
+    "error2": "电子邮件地址无效",
+    "error3": "密码为必填项",
+    "error4": "密码应至少包含 8 个字符"
   },
   "registerPage": {
     "brand": "VISACAR",
@@ -791,7 +795,10 @@
     "action2": "使用邮箱注册",
     "name": "姓名",
     "email": "邮箱",
-    "password": "密码"
+    "password": "密码",
+    "error1": "姓名应至少包含 3 个字符",
+    "error2": "电子邮件地址无效",
+    "error3": "密码应至少包含 8 个字符"
   },
   "registerTravelAgent": {
     "title": "签证邀请函处理门户",
@@ -813,7 +820,14 @@
     "subtitle2": "服务条款",
     "subtitle3": "和",
     "subtitle4": "隐私政策",
-    "action1": "创建账户"
+    "action1": "创建账户",
+    "success": "我们的团队将核实您的信息，并在批准后通过电子邮件通知您。",
+    "error1": "姓名应至少包含 3 个字符",
+    "error2": "公司名称应至少包含 3 个字符",
+    "error3": "地址应至少包含 3 个字符",
+    "error4": "国家名称应至少包含 3 个字符",
+    "error5": "电子邮件地址无效",
+    "error6": "密码应至少包含 8 个字符"
   },
   "report": {
     "title": "报告",
@@ -931,12 +945,31 @@
     "visaLetter": "签证邀请函",
     "login": "登录",
     "travelAgent": "旅行社",
-    "logout": "登出"
+    "logout": "登出",
+    "select": "选择语言"
   },
   "footer": {
     "title": "需要帮助？",
     "title1": "喜欢旅行，却不喜欢繁琐的计划？让 VISACAR 为您获取签证邀请函。让我们快速聊聊吧！",
     "title2": "与我们的专家对话",
     "title3": "2025 — VISACAR Technology Private Limited"
+  },
+
+  "contactUs": {
+    "title": "我们随时为您提供帮助",
+    "subtitle": "我们的专家团队为您提供个性化的签证帮助，确保您的签证邀请函流程顺畅无忧。",
+    "title1": "需要帮助办理签证申请？",
+    "title2": "在 2 分钟内获取专家帮助",
+    "input1": "全名",
+    "input2": "电子邮件",
+    "input3": "电话号码",
+    "message": "直接联系我们",
+    "message1": "营业时间",
+    "button1": "请求回电",
+    "button2": "WhatsApp 聊天",
+    "loading": "正在发送消息...",
+    "error": "姓名至少需 2 个字符。",
+    "error1": "请输入有效的电子邮件地址。",
+    "error2": "请输入有效的电话号码。"
   }
 }

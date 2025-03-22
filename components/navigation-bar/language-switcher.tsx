@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-
+import { useTranslations } from "next-intl";
 // Define language options with their metadata
 const languages = {
   en: {
@@ -53,6 +53,7 @@ export const LanguageSwitcher = () => {
   };
 
   const currentLang = languages[selectedLanguage] || languages.en;
+  const t = useTranslations("navbar");
 
   return (
     <DropdownMenu>
@@ -73,7 +74,7 @@ export const LanguageSwitcher = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[200px]">
-        <DropdownMenuLabel>Select Language</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("select")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem onClick={() => switchLanguage("en")}>

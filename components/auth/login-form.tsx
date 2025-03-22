@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import { LoginSchema } from "@/app/schemas";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { LoginButton } from "./login-button";
@@ -20,8 +20,9 @@ import { useTransition, useState } from "react";
 import { FormError } from "./form-error";
 import { FormSuccess } from "./form-success";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 // Separate component for login form content
 const LoginFormContent = () => {
   const searchParams = useSearchParams();
@@ -33,6 +34,18 @@ const LoginFormContent = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations("loginPage");
+
+  const LoginSchema = z.object({
+    email: z
+      .string()
+      .min(1, { message: t("error1") })
+      .email({ message: t("error2") }),
+    password: z
+      .string()
+      .min(1, { message: t("error3") })
+      .min(8, { message: t("error4") }),
+  });
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     setError("");
@@ -52,7 +65,6 @@ const LoginFormContent = () => {
       password: "",
     },
   });
-  const t = useTranslations("loginPage");
 
   return (
     <div className="space-y-4">
@@ -84,9 +96,9 @@ const LoginFormContent = () => {
               <FormItem>
                 <div className="flex items-center justify-between">
                   <FormLabel>{t("password")}</FormLabel>
-                  <a href="/auth/reset" className="text-sm hover:underline">
+                  <Link href="/auth/reset" className="text-sm hover:underline">
                     {t("forgot")}
-                  </a>
+                  </Link>
                 </div>
                 <FormControl>
                   <Input

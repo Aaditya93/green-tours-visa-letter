@@ -19,33 +19,32 @@ import { FormError } from "@/components/auth/form-error";
 import { FormSuccess } from "@/components/auth/form-success";
 import { useTranslations } from "next-intl";
 
-const TravelAgentRegisterSchema = z.object({
-  name: z.string().min(3, {
-    message: "Name should be at least 3 characters long",
-  }),
-  company: z.string().min(3, {
-    message: "Company name should be at least 3 characters long",
-  }),
-  address: z.string().min(3, {
-    message: "Address should be at least 3 characters long",
-  }),
-  phoneNumber: z.string(),
-  country: z.string().min(3, {
-    message: "Country should be at least 3 characters long",
-  }),
-  email: z.string().email({
-    message: "Invalid email address",
-  }),
-  password: z.string().min(8, {
-    message: "Password should be at least 8 characters long",
-  }),
-});
-
 export const RegisterForm = () => {
   const t = useTranslations("registerTravelAgent");
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+  const TravelAgentRegisterSchema = z.object({
+    name: z.string().min(3, {
+      message: t("error1"),
+    }),
+    company: z.string().min(3, {
+      message: t("error2"),
+    }),
+    address: z.string().min(3, {
+      message: t("error3"),
+    }),
+    phoneNumber: z.string(),
+    country: z.string().min(3, {
+      message: t("error4"),
+    }),
+    email: z.string().email({
+      message: t("error5"),
+    }),
+    password: z.string().min(8, {
+      message: t("error6"),
+    }),
+  });
 
   const onSubmit = async (
     values: z.infer<typeof TravelAgentRegisterSchema>

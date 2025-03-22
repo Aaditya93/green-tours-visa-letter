@@ -778,7 +778,11 @@
     "button4": " Contact support",
     "email": "Email",
     "password": "Password",
-    "forgot": "Forgot Password?"
+    "forgot": "Forgot Password?",
+    "error1": "Email is required",
+    "error2": "Email is not valid",
+    "error3": "Password is required",
+    "error4": "Password should be at least 8 characters long"
   },
   "registerPage": {
     "brand": "VISACAR",
@@ -794,7 +798,10 @@
     "action2": "Sign Up with Email",
     "name": "Name",
     "email": "Email",
-    "password": "Password"
+    "password": "Password",
+    "error1": "Name should be at least 3 characters long",
+    "error2": "Email is not valid",
+    "error3": "Password should be at least 8 characters long"
   },
   "registerTravelAgent": {
     "title": "Visa Letter Processing Portal",
@@ -816,7 +823,14 @@
     "subtitle2": "Terms of Service",
     "subtitle3": "and",
     "subtitle4": "Privacy Policy",
-    "action1": "Create Account"
+    "action1": "Create Account",
+    "success": "Our team will verify your details and notify you via email once approved.",
+    "error1": "Name should be at least 3 characters long",
+    "error2": "Company name should be at least 3 characters long",
+    "error3": "Address should be at least 3 characters long",
+    "error4": "Country should be at least 3 characters long",
+    "error5": "Email is not valid",
+    "error6": "Password should be at least 8 characters long"
   },
   "report": {
     "title": "Report",
@@ -934,12 +948,30 @@
     "visaLetter": "Visa Letter",
     "login": "Login",
     "travelAgent": "Travel Agent",
-    "logout": "Logout"
+    "logout": "Logout",
+    "select": "Select Language"
   },
   "footer": {
     "title": "Need help?",
     "title1": "Love travelling, and not the planning? Let VISACAR get you a Visa Letter. Let’s have a quick chat!",
     "title2": "Talk to our experts",
     "title3": " 2025 — VISACAR Technology Private Limited"
+  },
+  "contactUs": {
+    "title": "We're Here to Help",
+    "subtitle": "Get personalized visa assistance from our expert team. We're committed to making your visa Letter process smooth and hassle-free.",
+    "title1": "Need Help With Your Visa Application?",
+    "title2": "Get expert assistance within 2 minutes",
+    "input1": "Full Name",
+    "input2": "Email ID",
+    "input3": "Phone Number",
+    "message": "Contact Us Directly",
+    "message1": "Operating Hours",
+    "button1": "Get a Callback",
+    "button2": "Chat on WhatsApp",
+    "loading": "Sending message...",
+    "error": "Name must be at least 2 characters.",
+    "error1": "Please enter a valid email address..",
+    "error2": "Please enter a valid phone number."
   }
 }
