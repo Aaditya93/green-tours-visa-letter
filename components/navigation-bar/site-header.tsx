@@ -8,9 +8,11 @@ import ProfileButton from "./profile-button";
 
 import { auth } from "../../auth";
 import LanguageSwitcher from "./language-switcher";
+import { getTranslations } from "next-intl/server";
 
 export const SiteHeader = async () => {
   const session = await auth();
+  const t = await getTranslations("navbar");
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:border-border">
@@ -31,7 +33,7 @@ export const SiteHeader = async () => {
             {session && <ProfileButton />}
             {!session && (
               <Button asChild variant="ghost">
-                <Link href="/auth/login">Login</Link>
+                <Link href="/auth/login">{t("login")}</Link>
               </Button>
             )}
           </div>

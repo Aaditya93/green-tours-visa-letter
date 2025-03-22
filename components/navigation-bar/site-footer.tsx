@@ -2,9 +2,10 @@ import * as React from "react";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 export const SiteFooter = () => {
+  const t = useTranslations("footer");
   return (
     <footer className="bg-background p-8 text-foreground">
       <div className="container mx-auto space-y-8">
@@ -12,19 +13,16 @@ export const SiteFooter = () => {
         <div className="flex justify-between items-center bg-card p-6 rounded-md">
           <div>
             <h2 className="text-xl font-bold text-card-foreground">
-              Need help?
+              {t("title")}
             </h2>
-            <p className="text-muted-foreground mt-1">
-              Love travelling, and not the planning? Let SwiftVisa get you a
-              visa. Let’s have a quick chat!
-            </p>
+            <p className="text-muted-foreground mt-1">{t("title1")}</p>
           </div>
           <Button
             variant="ghost"
             className="text-primary hover:text-primary/90"
           >
-            <a href="https://api.whatsapp.com/send/?phone=918103690599&text&type=phone_number&app_absent=0">
-              Talk to our experts →
+            <a href="https://api.whatsapp.com/send/?phone=84915549136&text&type=phone_number&app_absent=0">
+              {t("title2")}
             </a>
           </Button>
         </div>
@@ -89,7 +87,7 @@ export const SiteFooter = () => {
 
         {/* Footer Bottom */}
         <div className="text-center text-sm text-muted-foreground">
-          © 2025 — VISACAR Technology Private Limited
+          {t("title3")}
         </div>
       </div>
     </footer>

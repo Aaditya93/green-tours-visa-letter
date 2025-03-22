@@ -881,5 +881,65 @@
     "pleaseSelectApplications": "Please select applications",
     "singleEntry": "Single Entry",
     "multipleEntry": "Multiple Entry"
+  },
+  "home": {
+    "title": "Visit Vietnam",
+    "welcome": "Experience the beauty, culture and warmth of Vietnam with our hassle-free visa services",
+    "hero": {
+      "title": "Vietnam Visa",
+      "subtitle": "Letter",
+      "subtitle1": "Faster",
+      "subtitle2": "Easier",
+      "subtitle3": "Cheaper",
+      "subtitle4": "Secure",
+      "description": "Fast, reliable Vietnam visa letter processing service. Secure approval letters for tourist and business travel.",
+      "button1": "Contact Us",
+      "button2": "Travel Agent"
+    },
+    "testimonials": {
+      "section_title": "What Our Customers Say",
+      "quotes": {
+        "sarah": "Getting my Vietnam visa letter was incredibly fast and easy. The process was so streamlined that I had my approval in just 2 Hours, saving me a lot of stress before my trip.",
+        "michael": "I was worried about the visa process for our family vacation to Vietnam, but your service made it completely hassle-free. Clear instructions and prompt support at every step.",
+        "jia": "As a frequent traveler to Vietnam for business, I rely on your service for every trip. The accuracy and reliability of your visa letters have been perfect every single time.",
+        "james": "I needed an urgent visa letter for an unexpected business trip to Vietnam. Your expedited service delivered within 24 hours, which was truly impressive!",
+        "lisa": "Our tour group of 15 people all needed visa letters, and your service handled the complex requirements flawlessly. The ability to process group applications made our Vietnam tour planning so much easier."
+      },
+      "names": {
+        "sarah": "Sarah Chen",
+        "michael": "Michael Rodriguez",
+        "jia": "Jia Li",
+        "james": "James Kim",
+        "lisa": "Lisa Thompson"
+      },
+      "designations": {
+        "business_traveler": "Business Traveler, {country}",
+        "family_traveler": "Family Traveler, {country}",
+        "corporate_executive": "Corporate Executive, {country}",
+        "entrepreneur": "Entrepreneur, {country}",
+        "tour_coordinator": "Tour Coordinator, {country}"
+      },
+      "countries": {
+        "usa": "USA",
+        "canada": "Canada",
+        "australia": "Australia",
+        "singapore": "Singapore",
+        "uk": "UK"
+      }
+    }
+  },
+  "navbar": {
+    "home": "Home",
+    "contact": "Contact Us",
+    "visaLetter": "Visa Letter",
+    "login": "Login",
+    "travelAgent": "Travel Agent",
+    "logout": "Logout"
+  },
+  "footer": {
+    "title": "Need help?",
+    "title1": "Love travelling, and not the planning? Let VISACAR get you a Visa Letter. Let’s have a quick chat!",
+    "title2": "Talk to our experts",
+    "title3": " 2025 — VISACAR Technology Private Limited"
   }
 }

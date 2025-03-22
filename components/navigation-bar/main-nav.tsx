@@ -5,12 +5,14 @@ import { usePathname } from "next/navigation";
 import { cn } from "../../lib/utils";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 export const MainNav = () => {
+  const t = useTranslations("navbar");
   const pathname = usePathname();
   const session = useSession();
   return (
     <div className="mr-4 hidden md:flex">
-      <div className="relative w-12 h-12 bg-background pl-2">
+      <div className="relative w-12 h-12  pl-2">
         <Image
           src="/tours.png"
           alt="VISACAR Logo"
@@ -38,7 +40,7 @@ export const MainNav = () => {
               : "text-muted-foreground"
           )}
         >
-          Visa
+          {t("visaLetter")}
         </Link>
         <Link
           href="/contact-us"
@@ -49,7 +51,7 @@ export const MainNav = () => {
               : "text-muted-foreground"
           )}
         >
-          Contact Us
+          {t("contact")}
         </Link>
 
         <Link
@@ -61,7 +63,7 @@ export const MainNav = () => {
               : "text-muted-foreground"
           )}
         >
-          Travel Agent
+          {t("travelAgent")}
         </Link>
       </nav>
     </div>

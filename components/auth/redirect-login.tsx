@@ -7,7 +7,7 @@ const RedirectLogin = () => {
   const t = useTranslations("registerPage");
   return (
     <div className="absolute top-4 right-4">
-      <Button asChild variant="ghost" className="text-base">
+      <Button asChild variant="outline" className="text-primary">
         <Link href="/auth/login">
           {" "}
           <CiLogin /> {t("action")}

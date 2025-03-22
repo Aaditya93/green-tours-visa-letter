@@ -2,21 +2,21 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
-import { LogOut, FileText } from "lucide-react";
+import { LogOut } from "lucide-react";
 
 import { signOut } from "../../auth";
 
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { currentUser } from "../../lib/auth";
 import { FaUser } from "react-icons/fa";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 export const ProfileButton = async () => {
   const user = await currentUser();
+  const t = await getTranslations("navbar");
   return (
     <div>
       <DropdownMenu>
@@ -29,14 +29,6 @@ export const ProfileButton = async () => {
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem asChild>
-            <Link href={"/dashboard"}>
-              <FileText className="w-4 h-4 mr-2" />
-              <span>Applications</span>
-            </Link>
-          </DropdownMenuItem>
-
-          <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={async () => {
               "use server";
@@ -45,7 +37,7 @@ export const ProfileButton = async () => {
             className="text-red-600"
           >
             <LogOut className="w-4 h-4 mr-2" />
-            <span>Logout</span>
+            <span>{t("logout")}</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -878,5 +878,65 @@
     "pleaseSelectApplications": "请选择申请",
     "singleEntry": "单次入境",
     "multipleEntry": "多次入境"
+  },
+  "home": {
+    "title": "访问越南",
+    "welcome": "通过我们的无忧签证服务，体验越南的美丽、文化与热情",
+    "hero": {
+      "title": "越南签证",
+      "subtitle": "邀请函",
+      "subtitle1": "更快",
+      "subtitle2": "更简单",
+      "subtitle3": "更便宜",
+      "subtitle4": "更安全",
+      "description": "快速可靠的越南签证邀请函处理服务。安全获取旅游和商务旅行的批准函。",
+      "button1": "联系我们",
+      "button2": "旅行社"
+    },
+    "testimonials": {
+      "section_title": "客户评价",
+      "quotes": {
+        "sarah": "获取我的越南签证邀请函非常快速且简单。整个流程非常高效，我在短短 2 小时内就收到了批准函，让我的出行毫无压力。",
+        "michael": "我原本担心我们家庭旅行的签证办理问题，但你们的服务让整个过程变得毫无烦恼。清晰的指引和每一步的及时支持，让一切都很顺利。",
+        "jia": "作为一名经常前往越南出差的商务人士，我每次旅行都会依赖你们的服务。你们提供的签证邀请函总是准确无误，十分可靠。",
+        "james": "我需要一封紧急签证邀请函用于一次突发的商务旅行。你们的加急服务在 24 小时内完成，真的令人印象深刻！",
+        "lisa": "我们的旅行团共有 15 人都需要签证邀请函，你们的服务完美地处理了所有复杂的要求。能够批量申请签证，使我们的越南旅行规划变得轻松许多。"
+      },
+      "names": {
+        "sarah": "陈莎拉",
+        "michael": "迈克尔·罗德里格斯",
+        "jia": "李佳",
+        "james": "金詹姆斯",
+        "lisa": "丽莎·汤普森"
+      },
+      "designations": {
+        "business_traveler": "商务旅行者，{country}",
+        "family_traveler": "家庭旅行者，{country}",
+        "corporate_executive": "企业高管，{country}",
+        "entrepreneur": "企业家，{country}",
+        "tour_coordinator": "旅游协调员，{country}"
+      },
+      "countries": {
+        "usa": "美国",
+        "canada": "加拿大",
+        "australia": "澳大利亚",
+        "singapore": "新加坡",
+        "uk": "英国"
+      }
+    }
+  },
+  "navbar": {
+    "home": "首页",
+    "contact": "联系我们",
+    "visaLetter": "签证邀请函",
+    "login": "登录",
+    "travelAgent": "旅行社",
+    "logout": "登出"
+  },
+  "footer": {
+    "title": "需要帮助？",
+    "title1": "喜欢旅行，却不喜欢繁琐的计划？让 VISACAR 为您获取签证邀请函。让我们快速聊聊吧！",
+    "title2": "与我们的专家对话",
+    "title3": "2025 — VISACAR Technology Private Limited"
   }
 }
