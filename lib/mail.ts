@@ -8,16 +8,16 @@ export const sendVarificationEmail = async (email: string, token: string) => {
   console.log(ConfirmationLink);
 
   await resend.emails.send({
-    from: "Victoria Tours <noreply@bukxe.net>",
+    from: "VISACAR <noreply@visacar.vn>",
     to: email,
-    subject: "Verify Your Email - Victoria Visa",
+    subject: "Verify Your Email - VISACAR",
     html: `
         <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Your Email - Victoria Visa</title>
+    <title>Verify Your Email - VISACAR</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -84,14 +84,14 @@ export const sendVarificationEmail = async (email: string, token: string) => {
         <h1>Verify Your Email</h1>
         
         <p class="verification-text">
-            Welcome to Victoria Visa! To complete your account setup, please verify your email address by clicking the button below.
+            Welcome to VISACAR! To complete your account setup, please verify your email address by clicking the button below.
         </p>
         
         <a href="${ConfirmationLink}" class="verify-button">Verify Email Address</a>
         
         <div class="footer">
-            <p>If you didn't create an account with Victoria Visa, please ignore this email.</p>
-            <p>© ${new Date().getFullYear()} Victoria Visa. All rights reserved.</p>
+            <p>If you didn't create an account with VISACAR, please ignore this email.</p>
+            <p>© ${new Date().getFullYear()} VISACAR. All rights reserved.</p>
         </div>
     </div>
 </body>
@@ -105,7 +105,7 @@ export const PasswordResetEmail = async (email: string, token: string) => {
   const ConfirmationLink = `${Domain}/auth/new-password?token=${token}`;
 
   await resend.emails.send({
-    from: "Victoria Tours <noreply@victoriatour.com>",
+    from: "VISACAR <noreply@visacar.vn>",
     to: email,
     subject: "Reset Your Password",
     html: `<!DOCTYPE html>
@@ -180,7 +180,7 @@ export const PasswordResetEmail = async (email: string, token: string) => {
         <p>Click the button below to verify your email and reset your password. If you did not request a password reset, please ignore this email.</p>
         <a href="${ConfirmationLink}" class="verify-button">Verify Email</a>
         <div class="footer">
-            © 2024 Victoria Visa. All rights reserved.
+            © 2025 VISACAR. All rights reserved.
             <br>
             If you're having trouble, copy and paste this link: ${ConfirmationLink}
         </div>
@@ -195,15 +195,15 @@ export const sendTravelAgentApprovalEmail = async (
   email: string
 ) => {
   await resend.emails.send({
-    from: "Victoria Tours <noreply@victoriatour.com>",
+    from: "VISACAR <noreply@visacar.vn>",
     to: email,
-    subject: "Account Verification Complete - Victoria Tours Visa Portal",
+    subject: "Account Verification Complete - VISACAR Visa Portal",
     html: `<!DOCTYPE html>
       <html lang="en">
       <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Victoria Tours - Account Verification Complete</title>
+          <title>VISACAR - Account Verification Complete</title>
           <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
           <style>
               body {
@@ -300,13 +300,13 @@ export const sendTravelAgentApprovalEmail = async (
                       <p>To get started, please visit our portal using your registered credentials:</p>
                       <p style="margin-bottom: 10px;">Your login email: <strong>${email}</strong></p>
                   </div>
-                  <a href="https://visa.victoriatour.com/auth/login" class="login-button">Login to Portal</a>
+                  <a href="https://visacar.vn/auth/login" class="login-button">Login to Portal</a>
                   <p class="portal-info">
-                      Portal URL:visa.victoriatour.com<br>
+                      Portal URL:visacar.vn<br>
                       Please use your registered email address to login.
                   </p>
                   <div class="footer">
-                      © 2024 Victoria Tours. All rights reserved.
+                      © 2025 VISACAR All rights reserved.
                       <br>
                       This is an automated message, please do not reply to this email.
                       <br>
