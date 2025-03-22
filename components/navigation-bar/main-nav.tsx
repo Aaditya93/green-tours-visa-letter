@@ -10,7 +10,7 @@ export const MainNav = () => {
   const session = useSession();
   return (
     <div className="mr-4 hidden md:flex">
-      <div className="relative w-10 h-10 bg-background">
+      <div className="relative w-12 h-12 bg-background pl-2">
         <Image
           src="/tours.png"
           alt="VISACAR Logo"
