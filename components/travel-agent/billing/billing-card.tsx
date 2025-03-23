@@ -208,7 +208,7 @@ const BillingDashboard = ({ applications }: BillingDashboardProps) => {
                         variant="outline"
                         className={`${getSpeedColor(
                           app.speed as SpeedType["speed"]
-                        )} text-primary`}
+                        )} text-background`}
                       >
                         {app.speed}
                       </Badge>
@@ -219,7 +219,7 @@ const BillingDashboard = ({ applications }: BillingDashboardProps) => {
                     <TableCell>
                       <Badge
                         className={`
-    px-2 py-1 rounded-full text-xs font-semibold
+    px-2 py-1 rounded-full text-xs font-semibold hover:bg-transparent
     ${
       app.stage === "Not Processed"
         ? "bg-yellow-100 text-yellow-800"

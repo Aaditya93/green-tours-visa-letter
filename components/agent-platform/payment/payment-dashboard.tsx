@@ -254,7 +254,7 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
                         variant="outline"
                         className={`${getSpeedColor(
                           app.speed as keyof SpeedColors
-                        )} text-primary`}
+                        )} text-background`}
                       >
                         {app.speed}
                       </Badge>
@@ -266,7 +266,7 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
                     <TableCell>
                       <Badge
                         className={`
-                         px-2 py-1 rounded-full text-xs 
+                         px-2 py-1 rounded-full text-xs  hover:bg-transparent
                          ${
                            app.stage === "Not Processed"
                              ? "bg-yellow-100 text-yellow-800"

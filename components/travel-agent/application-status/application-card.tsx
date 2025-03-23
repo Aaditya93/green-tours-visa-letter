@@ -76,7 +76,7 @@ const ApplicationCardTravelAgent = (
     <Card className="w-full max-w-6xl sm:max-w-full mx-auto shadow-lg rounded-xl overflow-hidden ">
       <CardHeader className=" border-b p-4 sm:p-3 bg-primary rounded-t-lg">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
-          <CardTitle className="text-xl font-bold text-center sm:text-left ">
+          <CardTitle className="text-xl text-background font-bold text-center sm:text-left ">
             {stage === "Incomplete"
               ? t("status.incomplete")
               : stage === "Complete"

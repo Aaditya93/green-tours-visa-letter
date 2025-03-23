@@ -27,7 +27,7 @@ function Testimonials() {
       designation: t("designations.corporate_executive", {
         country: t("countries.australia"),
       }),
-      src: "/jia.jpg",
+      src: "/Jia.jpg",
     },
     {
       quote: t("quotes.james"),
