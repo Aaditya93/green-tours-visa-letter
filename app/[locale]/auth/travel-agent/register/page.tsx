@@ -10,10 +10,10 @@ import { RegisterForm } from "@/components/agent-platform/auth/register-form";
 import RedirectLogin from "@/components/auth/redirect-login";
 import { ArrowRight, Briefcase } from "lucide-react";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
 
-const SignUpPage = () => {
-  const t = useTranslations("registerTravelAgent");
+import { getTranslations } from "next-intl/server";
+const SignUpPage = async () => {
+  const t = await getTranslations("registerTravelAgent");
 
   return (
     <div className="grid lg:grid-cols-2 min-h-screen">
@@ -50,7 +50,7 @@ const SignUpPage = () => {
 
       <div className="bg-gradient-to-b from-background to-secondary/20">
         <RedirectLogin />
-        <div className="flex min-h-screen items-center justify-center py-12 px-6 lg:px-10">
+        <div className="flex items-center justify-center py-12 px-6 lg:px-10">
           <Card className="w-full max-w-md shadow-xl border-0 overflow-hidden">
             <CardHeader className="space-y-3 pb-4 pt-6">
               <div className="flex items-center gap-2 mb-2">

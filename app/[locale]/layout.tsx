@@ -42,25 +42,23 @@ export default async function RootLayout({
   }
   const messages = await getMessages();
   return (
-    <>
-      <html lang={locale} suppressHydrationWarning>
-        <head />
-        <body>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <SessionProvider>
-              <NextIntlClientProvider messages={messages}>
-                {children}
-              </NextIntlClientProvider>
-            </SessionProvider>
-            <Toaster />
-          </ThemeProvider>
-        </body>
-      </html>
-    </>
+    <html lang={locale} suppressHydrationWarning>
+      <head />
+      <body suppressHydrationWarning>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SessionProvider>
+            <NextIntlClientProvider messages={messages}>
+              {children}
+            </NextIntlClientProvider>
+          </SessionProvider>
+          <Toaster />
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

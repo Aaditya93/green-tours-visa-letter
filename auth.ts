@@ -2,7 +2,7 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import NextAuth from "next-auth";
 import authConfig from "./auth.config";
 import client from "./lib/mongo";
-import { emailVerified, getUserById } from "./db/models/User";
+import { emailVerified } from "./db/models/User";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
