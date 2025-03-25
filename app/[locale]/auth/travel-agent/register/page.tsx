@@ -11,9 +11,9 @@ import RedirectLogin from "@/components/auth/redirect-login";
 import { ArrowRight, Briefcase } from "lucide-react";
 import Link from "next/link";
 
-import { getTranslations } from "next-intl/server";
-const SignUpPage = async () => {
-  const t = await getTranslations("registerTravelAgent");
+import { useTranslations } from "next-intl";
+const SignUpPage = () => {
+  const t = useTranslations("registerTravelAgent");
 
   return (
     <div className="grid lg:grid-cols-2 min-h-screen">
