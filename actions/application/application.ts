@@ -217,6 +217,8 @@ export const updateApplication = async (
       passportType: "Ordinary Passport",
       originalNationality: "",
       stage: "Not Processed",
+      bill: false,
+      payment: false,
     };
 
     const update = await Application.updateOne(
@@ -1030,6 +1032,67 @@ export const getUserTravelAgent = async () => {
     return userData;
   } catch (error) {
     console.error("Error getting user:", error);
+  }
+};
+
+export const convertToPassportBillings = async (
+  passportsData: any[]
+): Promise<any[]> => {
+  if (!Array.isArray(passportsData)) return [];
+
+  return Promise.all(
+    passportsData.map((passport) => ({
+      name: passport.fullName || "",
+      cost: passport.cost || 0,
+      currency: passport.currency || "USD",
+      passportId: passport.passportId?.toString() || "",
+      applicationId: passport.id?.toString() || "",
+      nationality: passport.nationalityCurrent || "",
+      bill: passport.bill || false,
+      payment: passport.payment || false,
+      passportNumber: passport.passportNumber || "",
+      applicationCode: passport.code || "",
+      duration: passport.duration || "",
+      speed: passport.speed || "",
+    }))
+  );
+};
+
+export const getApplicationsBill = async (
+  companyId: string,
+  startDate: Date,
+  endDate: Date
+) => {
+  try {
+    await dbConnect();
+
+    // Ensure dates are properly formatted for query
+    const formattedStartDate = new Date(startDate);
+    formattedStartDate.setHours(0, 0, 0, 0);
+
+    const formattedEndDate = new Date(endDate);
+    formattedEndDate.setHours(23, 59, 59, 999);
+
+    // Query with date range filter and bill status
+    const applications = await Application.find({
+      "creator.companyId": companyId,
+      passportDetails: { $elemMatch: { bill: false } },
+      isCompleted: true,
+      createdAt: {
+        $gte: formattedStartDate,
+        $lte: formattedEndDate,
+      },
+    })
+      .lean()
+      .sort({ createdAt: -1 });
+
+    const formattedApplications = await convertToApplications(applications);
+    const billingData = await convertToPassportBillings(formattedApplications);
+    console.log("Billing data:", billingData);
+
+    return billingData;
+  } catch (error) {
+    console.error("Failed to get applications for billing:", error);
   }
 };
 

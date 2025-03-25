@@ -566,7 +566,7 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
               />
               <Select value={stage} onValueChange={setStage}>
                 <SelectTrigger className="w-[150px]">
-                  <SelectValue placeholder="Select Stage" />
+                  <SelectValue placeholder={t("selectStage")} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Not Processed">

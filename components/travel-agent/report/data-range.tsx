@@ -39,7 +39,7 @@ export const DatePickerWithRange = ({
       const to = format(newDate.to, "yyyy-MM-dd");
 
       // Create a clean URL without any existing search params
-      const newUrl = `travel-agent/report/from=${from}&to=${to}`;
+      const newUrl = `/travel-agent/report/from=${from}&to=${to}`;
       router.push(newUrl);
     }
 

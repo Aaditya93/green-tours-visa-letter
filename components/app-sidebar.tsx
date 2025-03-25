@@ -64,7 +64,11 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
           },
           {
             title: t("menu.billing"),
-            url: `agent-platform/billing/677b88cc3c6259f5025f6645/from=${seven}&to=${to}`,
+            url: `/agent-platform/billing/677b88cc3c6259f5025f6645/from=${seven}&to=${to}`,
+          },
+          {
+            title: "Create Bill",
+            url: `/agent-platform/create-bill`,
           },
         ],
       },

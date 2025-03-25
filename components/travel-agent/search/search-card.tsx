@@ -38,9 +38,7 @@ import {
 } from "@/components/ui/popover";
 import { Application } from "@/app/schemas/types";
 import { Label } from "@/components/ui/label";
-import { updateApplicationStages } from "@/actions/application/application";
 import { DatePickerWithRange } from "./date-range";
-import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 
 interface SearchProps {
@@ -154,25 +152,6 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
       );
     });
     setFilteredData(filtered);
-  };
-
-  const handleSave = async () => {
-    if (selectedApplications.length === 0) {
-      toast.error(t("pleaseSelectApplications"));
-      return;
-    }
-    try {
-      const result = await updateApplicationStages(
-        selectedApplications,
-        "Processed"
-      );
-      console.log(result);
-      setSelectedApplications([]);
-      window.location.reload();
-    } catch (error) {
-      console.error(t("errorUpdatingApplications"), error);
-      toast.error(t("errorOccurred"));
-    }
   };
 
   const handleDateSelect = (
@@ -473,17 +452,6 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
           {/* Action Buttons */}
           <div className="flex flex-wrap justify-end space-x-2 mb-6">
             <div className="flex justify-start ml-4 gap-2">
-              <Select value={"Processed"}>
-                <SelectTrigger className="w-[200px]">
-                  <SelectValue placeholder={t("selectStage")} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Processed">{t("processed")}</SelectItem>
-                </SelectContent>
-              </Select>
-              <Button variant="secondary" onClick={handleSave}>
-                {t("save")}
-              </Button>
               <Button
                 onClick={handleSearch}
                 className="flex items-center space-x-2 bg-primary text-background"

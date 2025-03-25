@@ -15,6 +15,8 @@ interface IPassportDetails {
   iref: string;
   stage: string;
   immigrationFee: IImmigrationFee;
+  bill: boolean;
+  payment: boolean;
 }
 
 interface IEntryDetails {
@@ -118,6 +120,12 @@ const passportDetailsSchema = new Schema<IPassportDetails>({
     type: String,
   },
   immigrationFee: immigrationFeeSchema,
+  bill: {
+    type: Boolean,
+  },
+  payment: {
+    type: Boolean,
+  },
 });
 
 const applicationSchema = new Schema<IApplication>(
