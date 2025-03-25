@@ -158,7 +158,6 @@ export const createApplicationIndiviualTravelAgent = async (
     originalNationality: "",
     passportType: "Ordinary Passport",
     stage: "Not Processed",
-    bill: false,
     payment: false,
   };
   try {

@@ -217,7 +217,6 @@ export const updateApplication = async (
       passportType: "Ordinary Passport",
       originalNationality: "",
       stage: "Not Processed",
-      bill: false,
       payment: false,
     };
 
@@ -1076,7 +1075,11 @@ export const getApplicationsBill = async (
     // Query with date range filter and bill status
     const applications = await Application.find({
       "creator.companyId": companyId,
-      passportDetails: { $elemMatch: { bill: false } },
+      passportDetails: {
+        $elemMatch: {
+          billId: { $exists: false }, // Check if billId field doesn't exist
+        },
+      },
       isCompleted: true,
       createdAt: {
         $gte: formattedStartDate,
