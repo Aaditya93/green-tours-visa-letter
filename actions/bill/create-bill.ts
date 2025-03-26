@@ -91,15 +91,17 @@ export const markBillAsPaid = async (billId: string) => {
       },
       { new: true } // Return the updated document
     ).lean();
-    console.log("Bill marked as paid:", updateBill);
 
-    // Use applicationIds from the original bill to update applications
-    const result = await Application.updateMany(
+    await Application.updateMany(
       { "passportDetails.billId": billId.toString() },
-      { $set: { "passportDetails.$[elem].payment": true } },
+      {
+        $set: {
+          "passportDetails.$[elem].payment": true,
+          "processingInfo.stage": "Processing",
+        },
+      },
       { arrayFilters: [{ "elem.billId": billId.toString() }] }
     );
-    console.log("Bill marked as paid:", result);
   } catch (err) {
     console.error("Error marking bill as paid:", err);
     throw err;
