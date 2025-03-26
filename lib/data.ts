@@ -64,7 +64,7 @@ export function convertToApplications(input: IApplication[]): Application[] {
         originalNationality: passport.originalNationality || "",
         nationalityCurrent: passport.nationalityCurrent || "",
         passportNumber: passport.passportNumber || "",
-        bill: passport.bill,
+        billId: passport.billId,
         payment: passport.payment,
         immigrationPrice: passport.immigrationFee?.amount || 0,
         immigrationCurrency: passport.immigrationFee?.currency || "USD",

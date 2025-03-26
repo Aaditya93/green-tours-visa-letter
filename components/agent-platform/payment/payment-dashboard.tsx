@@ -7,7 +7,7 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { BadgeDollarSign, Users, TrendingUp } from "lucide-react";
+import { BadgeDollarSign, Users, CheckCircle, FileText } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -25,24 +25,41 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 import { Application } from "@/app/schemas/types";
 import Link from "next/link";
 import { DatePickerWithRange } from "./date-range";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { format } from "date-fns";
+
 interface SimplifiedCompany {
   name: string;
   id: string;
 }
+
+interface Bill {
+  _id: string;
+  amount: number;
+  currency: string;
+  payment: boolean;
+  applicationIds: string[];
+  companyId: string;
+  companyName: string;
+  createdDate: Date;
+  companyAddress?: string;
+  paymentDate?: Date;
+}
+
 interface PaymentDashboard {
   applications: Application[];
   companies: SimplifiedCompany[];
+  bills: Bill[];
 }
 
-const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
-  const [speedFilter, setSpeedFilter] = useState("all");
-
+const PaymentDashboard = ({
+  companies,
+  applications,
+  bills,
+}: PaymentDashboard) => {
   const params = useParams();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -56,62 +73,31 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
     searchParams?.get("from") || format(thirtyDaysAgo, "yyyy-MM-dd");
   const toDate = searchParams?.get("to") || format(new Date(), "yyyy-MM-dd");
 
-  interface SpeedColors {
-    "1H": string;
-    "2H": string;
-    "4H": string;
-    "8H": string;
-    "1D": string;
-    "2D": string;
-    "3D": string;
-    NO: string;
-  }
-
-  const getSpeedColor = (speed: keyof SpeedColors): string => {
-    switch (speed) {
-      case "1H":
-        return "bg-red-500";
-      case "2H":
-        return "bg-red-300";
-      case "4H":
-        return "bg-red-200";
-      case "8H":
-        return "bg-yellow-400";
-      case "1D":
-        return "bg-blue-500";
-      case "2D":
-        return "bg-green-500";
-      case "3D":
-        return "bg-orange-300";
-      case "NO":
-        return "bg-white";
-      default:
-        return "bg-white";
-    }
-  };
   const handelSelect = (value: string) => {
     router.push(
       `/agent-platform/payment/${value}/from=${fromDate}&to=${toDate}`
     );
   };
 
-  // Get unique creators from applications
-
+  // Calculate various metrics for applications
   const estimatedCost = applications.reduce((sum, app) => sum + app.cost, 0);
 
-  const actualCost = applications
-    .filter((app) => app.stage === "Processed")
+  // Calculate paid amount (applications with payment: true)
+  const paidAmount = applications
+    .filter((app) => app.payment === true)
     .reduce((sum, app) => sum + app.cost, 0);
 
-  const currency = applications[0]?.currency || "EUR";
+  const deliveredApplications = applications.filter(
+    (app) => app.stage === "Delivered"
+  ).length;
+
+  const currency = applications[0]?.currency || bills[0]?.currency || "EUR";
 
   const totalPayment = applications.reduce((sum, app) => sum + app.cost, 0);
   const totalApplications = applications.length;
-  const averageCost = totalPayment / totalApplications;
 
-  const filteredApplications = applications.filter((app) =>
-    speedFilter === "all" ? true : app.speed === speedFilter
-  );
+  const paymentPercentage =
+    totalPayment > 0 ? Math.round((paidAmount / totalPayment) * 100) : 0;
 
   return (
     <Card className="w-full">
@@ -140,7 +126,12 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
         </div>
       </CardHeader>
       <CardContent className="p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Application Metrics */}
+        <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <Users className="h-5 w-5 text-primary" />
+          Application Metrics
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-4 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
@@ -155,20 +146,32 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
               <p className="text-xs text-muted-foreground">{t("subtitle1")}</p>
             </CardContent>
           </Card>
-          <Card>
+
+          {/* Amount Paid */}
+          <Card className="bg-green-50 ">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                {t("parameter2")}
-              </CardTitle>
-              <BadgeDollarSign className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Amount Paid</CardTitle>
+              <CheckCircle className="h-4 w-4 text-green-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                {actualCost.toLocaleString()} {currency}
+              <div className="text-2xl font-bold text-green-700">
+                {paidAmount.toLocaleString()} {currency}
               </div>
-              <p className="text-xs text-muted-foreground">{t("subtitle2")}</p>
+              <div className="flex items-center gap-1.5 mt-1">
+                <div className="h-2 bg-green-200 rounded-full w-full">
+                  <div
+                    className="h-2 bg-green-600 rounded-full"
+                    style={{ width: `${paymentPercentage}%` }}
+                  ></div>
+                </div>
+                <span className="text-xs text-green-700 font-medium">
+                  {paymentPercentage}%
+                </span>
+              </div>
             </CardContent>
           </Card>
+
+          {/* Outstanding Amount */}
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -183,121 +186,102 @@ const PaymentDashboard = ({ companies, applications }: PaymentDashboard) => {
             </CardContent>
           </Card>
 
-          <Card>
+          {/* Delivered Applications */}
+          <Card className="bg-blue-50">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                {t("parameter4")}
+                Delivered Applications
               </CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+              <CheckCircle className="h-4 w-4 text-blue-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                {averageCost.toFixed(2)} {currency}
+              <div className="text-2xl font-bold text-blue-700">
+                {deliveredApplications}
               </div>
-              <p className="text-xs text-muted-foreground"> {t("subtitle4")}</p>
+              <p className="text-xs text-blue-700">
+                {deliveredApplications > 0 && totalApplications > 0
+                  ? Math.round(
+                      (deliveredApplications / totalApplications) * 100
+                    )
+                  : 0}
+                % of total
+              </p>
             </CardContent>
           </Card>
         </div>
 
+        {/* Bill List */}
         <Card className="mt-4">
           <CardHeader>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
-                <CardTitle> {t("heading")}</CardTitle>
-                <CardDescription> {t("description")}</CardDescription>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-2">
-                <Select value={speedFilter} onValueChange={setSpeedFilter}>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Filter by speed" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">{t("speeds.all")}</SelectItem>
-                    <SelectItem value="1H">{t("speeds.1hour")}</SelectItem>
-                    <SelectItem value="2H">{t("speeds.2hours")}</SelectItem>
-                    <SelectItem value="4H">{t("speeds.4hours")}</SelectItem>
-                    <SelectItem value="8H">{t("speeds.8hours")}</SelectItem>
-                    <SelectItem value="1D">{t("speeds.1day")}</SelectItem>
-                    <SelectItem value="2D">{t("speeds.2days")}</SelectItem>
-                    <SelectItem value="3D">{t("speeds.3days")}</SelectItem>
-                    <SelectItem value="4D">{t("speeds.4days")}</SelectItem>
-                    <SelectItem value="NO">{t("speeds.normal")}</SelectItem>
-                  </SelectContent>
-                </Select>
+                <CardTitle>Recent Bills</CardTitle>
+                <CardDescription>
+                  Recent billing information for this company
+                </CardDescription>
               </div>
             </div>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{t("table.code")}</TableHead>
-                  <TableHead>{t("table.name")}</TableHead>
-                  <TableHead>{t("table.passportNumber")}</TableHead>
-                  <TableHead>{t("table.visaType")}</TableHead>
-                  <TableHead>{t("table.speed")}</TableHead>
-                  <TableHead>{t("table.duration")}</TableHead>
-                  <TableHead>{t("table.status")}</TableHead>
-                  <TableHead>{t("table.cost")}</TableHead>
-                  <TableHead>{t("table.view")}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredApplications.map((app) => (
-                  <TableRow key={app.code}>
-                    <TableCell className="font-medium">{app.code}</TableCell>
-                    <TableCell>{app.fullName}</TableCell>
-                    <TableCell>{app.passportNumber}</TableCell>
-                    <TableCell>{app.duration}</TableCell>
-                    <TableCell>
-                      <Badge
-                        variant="outline"
-                        className={`${getSpeedColor(
-                          app.speed as keyof SpeedColors
-                        )} text-background`}
-                      >
-                        {app.speed}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      {app.travelDuration} {t("table.days")}
-                    </TableCell>
-                    <TableCell>{app.creator}</TableCell>
-                    <TableCell>
-                      <Badge
-                        className={`
-                         px-2 py-1 rounded-full text-xs  hover:bg-transparent
-                         ${
-                           app.stage === "Not Processed"
-                             ? "bg-yellow-100 text-yellow-800"
-                             : app.stage === "Processing"
-                             ? "bg-gray-100 text-gray-800"
-                             : app.stage === "Processed"
-                             ? "bg-green-100 text-green-800"
-                             : app.stage === "Blacklist"
-                             ? "bg-red-100 text-red-800"
-                             : app.stage === "Overstayed"
-                             ? "bg-blue-100 text-blue-500"
-                             : ""
-                         }
-                       `}
-                      >
-                        {app.stage}
-                      </Badge>
-                    </TableCell>
-
-                    <TableCell>
-                      {app.currency} {app.cost}
-                    </TableCell>
-                    <TableCell>
-                      <Link href={`/application/visa/${app.id}`}>
-                        {t("table.view")}
-                      </Link>
-                    </TableCell>
+            {bills.length > 0 ? (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Bill ID</TableHead>
+                    <TableHead>Created Date</TableHead>
+                    <TableHead>Company</TableHead>
+                    <TableHead>Applications</TableHead>
+                    <TableHead>Amount</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Actions</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {bills.map((bill) => (
+                    <TableRow key={bill._id}>
+                      <TableCell className="font-medium">
+                        {bill._id.toString().substring(0, 8)}...
+                      </TableCell>
+                      <TableCell>
+                        {format(new Date(bill.createdDate), "MMM d, yyyy")}
+                      </TableCell>
+                      <TableCell>{bill.companyName}</TableCell>
+                      <TableCell>{bill.applicationIds.length}</TableCell>
+                      <TableCell>
+                        {bill.amount.toLocaleString()} {bill.currency}
+                      </TableCell>
+                      <TableCell>
+                        <Badge
+                          variant={bill.payment ? "success" : "outline"}
+                          className={`px-2 py-1 text-xs ${
+                            bill.payment
+                              ? "bg-green-100 text-green-800"
+                              : "bg-amber-50 text-amber-800"
+                          }`}
+                        >
+                          {bill.payment ? "Paid" : "Unpaid"}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Link
+                          href={`/agent-platform/bill/${bill._id}`}
+                          className="text-primary hover:underline"
+                        >
+                          View Details
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            ) : (
+              <div className="py-8 text-center text-muted-foreground">
+                <FileText className="h-12 w-12 mx-auto mb-3 text-muted-foreground/50" />
+                <p>
+                  No bills found for this company in the selected date range.
+                </p>
+              </div>
+            )}
           </CardContent>
         </Card>
       </CardContent>

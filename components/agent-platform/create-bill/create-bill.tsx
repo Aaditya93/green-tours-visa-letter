@@ -24,10 +24,13 @@ import { ChevronRight, Building, FileText, Loader2 } from "lucide-react";
 import { getApplicationsBill } from "@/actions/application/application";
 import { toast } from "sonner";
 import { createBill } from "@/actions/bill/create-bill";
+import { useRouter } from "next/navigation";
 // Define types
 type Company = {
   id: string;
   name: string;
+  companyAddress: string;
+  companyEmail: string;
 };
 
 interface CreateBillProps {
@@ -50,8 +53,8 @@ export interface Application {
 }
 
 export default function CreateBill({ companies }: CreateBillProps) {
-  const [selectedCompany, setSelectedCompany] = useState<string>("");
-  const [selectedCompanyName, setSelectedCompanyName] = useState<string>("");
+  const Router = useRouter();
+  const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [step, setStep] = useState(1);
@@ -68,7 +71,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
 
       try {
         const applicationData = await getApplicationsBill(
-          selectedCompany,
+          selectedCompany.id,
           startDate,
           endDate
         );
@@ -106,13 +109,11 @@ export default function CreateBill({ companies }: CreateBillProps) {
       }
       const id = await createBill(
         selectedCompany,
-        selectedCompanyName,
         selectedApplications,
         applications[0].currency,
         calculateTotalCost()
       );
-      // Process selected applications
-      console.log("Selected applications:", selectedApplications);
+      Router.push(`/agent-platform/bill/${id}`);
       // Here you would submit the data to create the bill
       toast.success("Bill created successfully!");
     }
@@ -139,25 +140,28 @@ export default function CreateBill({ companies }: CreateBillProps) {
   // Step 1: Company and date selection
   const renderCompanySelection = () => (
     <Card className="w-full max-w-3xl mx-auto">
-      <CardHeader>
-        <CardTitle className="text-xl flex items-center gap-2">
-          <Building className="h-5 w-5 text-primary" />
-          Select Company and Date Range
-        </CardTitle>
-        <CardDescription>
-          Choose the company and time period for which you want to create a bill
-        </CardDescription>
+      <CardHeader className="bg-primary rounded-t-lg text-background border-b pb-5">
+        <div className="flex items-start gap-3">
+          <div>
+            <CardTitle className="text-xl font-semibold tracking-tight text-background">
+              Create Bill
+            </CardTitle>
+            <CardDescription className="mt-1.5 text-background">
+              Choose the company and time period for which you want to create a
+              bill
+            </CardDescription>
+          </div>
+        </div>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 mt-4">
         <div className="space-y-2">
           <label className="text-sm font-medium">Company</label>
           <Select
-            value={selectedCompany}
+            value={selectedCompany?.id || ""}
             onValueChange={(value) => {
-              setSelectedCompany(value);
               const company = companies.find((c) => c.id === value);
               if (company) {
-                setSelectedCompanyName(company.name);
+                setSelectedCompany(company);
               }
             }}
           >
@@ -215,7 +219,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
           </Button>
         </div>
         <CardDescription>
-          {companies.find((c) => c.id === selectedCompany)?.name} -
+          {companies.find((c) => c.id === selectedCompany?.id)?.name} -
           {startDate && endDate
             ? ` ${format(startDate, "PPP")} to ${format(endDate, "PPP")}`
             : ""}

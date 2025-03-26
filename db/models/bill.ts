@@ -10,6 +10,8 @@ interface IBill extends Document {
   companyId: string;
   companyName: string;
   createdDate: Date;
+  companyAddress: string;
+  companyEmail: string;
 }
 
 const BillSechema = new Schema({
@@ -36,6 +38,12 @@ const BillSechema = new Schema({
   },
   createdDate: {
     type: Date,
+  },
+  companyAddress: {
+    type: String,
+  },
+  companyEmail: {
+    type: String,
   },
 });
 const Bill = mongoose.models.Bill || mongoose.model<IBill>("Bill", BillSechema);

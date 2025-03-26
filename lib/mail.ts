@@ -4,8 +4,6 @@ const resend = new Resend(process.env.RESEND_API_KEY!);
 const Domain = process.env.DOMAIN;
 export const sendVarificationEmail = async (email: string, token: string) => {
   const ConfirmationLink = `${Domain}/auth/new-verification?token=${token}`;
-  console.log(ConfirmationLink);
-  console.log(ConfirmationLink);
 
   await resend.emails.send({
     from: "VISACAR <noreply@visacar.vn>",
@@ -113,7 +111,7 @@ export const PasswordResetEmail = async (email: string, token: string) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Victoria Visa - Reset Your Password</title>
+    <title>VISACAR - Reset Your Password</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {

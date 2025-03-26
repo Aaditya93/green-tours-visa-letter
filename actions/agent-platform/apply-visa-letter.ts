@@ -157,7 +157,7 @@ export const createApplicationIndiviualTravelAgent = async (
     image: awsurl + file_path,
     originalNationality: "",
     passportType: "Ordinary Passport",
-    stage: "Not Processed",
+    stage: "Submitted",
     payment: false,
   };
   try {

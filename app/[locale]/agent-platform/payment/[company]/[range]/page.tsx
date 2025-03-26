@@ -22,6 +22,7 @@ import { serializedApplications } from "@/config/serialize";
 import PaymentDashboard from "@/components/agent-platform/payment/payment-dashboard";
 import AppSidebar from "@/components/app-sidebar";
 import { getTranslations } from "next-intl/server";
+import { getBills } from "@/actions/bill/create-bill";
 
 function extractDateRange(dateString: string) {
   try {
@@ -74,6 +75,8 @@ const PaymentPage = async ({
   const companies = await getAllCompanies();
   const Applications = convertToApplications(applications);
   const PlanObject = serializedApplications(Applications);
+  const bills = await getBills(company, dateRange.from, dateRange.to);
+  console.log(bills);
   const t = await getTranslations("agentPayment");
 
   return (
@@ -100,6 +103,7 @@ const PaymentPage = async ({
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <PaymentDashboard
+            bills={bills}
             companies={companies ?? []}
             applications={PlanObject}
           />

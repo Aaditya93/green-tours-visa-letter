@@ -216,7 +216,7 @@ export const updateApplication = async (
       image: awsurl + file_path,
       passportType: "Ordinary Passport",
       originalNationality: "",
-      stage: "Not Processed",
+      stage: "Submitted",
       payment: false,
     };
 

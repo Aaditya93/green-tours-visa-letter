@@ -14,7 +14,8 @@ export type Application = {
   code: string;
   job: string;
   workPlace: string;
-
+  payment: boolean;
+  billId: string;
   purpose: string;
   placeOfIssue: string;
   duration: string;

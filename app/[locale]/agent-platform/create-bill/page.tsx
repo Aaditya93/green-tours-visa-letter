@@ -12,10 +12,10 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/app-sidebar";
-import { getAllCompanies } from "@/actions/agent-platform/visa-letter";
 import CreateBill from "@/components/agent-platform/create-bill/create-bill";
+import { getAllCompaniesBill } from "@/actions/bill/create-bill";
 const CreateBillPage = async () => {
-  const companies = (await getAllCompanies()) || [];
+  const companies = (await getAllCompaniesBill()) || [];
   return (
     <SidebarProvider>
       <AppSidebar />
