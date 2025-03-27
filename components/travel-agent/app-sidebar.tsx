@@ -8,6 +8,7 @@ import { BsPassport } from "react-icons/bs";
 import Image from "next/image";
 import { NavProjects } from "@/components/nav-projects";
 import NavUser from "@/components/nav-user";
+import { IoPricetagOutline } from "react-icons/io5";
 import {
   Sidebar,
   SidebarContent,
@@ -68,6 +69,11 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
       {
         name: t("menu.visaLetter"),
         url: "/travel-agent/visa-letter",
+        icon: IoPricetagOutline,
+      },
+      {
+        name: "Visa Letter",
+        url: "/travel-agent/company-visa-letter/10",
         icon: RiVisaLine,
       },
     ],

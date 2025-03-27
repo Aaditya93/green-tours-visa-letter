@@ -458,7 +458,10 @@ export const getAllCompanies = async (): Promise<
 export const getAllVisaLettersByCompany = async (id: string) => {
   try {
     await dbConnect();
-    const visaLetter = await VisaLetter.find({ companyId: id }).lean().exec();
+    const visaLetter = await VisaLetter.find({ companyId: id })
+      .sort({ createdAt: -1 })
+      .lean()
+      .exec();
 
     return visaLetter;
   } catch (error) {

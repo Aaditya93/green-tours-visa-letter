@@ -1,9 +1,7 @@
-import AppSidebar from "@/components/app-sidebar";
-
+import AppSidebar from "@/components/travel-agent/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
@@ -14,21 +12,19 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import {
-  getAllCompanies,
-  getAllVisaLettersByCompany,
-} from "@/actions/agent-platform/visa-letter";
-import VisaLetterCard from "@/components/agent-platform/send-visa-letter/visa-letter-applications";
+import { getAllVisaLettersByCompany } from "@/actions/agent-platform/visa-letter";
+import VisaLetterCard from "@/components/travel-agent/visa-letter/visa-letter-card";
 import { serializeData } from "@/config/serialize";
+import { auth } from "@/auth";
 const CompanyVisaLetterPage = async ({
   params,
 }: {
-  params: Promise<{ company: string; range: string }>;
+  params: Promise<{ range: string }>;
 }) => {
-  const { company, range } = await params;
-  const Companies = await getAllCompanies();
+  const { range } = await params;
+  const session = await auth();
 
-  const VisaLetters = await getAllVisaLettersByCompany(company);
+  const VisaLetters = await getAllVisaLettersByCompany(session?.user.companyId);
   const SvisaLetter = await serializeData(VisaLetters);
 
   return (
@@ -43,19 +39,14 @@ const CompanyVisaLetterPage = async ({
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Applications</BreadcrumbPage>
+                  <BreadcrumbPage>Visa Letters</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <VisaLetterCard
-            range={range}
-            visaLetters={SvisaLetter || []}
-            companies={Companies}
-            companyId={company}
-          />
+          <VisaLetterCard range={range} visaLetters={SvisaLetter || []} />
         </div>
       </SidebarInset>
     </SidebarProvider>

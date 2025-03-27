@@ -8,7 +8,7 @@ import { CiViewTable } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
 import { TbReportMoney } from "react-icons/tb";
 import Image from "next/image";
-
+import { IoPricetagOutline } from "react-icons/io5";
 import { NavProjects } from "@/components/nav-projects";
 import NavUser from "@/components/nav-user";
 import { ColumnFiltersState } from "@tanstack/react-table";
@@ -265,6 +265,11 @@ const getData = (Users: { username: string }[]) => {
         name: t("menu.visaLetter"),
         url: "/travel-agent/visa-letter",
         icon: RiVisaLine,
+      },
+      {
+        name: "Visa Letter",
+        url: "/travel-agent/company-visa-letter/10",
+        icon: IoPricetagOutline,
       },
     ],
   };

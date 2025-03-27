@@ -20,7 +20,6 @@ import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { useEffect } from "react";
 import PaginationComponent from "./pagination";
-import SelectCompany from "./select-company";
 
 interface VisaLetter {
   _id: any;
@@ -37,7 +36,6 @@ interface VisaLetter {
 interface VisaLetterListProps {
   visaLetters: VisaLetter[];
   range: string;
-  companies: any;
   companyId: string;
 }
 
@@ -85,7 +83,6 @@ const VisaLetterCard = (props: VisaLetterListProps) => {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
           <CardTitle className="text-xl font-bold text-center sm:text-left">
             Visa Letters
-            <SelectCompany companies={props.companies} />
           </CardTitle>
           <Badge
             variant="secondary"
