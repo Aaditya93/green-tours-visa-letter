@@ -2,6 +2,8 @@
 import VisaLetter from "@/db/models/visaLetter";
 import { uploadVisaLetter } from "../upload/aws";
 import Application from "@/db/models/application";
+import { sendVisaLetterReadyEmail } from "@/lib/mail";
+import dbConnect from "@/db/db";
 
 export const markApplicationsAsSent = async (passportIds: string[]) => {
   try {
@@ -46,10 +48,16 @@ export const CreateVisaLetter = async (
       companyId: company.id,
       companyAddress: company.companyAddress,
       companyEmail: company.companyEmail,
-      visaLetter: `${awsUrl}/visaletter/${id}/${file.name}`,
+      visaLetter: `${awsUrl}visaletter/${id}/${file.name}`,
     });
-    const response = await markApplicationsAsSent(selectedApplicants);
-    console.log("response", response);
+    await markApplicationsAsSent(selectedApplicants);
+    await sendVisaLetterReadyEmail(
+      company.name,
+      company.companyEmail,
+      id,
+      selectedApplicants.length,
+      file.name
+    );
 
     return {
       status: "success",
@@ -62,5 +70,28 @@ export const CreateVisaLetter = async (
       message:
         error instanceof Error ? error.message : "Failed to upload file.",
     };
+  }
+};
+
+export const getVisaLetter = async (id: string) => {
+  try {
+    await dbConnect();
+    const visaletter = await VisaLetter.findById(id).lean();
+
+    return visaletter;
+  } catch (error) {
+    console.error("Failed to get visa letter:", error);
+  }
+};
+
+export const getApplicationsByPassportIds = async (passportIds: string[]) => {
+  try {
+    await dbConnect();
+    const applications = await Application.find({
+      "passportDetails._id": { $in: passportIds },
+    }).lean();
+    return applications;
+  } catch (error) {
+    console.error("Failed to get applications by passport ids:", error);
   }
 };

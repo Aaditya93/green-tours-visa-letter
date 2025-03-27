@@ -93,11 +93,7 @@ const PaymentDashboard = ({
 
   const currency = applications[0]?.currency || bills[0]?.currency || "EUR";
 
-  const totalPayment = applications.reduce((sum, app) => sum + app.cost, 0);
   const totalApplications = applications.length;
-
-  const paymentPercentage =
-    totalPayment > 0 ? Math.round((paidAmount / totalPayment) * 100) : 0;
 
   return (
     <Card className="w-full">
@@ -107,7 +103,7 @@ const PaymentDashboard = ({
             {t("title1")}
           </CardTitle>
           <div className="flex items-center gap-4">
-            <div className="bg-primary-foreground rounded-lg">
+            <div className=" bg-background rounded-lg">
               <Select value={companyId} onValueChange={handelSelect}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder={t("selectCompany")} />
@@ -127,10 +123,7 @@ const PaymentDashboard = ({
       </CardHeader>
       <CardContent className="p-4">
         {/* Application Metrics */}
-        <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-          <Users className="h-5 w-5 text-primary" />
-          Application Metrics
-        </h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-4 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -148,25 +141,19 @@ const PaymentDashboard = ({
           </Card>
 
           {/* Amount Paid */}
-          <Card className="bg-green-50 ">
+          <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Amount Paid</CardTitle>
-              <CheckCircle className="h-4 w-4 text-green-600" />
+              <CheckCircle className="h-4 w-4 " />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-700">
+              <div className="text-2xl font-bold ">
                 {paidAmount.toLocaleString()} {currency}
               </div>
               <div className="flex items-center gap-1.5 mt-1">
-                <div className="h-2 bg-green-200 rounded-full w-full">
-                  <div
-                    className="h-2 bg-green-600 rounded-full"
-                    style={{ width: `${paymentPercentage}%` }}
-                  ></div>
-                </div>
-                <span className="text-xs text-green-700 font-medium">
-                  {paymentPercentage}%
-                </span>
+                <p className="text-xs text-muted-foreground">
+                  Total Amount Paid
+                </p>
               </div>
             </CardContent>
           </Card>
@@ -187,18 +174,16 @@ const PaymentDashboard = ({
           </Card>
 
           {/* Delivered Applications */}
-          <Card className="bg-blue-50">
+          <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 Delivered Applications
               </CardTitle>
-              <CheckCircle className="h-4 w-4 text-blue-600" />
+              <CheckCircle className="h-4 w-4 " />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-700">
-                {deliveredApplications}
-              </div>
-              <p className="text-xs text-blue-700">
+              <div className="text-2xl font-bold ">{deliveredApplications}</div>
+              <p className="text-xs ">
                 {deliveredApplications > 0 && totalApplications > 0
                   ? Math.round(
                       (deliveredApplications / totalApplications) * 100
@@ -252,12 +237,8 @@ const PaymentDashboard = ({
                       </TableCell>
                       <TableCell>
                         <Badge
-                          variant={bill.payment ? "success" : "outline"}
-                          className={`px-2 py-1 text-xs ${
-                            bill.payment
-                              ? "bg-green-100 text-green-800"
-                              : "bg-amber-50 text-amber-800"
-                          }`}
+                          variant={bill.payment ? "outline" : "destructive"}
+                          className={`px-2 py-1 text-xs`}
                         >
                           {bill.payment ? "Paid" : "Unpaid"}
                         </Badge>

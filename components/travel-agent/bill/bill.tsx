@@ -3,13 +3,7 @@
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -18,13 +12,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { DollarSign, Check, Printer, AlertCircle } from "lucide-react";
+import { DollarSign, Printer, AlertCircle } from "lucide-react";
 import { format } from "date-fns";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-
-import { markBillAsPaid } from "@/actions/bill/create-bill";
 
 interface BillDetailProps {
   billId: string;
@@ -49,26 +39,7 @@ export default function BillDetail({
   bill,
   applications,
 }: BillDetailProps) {
-  const [isPaid, setIsPaid] = useState(bill.payment);
-  const [isLoading, setIsLoading] = useState(false);
   const [isPrinting, setIsPrinting] = useState(false);
-  const router = useRouter();
-
-  const handleMarkAsPaid = async () => {
-    setIsLoading(true);
-    try {
-      await markBillAsPaid(bill, applications.length, invoiceNumber);
-
-      setIsPaid(true);
-      toast.success("Bill marked as paid successfully");
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to mark bill as paid");
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handlePrint = () => {
     setIsPrinting(true);
@@ -93,10 +64,10 @@ export default function BillDetail({
             </div>
             <div className="text-right">
               <Badge
-                variant={isPaid ? "secondary" : "destructive"}
+                variant={bill.payment ? "secondary" : "destructive"}
                 className=" py-1 px-3 text-xl"
               >
-                {isPaid ? "PAID" : "UNPAID"}
+                {bill.payment ? "PAID" : "UNPAID"}
               </Badge>
               <p className="text-sm mt-2 text-bg-primary">
                 Date: {formattedDate}
@@ -295,18 +266,6 @@ export default function BillDetail({
               </AlertDescription>
             </Alert>
           </CardContent>
-          <CardFooter className="border-t p-4 print:hidden">
-            {!isPaid && (
-              <Button
-                onClick={handleMarkAsPaid}
-                disabled={isLoading}
-                className="w-full md:w-auto flex items-center gap-2"
-              >
-                <Check className="h-4 w-4" />
-                {isLoading ? "Processing..." : "Mark as Paid"}
-              </Button>
-            )}
-          </CardFooter>
         </Card>
 
         {/* Footer notes - print friendly */}

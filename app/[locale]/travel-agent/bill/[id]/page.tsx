@@ -1,4 +1,4 @@
-import AppSidebar from "@/components/app-sidebar";
+import AppSidebar from "@/components/travel-agent/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/sidebar";
 import { getBillById } from "@/actions/bill/create-bill";
 import { getApplicationByBillId } from "@/actions/bill/create-bill";
-import BillDetail from "@/components/agent-platform/bill/bill";
+import BillDetail from "@/components/travel-agent/bill/bill";
 import { serializeData, serializeIApplication } from "@/config/serialize";
 
 const BillPage = async ({ params }: { params: Promise<{ id: string }> }) => {

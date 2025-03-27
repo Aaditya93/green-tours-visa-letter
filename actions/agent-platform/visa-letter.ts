@@ -9,6 +9,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 import { IVisaLetterPrice } from "@/db/models/visa-letter-price";
+import VisaLetter from "@/db/models/visaLetter";
 
 export const createVisaLetterPrice = async () => {
   try {
@@ -449,6 +450,17 @@ export const getAllCompanies = async (): Promise<
       name: company.name,
       id: company._id.toString(),
     }));
+  } catch (error) {
+    console.error("Error fetching companies:", error);
+  }
+};
+
+export const getAllVisaLettersByCompany = async (id: string) => {
+  try {
+    await dbConnect();
+    const visaLetter = await VisaLetter.find({ companyId: id }).lean().exec();
+
+    return visaLetter;
   } catch (error) {
     console.error("Error fetching companies:", error);
   }

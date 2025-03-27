@@ -131,7 +131,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
       setIsLoading(true);
       try {
         const uu = uuid();
-        const id = await CreateVisaLetter(
+        await CreateVisaLetter(
           visaLetterFile,
           selectedCompany,
           selectedApplications,

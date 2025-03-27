@@ -1116,7 +1116,7 @@ export const getApplicationsVisaLetter = async (
     // Query with date range filter and bill status
     const applications = await Application.find({
       "creator.companyId": companyId,
-      processingInfo: {
+      passportDetails: {
         $elemMatch: {
           stage: "Processing",
         },

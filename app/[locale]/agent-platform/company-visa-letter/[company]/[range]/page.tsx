@@ -1,7 +1,9 @@
 import AppSidebar from "@/components/app-sidebar";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
+  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
@@ -12,17 +14,22 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { getBillById } from "@/actions/bill/create-bill";
-import { getApplicationByBillId } from "@/actions/bill/create-bill";
-import BillDetail from "@/components/agent-platform/bill/bill";
-import { serializeData, serializeIApplication } from "@/config/serialize";
+import {
+  getAllCompanies,
+  getAllVisaLettersByCompany,
+} from "@/actions/agent-platform/visa-letter";
+import VisaLetterCard from "@/components/agent-platform/send-visa-letter/visa-letter-applications";
+import { serializeData } from "@/config/serialize";
+const CompanyVisaLetterPage = async ({
+  params,
+}: {
+  params: Promise<{ company: string; range: string }>;
+}) => {
+  const { company, range } = await params;
+  const Companies = await getAllCompanies();
 
-const BillPage = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params;
-  const bill = await getBillById(id);
-  const Sbill = serializeData(bill);
-  const Applications = await getApplicationByBillId(id);
-  const SApplications = serializeIApplication(Applications);
+  const VisaLetters = await getAllVisaLettersByCompany(company);
+  const SvisaLetter = await serializeData(VisaLetters);
 
   return (
     <SidebarProvider>
@@ -36,28 +43,23 @@ const BillPage = async ({ params }: { params: Promise<{ id: string }> }) => {
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>
-                    Bill ID: {bill ? Sbill._id.toString() : "N/A"}
-                  </BreadcrumbPage>
+                  <BreadcrumbPage>Applications</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
           </div>
         </header>
-        {bill && (
-          <BillDetail
-            billId={Sbill._id.toString()}
-            bill={Sbill}
-            applications={SApplications}
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+          <VisaLetterCard
+            range={range}
+            visaLetters={SvisaLetter || []}
+            companies={Companies}
           />
-        )}
-
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0"></div>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );
 };
 
-export default BillPage;
-
+export default CompanyVisaLetterPage;
 export const dynamic = "force-dynamic";

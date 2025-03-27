@@ -7,14 +7,8 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { BadgeDollarSign, Users, TrendingUp } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { BadgeDollarSign, Users, CheckCircle, FileText } from "lucide-react";
+
 import {
   Table,
   TableBody,
@@ -24,76 +18,71 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-
-import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Application } from "@/app/schemas/types";
 import Link from "next/link";
 import { DatePickerWithRange } from "./date-range";
-import { useTranslations } from "next-intl";
-interface BillingDashboardProps {
-  applications: Application[];
+import { format } from "date-fns";
+
+interface SimplifiedCompany {
+  name: string;
+  id: string;
 }
-const BillingDashboard = ({ applications }: BillingDashboardProps) => {
-  const t = useTranslations("travelBilling");
-  const [speedFilter, setSpeedFilter] = useState("all");
 
-  interface SpeedType {
-    speed: "1H" | "2H" | "4H" | "8H" | "1D" | "2D" | "3D" | "4D" | "Normal";
-  }
+interface Bill {
+  _id: string;
+  amount: number;
+  currency: string;
+  payment: boolean;
+  applicationIds: string[];
+  companyId: string;
+  companyName: string;
+  createdDate: Date;
+  companyAddress?: string;
+  paymentDate?: Date;
+}
 
-  const getSpeedColor = (speed: SpeedType["speed"]): string => {
-    switch (speed) {
-      case "1H":
-        return "bg-red-500";
-      case "2H":
-        return "bg-red-300";
-      case "4H":
-        return "bg-red-300";
-      case "8H":
-        return "bg-yellow-400";
-      case "1D":
-        return "bg-blue-500";
-      case "2D":
-        return "bg-green-500";
-      case "3D":
-        return "bg-orange-300";
-      case "4D":
-        return "bg-orange-500";
-      case "Normal":
-        return "bg-white";
-      default:
-        return "bg-white";
-    }
-  };
+interface PaymentDashboard {
+  applications: Application[];
+  companies: SimplifiedCompany[];
+  bills: Bill[];
+}
+
+const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
+  const t = useTranslations("agentPayment");
+
+  // Calculate various metrics for applications
   const estimatedCost = applications.reduce((sum, app) => sum + app.cost, 0);
 
-  const actualCost = applications
-    .filter((app) => app.stage === "Processed")
+  // Calculate paid amount (applications with payment: true)
+  const paidAmount = applications
+    .filter((app) => app.payment === true)
     .reduce((sum, app) => sum + app.cost, 0);
 
-  const currency = applications[0]?.currency || "EUR";
+  const deliveredApplications = applications.filter(
+    (app) => app.stage === "Delivered"
+  ).length;
 
-  const totalPayment = applications.reduce((sum, app) => sum + app.cost, 0);
+  const currency = applications[0]?.currency || bills[0]?.currency || "EUR";
+
   const totalApplications = applications.length;
-  const averageCost = totalPayment / totalApplications;
-
-  const filteredApplications =
-    speedFilter === "all"
-      ? applications
-      : applications.filter((app) => app.speed === speedFilter);
 
   return (
-    <Card className="w-full ">
-      <CardHeader className="bg-primary rounded-t-lg ">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <Card className="w-full">
+      <CardHeader className="bg-primary rounded-t-lg">
+        <div className="flex flex-row justify-between items-center">
           <CardTitle className="text-2xl font-bold tracking-tight text-primary-foreground">
             {t("title1")}
           </CardTitle>
-          <DatePickerWithRange />
+          <div className="flex items-center gap-4">
+            <DatePickerWithRange />
+          </div>
         </div>
       </CardHeader>
       <CardContent className="p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Application Metrics */}
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-4 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
@@ -108,21 +97,26 @@ const BillingDashboard = ({ applications }: BillingDashboardProps) => {
               <p className="text-xs text-muted-foreground">{t("subtitle1")}</p>
             </CardContent>
           </Card>
+
+          {/* Amount Paid */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                {" "}
-                {t("parameter2")}
-              </CardTitle>
-              <BadgeDollarSign className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Amount Paid</CardTitle>
+              <CheckCircle className="h-4 w-4 " />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                {actualCost.toLocaleString()} {currency}
+              <div className="text-2xl font-bold ">
+                {paidAmount.toLocaleString()} {currency}
               </div>
-              <p className="text-xs text-muted-foreground">{t("subtitle2")}</p>
+              <div className="flex items-center gap-1.5 mt-1">
+                <p className="text-xs text-muted-foreground">
+                  Total Amount Paid
+                </p>
+              </div>
             </CardContent>
           </Card>
+
+          {/* Outstanding Amount */}
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -137,120 +131,96 @@ const BillingDashboard = ({ applications }: BillingDashboardProps) => {
             </CardContent>
           </Card>
 
+          {/* Delivered Applications */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                {t("parameter4")}
+                Delivered Applications
               </CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+              <CheckCircle className="h-4 w-4 " />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                {averageCost.toFixed(2)} {currency}
-              </div>
-              <p className="text-xs text-muted-foreground">{t("subtitle4")}</p>
+              <div className="text-2xl font-bold ">{deliveredApplications}</div>
+              <p className="text-xs ">
+                {deliveredApplications > 0 && totalApplications > 0
+                  ? Math.round(
+                      (deliveredApplications / totalApplications) * 100
+                    )
+                  : 0}
+                % of total
+              </p>
             </CardContent>
           </Card>
         </div>
 
+        {/* Bill List */}
         <Card className="mt-4">
           <CardHeader>
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
-                <CardTitle>{t("heading")}</CardTitle>
-                <CardDescription>{t("description")}</CardDescription>
+                <CardTitle>Recent Bills</CardTitle>
+                <CardDescription>
+                  Recent billing information for this company
+                </CardDescription>
               </div>
-              <Select value={speedFilter} onValueChange={setSpeedFilter}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Filter by speed" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectContent>
-                    <SelectItem value="all">{t("speeds.all")}</SelectItem>
-                    <SelectItem value="1H">{t("speeds.1hour")}</SelectItem>
-                    <SelectItem value="2H">{t("speeds.2hours")}</SelectItem>
-                    <SelectItem value="4H">{t("speeds.4hours")}</SelectItem>
-                    <SelectItem value="8H">{t("speeds.8hours")}</SelectItem>
-                    <SelectItem value="1D">{t("speeds.1day")}</SelectItem>
-                    <SelectItem value="2D">{t("speeds.2days")}</SelectItem>
-                    <SelectItem value="3D">{t("speeds.3days")}</SelectItem>
-                    <SelectItem value="4D">{t("speeds.4days")}</SelectItem>
-                    <SelectItem value="NO">{t("speeds.normal")}</SelectItem>
-                  </SelectContent>
-                </SelectContent>
-              </Select>
             </div>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{t("table.code")}</TableHead>
-                  <TableHead>{t("table.name")}</TableHead>
-                  <TableHead>{t("table.passportNumber")}</TableHead>
-                  <TableHead>{t("table.visaType")}</TableHead>
-                  <TableHead>{t("table.speed")}</TableHead>
-                  <TableHead>{t("table.duration")}</TableHead>
-                  <TableHead>{t("table.status")}</TableHead>
-                  <TableHead>{t("table.cost")}</TableHead>
-                  <TableHead>{t("table.view")}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredApplications.map((app) => (
-                  <TableRow key={app.code}>
-                    <TableCell className="font-medium">{app.code}</TableCell>
-                    <TableCell>{app.fullName}</TableCell>
-                    <TableCell>{app.passportNumber}</TableCell>
-                    <TableCell>{app.duration}</TableCell>
-                    <TableCell>
-                      <Badge
-                        variant="outline"
-                        className={`${getSpeedColor(
-                          app.speed as SpeedType["speed"]
-                        )} text-background`}
-                      >
-                        {app.speed}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      {app.travelDuration} {t("table.days")}
-                    </TableCell>
-                    <TableCell>
-                      <Badge
-                        className={`
-    px-2 py-1 rounded-full text-xs font-semibold hover:bg-transparent
-    ${
-      app.stage === "Not Processed"
-        ? "bg-yellow-100 text-yellow-800"
-        : app.stage === "Processing"
-        ? "bg-gray-100 text-gray-800"
-        : app.stage === "Processed"
-        ? "bg-green-100 text-green-800"
-        : app.stage === "Blacklist"
-        ? "bg-red-100 text-red-800"
-        : app.stage === "Overstayed"
-        ? "bg-blue-100 text-blue-500"
-        : ""
-    }
-  `}
-                      >
-                        {app.stage}
-                      </Badge>
-                    </TableCell>
-
-                    <TableCell>
-                      {app.currency} {app.cost}{" "}
-                    </TableCell>
-                    <TableCell>
-                      <Link href={`/travel-agent/application/visa/${app.id}`}>
-                        {t("table.view")}
-                      </Link>
-                    </TableCell>
+            {bills.length > 0 ? (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Bill ID</TableHead>
+                    <TableHead>Created Date</TableHead>
+                    <TableHead>Company</TableHead>
+                    <TableHead>Applications</TableHead>
+                    <TableHead>Amount</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Actions</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {bills.map((bill) => (
+                    <TableRow key={bill._id}>
+                      <TableCell className="font-medium">
+                        {bill._id.toString().substring(0, 8)}...
+                      </TableCell>
+                      <TableCell>
+                        {format(new Date(bill.createdDate), "MMM d, yyyy")}
+                      </TableCell>
+                      <TableCell>{bill.companyName}</TableCell>
+                      <TableCell>{bill.applicationIds.length}</TableCell>
+                      <TableCell>
+                        {bill.amount.toLocaleString()} {bill.currency}
+                      </TableCell>
+                      <TableCell>
+                        <Badge
+                          variant={bill.payment ? "outline" : "destructive"}
+                          className={`px-2 py-1 text-xs`}
+                        >
+                          {bill.payment ? "Paid" : "Unpaid"}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <Link
+                          href={`/travel-agent/bill/${bill._id}`}
+                          className="text-primary hover:underline"
+                        >
+                          View Details
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            ) : (
+              <div className="py-8 text-center text-muted-foreground">
+                <FileText className="h-12 w-12 mx-auto mb-3 text-muted-foreground/50" />
+                <p>
+                  No bills found for this company in the selected date range.
+                </p>
+              </div>
+            )}
           </CardContent>
         </Card>
       </CardContent>

@@ -64,13 +64,22 @@ const getData = (Users: { username: string }[]) => {
             title: t("menu.iPayment"),
             url: `/agent-platform/payment/immigration/Hanoi/from=${seven}&to=${to}`,
           },
-          {
-            title: t("menu.billing"),
-            url: `/agent-platform/billing/677b88cc3c6259f5025f6645/from=${seven}&to=${to}`,
-          },
+          // {
+          //   title: t("menu.billing"),
+          //   url: `/agent-platform/billing/677b88cc3c6259f5025f6645/from=${seven}&to=${to}`,
+          // },
+
           {
             title: "Create Bill",
             url: `/agent-platform/create-bill`,
+          },
+          {
+            title: "Send Visa Letter",
+            url: `/agent-platform/send-visa-letter`,
+          },
+          {
+            title: "Visa Letter",
+            url: `/agent-platform/company-visa-letter/67d11373b89197434cbe8c3f/10`,
           },
         ],
       },

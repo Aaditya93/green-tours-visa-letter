@@ -3,6 +3,7 @@ import dbConnect from "@/db/db";
 import Bill from "@/db/models/bill";
 import Application from "@/db/models/application";
 import Company from "@/db/models/company";
+import { sendBillReadyEmail, sendPaymentConfirmationEmail } from "@/lib/mail";
 export const createBill = async (
   company: any,
   applicationIds: string[],
@@ -26,6 +27,14 @@ export const createBill = async (
       { "passportDetails._id": { $in: applicationIds } },
       { $set: { "passportDetails.$[elem].billId": bill._id } },
       { arrayFilters: [{ "elem._id": { $in: applicationIds } }] }
+    );
+    await sendBillReadyEmail(
+      company.name,
+      company.companyEmail,
+      bill._id.toString(),
+      amount,
+      currency,
+      applicationIds.length
     );
     return bill._id.toString();
   } catch (err) {
@@ -79,28 +88,42 @@ export const getAllCompaniesBill = async (): Promise<
   }
 };
 
-export const markBillAsPaid = async (billId: string) => {
+export const markBillAsPaid = async (
+  bill: any,
+  noOfApplications: number,
+  invoiceNumber: string
+) => {
   try {
     await dbConnect();
 
     const updateBill = await Bill.findByIdAndUpdate(
-      billId,
+      bill._id,
       {
         payment: true,
         paymentDate: new Date(),
       },
       { new: true } // Return the updated document
     ).lean();
+    console.log("Bill updated:", updateBill);
 
-    await Application.updateMany(
-      { "passportDetails.billId": billId.toString() },
+    const result = await Application.updateMany(
+      { "passportDetails.billId": bill._id.toString() },
       {
         $set: {
           "passportDetails.$[elem].payment": true,
-          "processingInfo.stage": "Processing",
+          "passportDetails.$[elem].stage": "Processing",
         },
       },
-      { arrayFilters: [{ "elem.billId": billId.toString() }] }
+      { arrayFilters: [{ "elem.billId": bill._id.toString() }] }
+    );
+    console.log("Applications updated:", result);
+    await sendPaymentConfirmationEmail(
+      bill.companyName,
+      bill.companyEmail,
+      invoiceNumber,
+      bill.amount,
+      bill.currency,
+      noOfApplications
     );
   } catch (err) {
     console.error("Error marking bill as paid:", err);

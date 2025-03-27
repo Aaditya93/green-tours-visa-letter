@@ -12,11 +12,17 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/travel-agent/app-sidebar";
-import { getCompleteApplicationsTravelAgentBilling } from "@/actions/agent-platform/visa-letter";
+import {
+  getAllCompanies,
+  getCompleteApplicationsTravelAgentBilling,
+} from "@/actions/agent-platform/visa-letter";
 import { convertToApplications } from "@/lib/data";
 import BillingDashboard from "@/components/travel-agent/billing/billing-card";
-import { serializedApplications } from "@/config/serialize";
+import { serializedApplications, serializeData } from "@/config/serialize";
 import { getTranslations } from "next-intl/server";
+import { getBills } from "@/actions/bill/create-bill";
+
+import { auth } from "@/auth";
 
 function extractDateRange(dateString: string) {
   try {
@@ -64,9 +70,20 @@ const BillingPage = async ({
     dateRange.from,
     dateRange.to
   );
+  const session = await auth();
+  const companies = await getAllCompanies();
+
+  const bills = await getBills(
+    session?.user?.companyId,
+    dateRange.from,
+    dateRange.to
+  );
+  const sBill = serializeData(bills);
+
+  const t = await getTranslations("agentPayment");
   const Applications = convertToApplications(applications);
   const PlanObject = serializedApplications(Applications);
-  const t = await getTranslations("travelBilling");
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -89,7 +106,7 @@ const BillingPage = async ({
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <BillingDashboard applications={PlanObject} />
+          <BillingDashboard applications={PlanObject} bills={sBill} />
         </div>
       </SidebarInset>
     </SidebarProvider>
