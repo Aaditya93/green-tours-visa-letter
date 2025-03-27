@@ -1,7 +1,7 @@
 "use server";
 
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import {  ListObjectsV2Command, DeleteObjectsCommand } from "@aws-sdk/client-s3";
+import { ListObjectsV2Command, DeleteObjectsCommand } from "@aws-sdk/client-s3";
 
 const BUCKET_NAME = process.env.NEXT_PUBLIC_AWS_BUCKET_NAME || "";
 const s3Client = new S3Client({
@@ -64,44 +64,80 @@ export async function uploadFile(file: File, id: string) {
   }
 }
 
+async function uploadVisaToS3(buffer: Buffer, id: string, fileName: string) {
+  const params = {
+    Bucket: BUCKET_NAME,
+    Key: `visaletter/${id}/${fileName}`,
+    Body: buffer,
+    ContentType: "image/pdf",
+  };
 
+  const command = new PutObjectCommand(params);
+  try {
+    await s3Client.send(command);
+    return fileName;
+  } catch (error) {
+    throw error;
+  }
+}
 
+export async function uploadVisaLetter(
+  file: File,
+  id: string,
+  fileName: string
+) {
+  try {
+    if (!file || file.size === 0) {
+      return { status: "error", message: "Please select a valid file." };
+    }
 
+    const buffer = Buffer.from(await file.arrayBuffer());
+    await uploadVisaToS3(buffer, id, fileName);
+
+    return {
+      status: "success",
+      message: "File has been uploaded.",
+    };
+  } catch (error) {
+    console.error("Failed to upload file:", error);
+    return {
+      status: "error",
+      message:
+        error instanceof Error ? error.message : "Failed to upload file.",
+    };
+  }
+}
 
 export async function deleteS3Folder(prefix: string) {
-  
-
   try {
-
     const listCommand = new ListObjectsV2Command({
-      Bucket: BUCKET_NAME ,
-      Prefix: `passport/${prefix}/`
+      Bucket: BUCKET_NAME,
+      Prefix: `passport/${prefix}/`,
     });
     const listedObjects = await s3Client.send(listCommand);
 
-
     if (!listedObjects.Contents?.length) {
-      return { success: true, message: 'Folder is already empty' };
+      return { success: true, message: "Folder is already empty" };
     }
 
     // Prepare objects for bulk deletion
     const deleteParams = {
       Bucket: BUCKET_NAME,
       Delete: {
-        Objects: listedObjects.Contents.map(({ Key }) => ({ Key }))
-      }
+        Objects: listedObjects.Contents.map(({ Key }) => ({ Key })),
+      },
     };
 
-
     const deleteCommand = new DeleteObjectsCommand(deleteParams);
-     await s3Client.send(deleteCommand);
+    await s3Client.send(deleteCommand);
 
-    return { success: true, message: 'Folder deleted successfully' };
+    return { success: true, message: "Folder deleted successfully" };
   } catch (error) {
-    console.error('Error deleting folder:', error);
-    return { 
-      success: false, 
-      message: error instanceof Error ? error.message : 'Unknown error occurred' 
+    console.error("Error deleting folder:", error);
+    return {
+      success: false,
+      message:
+        error instanceof Error ? error.message : "Unknown error occurred",
     };
   }
 }

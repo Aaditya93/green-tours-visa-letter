@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { v4 as uuid } from "uuid";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,8 +23,8 @@ import { format } from "date-fns";
 import { ChevronRight, FileText, Loader2 } from "lucide-react";
 import { getApplicationsVisaLetter } from "@/actions/application/application";
 import { toast } from "sonner";
-import { createBill } from "@/actions/bill/create-bill";
-import { useRouter } from "next/navigation";
+import { CreateVisaLetter } from "@/actions/bill/send-visa-letter";
+
 // Define types
 type Company = {
   id: string;
@@ -52,7 +53,6 @@ export interface Application {
 }
 
 export default function VisaLetterPage({ companies }: CreateBillProps) {
-  const Router = useRouter();
   const [visaLetterFile, setVisaLetterFile] = useState<File | null>(null);
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
@@ -130,18 +130,17 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
       }
       setIsLoading(true);
       try {
-        // Here you would implement the logic to upload the file and create the bill
-        const id = await createBill(
+        const uu = uuid();
+        const id = await CreateVisaLetter(
+          visaLetterFile,
           selectedCompany,
           selectedApplications,
-          applications[0].currency,
-          calculateTotalCost()
+          uu
         );
-        // You might want to add visa letter upload logic here
-        Router.push(`/agent-platform/bill/${id}`);
-        toast.success("Visa letter uploaded and bill created successfully!");
+
+        toast.success("Visa letter uploaded successfully!");
       } catch (error) {
-        console.error("Error creating bill:", error);
+        console.error("Failed to upload visa letter", error);
         toast.error("Failed to upload visa letter and create bill");
       } finally {
         setIsLoading(false);

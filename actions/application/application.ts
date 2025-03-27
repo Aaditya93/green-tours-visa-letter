@@ -1116,11 +1116,11 @@ export const getApplicationsVisaLetter = async (
     // Query with date range filter and bill status
     const applications = await Application.find({
       "creator.companyId": companyId,
-      // processingInfo: {
-      //   $elemMatch: {
-      //     stage: "Processing", // Check if billId field doesn't exist
-      //   },
-      // },
+      processingInfo: {
+        $elemMatch: {
+          stage: "Processing",
+        },
+      },
       isCompleted: true,
       createdAt: {
         $gte: formattedStartDate,
