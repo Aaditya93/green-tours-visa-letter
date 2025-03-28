@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface DatePickerProps {
   date: Date | undefined;
@@ -20,6 +21,7 @@ interface DatePickerProps {
 }
 
 export function DatePicker({ date, setDate, className }: DatePickerProps) {
+  const t = useTranslations("sendVisaLetter");
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -32,7 +34,7 @@ export function DatePicker({ date, setDate, className }: DatePickerProps) {
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date ? format(date, "PPP") : <span>{t("pickDate")}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">

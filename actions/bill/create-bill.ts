@@ -104,7 +104,6 @@ export const markBillAsPaid = async (
       },
       { new: true } // Return the updated document
     ).lean();
-    console.log("Bill updated:", updateBill);
 
     const result = await Application.updateMany(
       { "passportDetails.billId": bill._id.toString() },
@@ -116,7 +115,7 @@ export const markBillAsPaid = async (
       },
       { arrayFilters: [{ "elem.billId": bill._id.toString() }] }
     );
-    console.log("Applications updated:", result);
+
     await sendPaymentConfirmationEmail(
       bill.companyName,
       bill.companyEmail,

@@ -70,15 +70,15 @@ const getData = (Users: { username: string }[]) => {
           // },
 
           {
-            title: "Create Bill",
+            title: t("menu.createBill"),
             url: `/agent-platform/create-bill`,
           },
           {
-            title: "Send Visa Letter",
+            title: t("menu.sendVisaLetter"),
             url: `/agent-platform/send-visa-letter`,
           },
           {
-            title: "Visa Letter",
+            title: t("menu.visaLetter"),
             url: `/agent-platform/company-visa-letter/67d11373b89197434cbe8c3f/10`,
           },
         ],

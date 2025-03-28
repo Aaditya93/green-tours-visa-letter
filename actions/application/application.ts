@@ -810,7 +810,6 @@ export const updateApplicationStages = async (data: any[], stage: string) => {
     }
 
     const result = await Application.bulkWrite(bulkOps);
-    console.log(result);
 
     return {
       success: true,
@@ -991,7 +990,6 @@ export const migration = async () => {
       }
     }
 
-    console.log(`Updated cost for ${updateCount} applications`);
     return { success: true, updatedCount: updateCount };
   } catch (error) {
     console.error("Failed to update cost field:", error);
@@ -1091,7 +1089,6 @@ export const getApplicationsBill = async (
 
     const formattedApplications = await convertToApplications(applications);
     const billingData = await convertToPassportBillings(formattedApplications);
-    console.log("Billing data:", billingData);
 
     return billingData;
   } catch (error) {
@@ -1132,7 +1129,6 @@ export const getApplicationsVisaLetter = async (
 
     const formattedApplications = await convertToApplications(applications);
     const billingData = await convertToPassportBillings(formattedApplications);
-    console.log("Billing data:", billingData);
 
     return billingData;
   } catch (error) {
@@ -1265,7 +1261,6 @@ export const deleteTravelAgentApplications = async () => {
     const applications = await Application.deleteMany({
       "creator.role": "TravelAgent",
     });
-    console.log("Deleted applications:", applications.deletedCount);
   } catch (error) {
     console.error("Failed to delete applications", error);
   }

@@ -20,11 +20,13 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { DatePicker } from "@/components/agent-platform/create-bill/date-picker";
 import { format } from "date-fns";
-import { ChevronRight, Building, FileText, Loader2 } from "lucide-react";
+import { ChevronRight, FileText, Loader2 } from "lucide-react";
 import { getApplicationsBill } from "@/actions/application/application";
 import { toast } from "sonner";
 import { createBill } from "@/actions/bill/create-bill";
 import { useRouter } from "next/navigation";
+
+import { useTranslations } from "next-intl";
 // Define types
 type Company = {
   id: string;
@@ -54,6 +56,7 @@ export interface Application {
 
 export default function CreateBill({ companies }: CreateBillProps) {
   const Router = useRouter();
+  const t = useTranslations("createBill");
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
@@ -96,7 +99,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
   const handleNext = async () => {
     if (step === 1) {
       if (!selectedCompany || !startDate || !endDate) {
-        toast.error("Please select company and date range");
+        toast.error(t("error"));
         return;
       }
 
@@ -104,7 +107,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
       setStep(2);
     } else if (step === 2) {
       if (selectedApplications.length === 0) {
-        toast.error("Please select at least one application");
+        toast.error(t("error1"));
         return;
       }
       const id = await createBill(
@@ -115,7 +118,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
       );
       Router.push(`/agent-platform/bill/${id}`);
       // Here you would submit the data to create the bill
-      toast.success("Bill created successfully!");
+      toast.success(t("success"));
     }
   };
 
@@ -144,18 +147,17 @@ export default function CreateBill({ companies }: CreateBillProps) {
         <div className="flex items-start gap-3">
           <div>
             <CardTitle className="text-xl font-semibold tracking-tight text-background">
-              Create Bill
+              {t("title")}
             </CardTitle>
             <CardDescription className="mt-1.5 text-background">
-              Choose the company and time period for which you want to create a
-              bill
+              {t("description")}
             </CardDescription>
           </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-6 mt-4">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Company</label>
+          <label className="text-sm font-medium">{t("company")}</label>
           <Select
             value={selectedCompany?.id || ""}
             onValueChange={(value) => {
@@ -166,7 +168,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
             }}
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select company" />
+              <SelectValue placeholder={t("select")} />
             </SelectTrigger>
             <SelectContent>
               {companies.map((company) => (
@@ -180,7 +182,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Start Date</label>
+            <label className="text-sm font-medium">{t("startDate")}</label>
             <DatePicker
               date={startDate}
               setDate={setStartDate}
@@ -188,7 +190,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium">End Date</label>
+            <label className="text-sm font-medium">{t("endDate")}</label>
             <DatePicker
               date={endDate}
               setDate={setEndDate}
@@ -199,7 +201,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
       </CardContent>
       <CardFooter className="flex justify-end">
         <Button onClick={handleNext} className="flex items-center gap-1">
-          Next <ChevronRight className="h-4 w-4" />
+          {t("next")} <ChevronRight className="h-4 w-4" />
         </Button>
       </CardFooter>
     </Card>
@@ -212,10 +214,10 @@ export default function CreateBill({ companies }: CreateBillProps) {
         <div className="flex justify-between items-center">
           <CardTitle className="text-xl flex items-center gap-2">
             <FileText className="h-5 w-5 text-primary" />
-            Select Applications
+            {t("action")}
           </CardTitle>
           <Button variant="outline" onClick={handleBack}>
-            Back
+            {t("back")}
           </Button>
         </div>
         <CardDescription>
@@ -234,10 +236,11 @@ export default function CreateBill({ companies }: CreateBillProps) {
           <>
             <div className="flex justify-between mb-4">
               <span className="text-sm font-medium">
-                {selectedApplications.length} of {applications.length} selected
+                {selectedApplications.length} of {applications.length}{" "}
+                {t("selected")}
                 {selectedApplications.length > 0 && (
                   <span className="ml-2 text-primary">
-                    Total: {calculateTotalCost()}{" "}
+                    {t("total")}: {calculateTotalCost()}{" "}
                     {applications.length > 0 ? applications[0].currency : "USD"}
                   </span>
                 )}
@@ -276,10 +279,11 @@ export default function CreateBill({ companies }: CreateBillProps) {
                     <div className="flex-1">
                       <div className="font-medium">{app.name}</div>
                       <div className="text-sm text-muted-foreground">
-                        Passport: {app.passportNumber} • {app.nationality}
+                        {t("passportNumber")}: {app.passportNumber} •{" "}
+                        {app.nationality}
                       </div>
                       <div className="text-sm text-muted-foreground">
-                        Code: {app.applicationCode} • {app.duration} •
+                        {t("code")}: {app.applicationCode} • {app.duration} •
                         {app.speed ? ` Processing: ${app.speed}` : ""}
                       </div>
                     </div>
@@ -302,7 +306,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
 
               {applications.length === 0 && (
                 <div className="p-8 text-center text-muted-foreground">
-                  No applications found for the selected criteria
+                  {t("message")}
                 </div>
               )}
             </div>
@@ -313,7 +317,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
         <div className="text-sm">
           {selectedApplications.length > 0 && (
             <span className="font-medium">
-              Total: {calculateTotalCost()}{" "}
+              {t("total")}: {calculateTotalCost()}{" "}
               {applications.length > 0 ? applications[0].currency : "USD"}
             </span>
           )}
@@ -323,7 +327,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
           disabled={selectedApplications.length === 0 || isLoading}
           className="flex items-center gap-1"
         >
-          Create Bill <ChevronRight className="h-4 w-4" />
+          {t("title")} <ChevronRight className="h-4 w-4" />
         </Button>
       </CardFooter>
     </Card>

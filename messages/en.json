@@ -581,7 +581,10 @@
       "dashboard": "Dashboard",
       "report": "Report",
       "pdf": "PDF",
-      "search": "Search"
+      "search": "Search",
+      "createBill": "Create Bill",
+      "visaLetter": "Visa Letter",
+      "sendVisaLetter": "Send Visa Letter"
     }
   },
   "appSiderbarDashboard": {
@@ -626,7 +629,10 @@
       "dashboard": "Dashboard",
       "report": "Report",
       "pdf": "PDF",
-      "search": "Search"
+      "search": "Search",
+      "createBill": "Create Bill",
+      "visaLetter": "Visa Letter",
+      "sendVisaLetter": "Send Visa Letter"
     }
   },
   "adminBilling": {
@@ -872,9 +878,9 @@
     "iref": "IREF",
     "download": "Download",
     "actions": "Actions",
-    "notProcessed": "Not Processed",
+    "submitted": "Submitted",
     "processing": "Processing",
-    "processed": "Processed",
+    "delivered": "Delivered",
     "selectImmigration": "Select Immigration",
     "entire": "Entire",
     "blacklist": "Blacklist",
@@ -1015,5 +1021,61 @@
     "message2": "Click here to view the document",
     "message3": "No document available",
     "days": "Days"
+  },
+  "sendVisaLetter": {
+    "title": "Send Visa Letter",
+    "title1": "Choose the company and time period for which you want to Send Visa Letter",
+    "company": "Company",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "pickDate": "Pick a date",
+    "next": "Next",
+    "select": "Select Company",
+    "error1": "Please select company and date range",
+    "error2": "Please select at least one application",
+    "error3": "Please upload a visa letter document",
+    "error4": "Failed to upload visa letter and create bill",
+    "error5": "Please upload a PDF file",
+    "error6": "File size should be less than 10MB",
+    "success": "Visa letter uploaded successfully!",
+    "action": "Select Applications",
+    "back": "Back",
+    "selected": "Selected",
+    "total": "Total",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "passportNumber": "Passport Number",
+    "code": "Code",
+    "message": "No applications found for the selected criteria",
+    "upload": "Upload Visa Letter",
+    "description": "Upload the visa letter document for the selected applications",
+    "description1": "Visa Letter Document (PDF)",
+    "message1": "  Max size: 10MB • PDF files only",
+    "message2": "File selected:",
+    "title3": "Document Preview",
+    "processing": "Processing..",
+    "submit": "Submit"
+  },
+  "createBill": {
+    "title": "Create Bill",
+    "description": " Choose the company and time period for which you want to create a bill",
+    "error": "Please select company and date range",
+    "error1": "Please select at least one application",
+    "success": "Bill created successfully!",
+    "company": "Company",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "pickDate": "Pick a date",
+    "next": "Next",
+    "action": "Select Applications",
+    "back": "Back",
+    "selected": "Selected",
+    "select": "Select Company",
+    "total": "Total",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "passportNumber": "Passport Number",
+    "code": "Code",
+    "message": "No applications found for the selected criteria"
   }
 }

@@ -76,7 +76,7 @@ const PaymentPage = async ({
   const Applications = convertToApplications(applications);
   const PlanObject = serializedApplications(Applications);
   const bills = await getBills(company, dateRange.from, dateRange.to);
-  console.log(bills);
+
   const t = await getTranslations("agentPayment");
 
   return (

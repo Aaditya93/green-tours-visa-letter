@@ -15,9 +15,11 @@ import AppSidebar from "@/components/app-sidebar";
 
 import { getAllCompaniesBill } from "@/actions/bill/create-bill";
 import VisaLetterPage from "@/components/agent-platform/send-visa-letter/send-visa-letter";
+import { getTranslations } from "next-intl/server";
 
 const SendVisaLetterPage = async () => {
   const companies = (await getAllCompaniesBill()) || [];
+  const t = await getTranslations("sendVisaLetter");
 
   return (
     <SidebarProvider>
@@ -31,7 +33,7 @@ const SendVisaLetterPage = async () => {
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Send Visa Letter</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

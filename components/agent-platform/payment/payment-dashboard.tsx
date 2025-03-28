@@ -137,7 +137,9 @@ const PaymentDashboard = ({
           {/* Amount Paid */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Amount Paid</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                {t("parameter2")}
+              </CardTitle>
               <CheckCircle className="h-4 w-4 " />
             </CardHeader>
             <CardContent>
@@ -146,7 +148,7 @@ const PaymentDashboard = ({
               </div>
               <div className="flex items-center gap-1.5 mt-1">
                 <p className="text-xs text-muted-foreground">
-                  Total Amount Paid
+                  {t("subtitle2")}
                 </p>
               </div>
             </CardContent>
@@ -171,7 +173,7 @@ const PaymentDashboard = ({
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Delivered Applications
+                {t("parameter4")}
               </CardTitle>
               <CheckCircle className="h-4 w-4 " />
             </CardHeader>
@@ -183,7 +185,7 @@ const PaymentDashboard = ({
                       (deliveredApplications / totalApplications) * 100
                     )
                   : 0}
-                % of total
+                % {t("subtitle4")}
               </p>
             </CardContent>
           </Card>
@@ -203,22 +205,22 @@ const PaymentDashboard = ({
                   <TableHeader>
                     <TableRow>
                       <TableHead className="text-center py-2 px-3">
-                        Bill ID
+                        {t("table.id")}
                       </TableHead>
                       <TableHead className="text-center py-2 px-3">
-                        Created Date
+                        {t("table.createdDate")}
                       </TableHead>
                       <TableHead className="text-center py-2 px-3">
-                        Applications
+                        {t("table.applications")}
                       </TableHead>
                       <TableHead className="text-center py-2 px-3">
-                        Amount
+                        {t("table.amount")}
                       </TableHead>
                       <TableHead className="text-center py-2 px-3">
-                        Status
+                        {t("table.status")}
                       </TableHead>
                       <TableHead className="text-center py-2 px-3">
-                        Actions
+                        {t("table.actions")}
                       </TableHead>
                     </TableRow>
                   </TableHeader>
@@ -250,14 +252,14 @@ const PaymentDashboard = ({
                               variant="outline"
                               className="px-2.5 py-0.5 bg-green-100 text-green-800 border-green-200 hover:bg-green-200"
                             >
-                              Paid
+                              {t("table.paid")}
                             </Badge>
                           ) : (
                             <Badge
                               variant="outline"
                               className="px-2.5 py-0.5 bg-red-100 text-red-800 border-red-200 hover:bg-red-200"
                             >
-                              Unpaid
+                              {t("table.unpaid")}
                             </Badge>
                           )}
                         </TableCell>
@@ -266,7 +268,7 @@ const PaymentDashboard = ({
                             href={`/agent-platform/bill/${bill._id}`}
                             className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium text-primary bg-primary/10 hover:bg-primary/20 transition-colors"
                           >
-                            View Details
+                            {t("table.view")}
                           </Link>
                         </TableCell>
                       </TableRow>
@@ -277,9 +279,7 @@ const PaymentDashboard = ({
             ) : (
               <div className="py-6 text-center text-muted-foreground">
                 <FileText className="h-10 w-10 mx-auto mb-2 text-muted-foreground/50" />
-                <p className="text-sm">
-                  No bills found for this company in the selected date range.
-                </p>
+                <p className="text-sm">{t("table.message")}</p>
               </div>
             )}
           </CardContent>

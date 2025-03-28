@@ -38,8 +38,7 @@ export const CreateVisaLetter = async (
       return { status: "error", message: "Please select a valid file." };
     }
     const awsUrl = process.env.S3_AWS_URL || "";
-    console.log("file", selectedApplicants);
-    console.log("company", company);
+
     await uploadVisaLetter(file, id, file.name);
     const visaletter = await VisaLetter.create({
       visaLetterId: id,

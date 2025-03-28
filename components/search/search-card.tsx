@@ -371,8 +371,8 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
                     <Button
                       variant="outline"
                       className={cn(
-                        "w-full justify-start text-left",
-                        !searchFilters[dateField] && "text-muted-foreground"
+                        "w-full justify-start text-left bg-secondary-background ",
+                        !searchFilters[dateField] && ""
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
@@ -454,9 +454,9 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
               {
                 name: "stage",
                 options: [
-                  { value: "Not Processed", label: t("notProcessed") },
+                  { value: "Submitted", label: t("submitted") },
                   { value: "Processing", label: t("processing") },
-                  { value: "Processed", label: t("processed") },
+                  { value: "Delivered", label: t("delivered") },
                   { value: "Blacklist", label: t("blacklist") },
                   { value: "Overstayed", label: t("overstayed") },
                 ],
@@ -569,11 +569,8 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
                   <SelectValue placeholder={t("selectStage")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Not Processed">
-                    {t("notProcessed")}
-                  </SelectItem>
                   <SelectItem value="Processing">{t("processing")}</SelectItem>
-                  <SelectItem value="Processed">{t("processed")}</SelectItem>
+                  <SelectItem value="Delivered">{t("delivered")}</SelectItem>
                   <SelectItem value="Blacklist">{t("blacklist")}</SelectItem>
                   <SelectItem value="Overstayed">{t("overstayed")}</SelectItem>
                 </SelectContent>
@@ -603,7 +600,7 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline">
+                <Button variant="outline" className="bg-secondary-foreground">
                   <span className="sr-only">Open menu</span>
                   <DownloadIcon />
                   {t("download")}
@@ -700,11 +697,11 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
                           className={`
     px-2 py-1 rounded-full text-xs font-semibold
     ${
-      item.stage === "Not Processed"
+      item.stage === "Submitted"
         ? "bg-yellow-100 text-yellow-800"
         : item.stage === "Processing"
         ? "bg-gray-100 text-gray-800"
-        : item.stage === "Processed"
+        : item.stage === "Delivered"
         ? "bg-green-100 text-green-800"
         : item.stage === "Blacklist"
         ? "bg-red-100 text-red-800"

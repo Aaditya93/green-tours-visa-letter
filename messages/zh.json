@@ -578,7 +578,11 @@
       "dashboard": "仪表盘",
       "report": "报告",
       "pdf": "PDF",
-      "search": "搜索"
+      "search": "搜索",
+
+      "createBill": "创建账单",
+      "visaLetter": "签证信件",
+      "sendVisaLetter": "发送签证信件"
     }
   },
   "appSiderbarDashboard": {
@@ -623,7 +627,11 @@
       "dashboard": "仪表盘",
       "report": "报告",
       "pdf": "PDF",
-      "search": "搜索"
+      "search": "搜索",
+
+      "createBill": "创建账单",
+      "visaLetter": "签证信件",
+      "sendVisaLetter": "发送签证信件"
     }
   },
   "adminBilling": {
@@ -869,9 +877,9 @@
     "iref": "IREF",
     "download": "下载",
     "actions": "操作",
-    "notProcessed": "未处理",
+    "submitted": "已提交",
     "processing": "处理中",
-    "processed": "已处理",
+    "delivered": "已提交",
     "selectImmigration": "选择移民状态",
     "entire": "全部",
     "blacklist": "黑名单",
@@ -1013,5 +1021,61 @@
     "message2": "点击此处查看文件",
     "message3": "没有可用的文件",
     "days": "天数"
+  },
+  "sendVisaLetter": {
+    "title": "发送签证信件",
+    "title1": "选择您要发送签证信件的公司和时间段",
+    "company": "公司",
+    "startDate": "开始日期",
+    "endDate": "结束日期",
+    "pickDate": "选择日期",
+    "next": "下一步",
+    "select": "选择公司",
+    "error1": "请选择公司和日期范围",
+    "error2": "请至少选择一个申请",
+    "error3": "请上传签证信件文件",
+    "error4": "上传签证信件并创建账单失败",
+    "error5": "请上传 PDF 文件",
+    "error6": "文件大小应小于 10MB",
+    "success": "签证信件上传成功！",
+    "action": "选择申请",
+    "back": "返回",
+    "selected": "已选择",
+    "total": "总计",
+    "selectAll": "全选",
+    "deselectAll": "取消全选",
+    "passportNumber": "护照号码",
+    "code": "代码",
+    "message": "未找到符合所选条件的申请",
+    "upload": "上传签证信件",
+    "description": "为所选申请上传签证信件文件",
+    "description1": "签证信件文件 (PDF)",
+    "message1": "最大大小：10MB • 仅限 PDF 文件",
+    "message2": "已选择文件：",
+    "title3": "文件预览",
+    "processing": "处理中...",
+    "submit": "提交"
+  },
+  "createBill": {
+    "title": "创建账单",
+    "description": "选择您要创建账单的公司和时间范围",
+    "error": "请选择公司和日期范围",
+    "error1": "请至少选择一个申请",
+    "success": "账单创建成功！",
+    "company": "公司",
+    "startDate": "开始日期",
+    "endDate": "结束日期",
+    "pickDate": "选择日期",
+    "next": "下一步",
+    "action": "选择申请",
+    "back": "返回",
+    "selected": "已选择",
+    "select": "选择公司",
+    "total": "总计",
+    "selectAll": "全选",
+    "deselectAll": "取消全选",
+    "passportNumber": "护照号码",
+    "code": "代码",
+    "message": "未找到符合所选条件的申请"
   }
 }

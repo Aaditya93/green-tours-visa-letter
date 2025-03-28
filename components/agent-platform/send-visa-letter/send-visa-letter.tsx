@@ -25,6 +25,7 @@ import { getApplicationsVisaLetter } from "@/actions/application/application";
 import { toast } from "sonner";
 import { CreateVisaLetter } from "@/actions/bill/send-visa-letter";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 // Define types
 type Company = {
@@ -55,6 +56,7 @@ export interface Application {
 
 export default function VisaLetterPage({ companies }: CreateBillProps) {
   const Router = useRouter();
+  const t = useTranslations("sendVisaLetter");
   const [visaLetterFile, setVisaLetterFile] = useState<File | null>(null);
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
@@ -113,7 +115,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
   const handleNext = async () => {
     if (step === 1) {
       if (!selectedCompany || !startDate || !endDate) {
-        toast.error("Please select company and date range");
+        toast.error(t("error1"));
         return;
       }
 
@@ -121,13 +123,13 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
       setStep(2);
     } else if (step === 2) {
       if (selectedApplications.length === 0) {
-        toast.error("Please select at least one application");
+        toast.error(t("error2"));
         return;
       }
       setStep(3);
     } else if (step === 3) {
       if (!visaLetterFile) {
-        toast.error("Please upload a visa letter document");
+        toast.error(t("error3"));
         return;
       }
       setIsLoading(true);
@@ -141,10 +143,10 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
         );
         Router.push(`/agent-platform/visa-letter/${id}`);
 
-        toast.success("Visa letter uploaded successfully!");
+        toast.success(t("success"));
       } catch (error) {
         console.error("Failed to upload visa letter", error);
-        toast.error("Failed to upload visa letter and create bill");
+        toast.error(t("error4"));
       } finally {
         setIsLoading(false);
       }
@@ -156,12 +158,12 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
       const file = e.target.files[0];
       // Check if the file is a PDF
       if (file.type !== "application/pdf") {
-        toast.error("Please upload a PDF file");
+        toast.error(t("error5"));
         return;
       }
       // Check file size (limit to 10MB)
       if (file.size > 10 * 1024 * 1024) {
-        toast.error("File size should be less than 10MB");
+        toast.error(t("error6"));
         return;
       }
       setVisaLetterFile(file);
@@ -193,18 +195,17 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
         <div className="flex items-start gap-3">
           <div>
             <CardTitle className="text-xl font-semibold tracking-tight text-background">
-              Send Visa Letter
+              {t("title")}
             </CardTitle>
             <CardDescription className="mt-1.5 text-background">
-              Choose the company and time period for which you want to Send Visa
-              Letter
+              {t("title1")}
             </CardDescription>
           </div>
         </div>
       </CardHeader>
       <CardContent className="space-y-6 mt-4">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Company</label>
+          <label className="text-sm font-medium">{t("company")}</label>
           <Select
             value={selectedCompany?.id || ""}
             onValueChange={(value) => {
@@ -215,7 +216,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
             }}
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select company" />
+              <SelectValue placeholder={t("select")} />
             </SelectTrigger>
             <SelectContent>
               {companies.map((company) => (
@@ -229,7 +230,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Start Date</label>
+            <label className="text-sm font-medium">{t("startDate")}</label>
             <DatePicker
               date={startDate}
               setDate={setStartDate}
@@ -237,7 +238,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium">End Date</label>
+            <label className="text-sm font-medium">{t("endDate")}</label>
             <DatePicker
               date={endDate}
               setDate={setEndDate}
@@ -248,7 +249,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
       </CardContent>
       <CardFooter className="flex justify-end">
         <Button onClick={handleNext} className="flex items-center gap-1">
-          Next <ChevronRight className="h-4 w-4" />
+          {t("next")} <ChevronRight className="h-4 w-4" />
         </Button>
       </CardFooter>
     </Card>
@@ -261,10 +262,10 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
         <div className="flex justify-between items-center">
           <CardTitle className="text-xl flex items-center gap-2">
             <FileText className="h-5 w-5 text-primary" />
-            Select Applications
+            {t("action")}
           </CardTitle>
           <Button variant="outline" onClick={handleBack}>
-            Back
+            t({"back"})
           </Button>
         </div>
         <CardDescription>
@@ -283,10 +284,11 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
           <>
             <div className="flex justify-between mb-4">
               <span className="text-sm font-medium">
-                {selectedApplications.length} of {applications.length} selected
+                {selectedApplications.length} of {applications.length}{" "}
+                {t("selected")}
                 {selectedApplications.length > 0 && (
                   <span className="ml-2 text-primary">
-                    Total: {calculateTotalCost()}{" "}
+                    {t("total")}: {calculateTotalCost()}{" "}
                     {applications.length > 0 ? applications[0].currency : "USD"}
                   </span>
                 )}
@@ -305,8 +307,8 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
                 }}
               >
                 {selectedApplications.length === applications.length
-                  ? "Deselect All"
-                  : "Select All"}
+                  ? t("deselectAll")
+                  : t("selectAll")}
               </Button>
             </div>
 
@@ -325,10 +327,11 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
                     <div className="flex-1">
                       <div className="font-medium">{app.name}</div>
                       <div className="text-sm text-muted-foreground">
-                        Passport: {app.passportNumber} • {app.nationality}
+                        {t("passportNumber")}: {app.passportNumber} •{" "}
+                        {app.nationality}
                       </div>
                       <div className="text-sm text-muted-foreground">
-                        Code: {app.applicationCode} • {app.duration} •
+                        {t("code")}: {app.applicationCode} • {app.duration} •
                         {app.speed ? ` Processing: ${app.speed}` : ""}
                       </div>
                     </div>
@@ -351,7 +354,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
 
               {applications.length === 0 && (
                 <div className="p-8 text-center text-muted-foreground">
-                  No applications found for the selected criteria
+                  {t("message")}
                 </div>
               )}
             </div>
@@ -362,7 +365,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
         <div className="text-sm">
           {selectedApplications.length > 0 && (
             <span className="font-medium">
-              Total: {calculateTotalCost()}{" "}
+              {t("total")}: {calculateTotalCost()}{" "}
               {applications.length > 0 ? applications[0].currency : "USD"}
             </span>
           )}
@@ -372,7 +375,8 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
           disabled={selectedApplications.length === 0 || isLoading}
           className="flex items-center gap-1"
         >
-          Upload Visa Letter <ChevronRight className="h-4 w-4" />
+          {t("upload")}
+          <ChevronRight className="h-4 w-4" />
         </Button>
       </CardFooter>
     </Card>
@@ -385,19 +389,17 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
           <div className="flex items-start gap-3">
             <div>
               <CardTitle className="text-xl font-semibold tracking-tight text-background">
-                Upload Visa Letter
+                {t("upload")}
               </CardTitle>
               <CardDescription className="mt-1.5 text-background">
-                Upload the visa letter document for the selected applications
+                {t("description")}
               </CardDescription>
             </div>
           </div>
         </CardHeader>
         <CardContent className="space-y-6 mt-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">
-              Visa Letter Document (PDF)
-            </label>
+            <label className="text-sm font-medium">{t("description1")}</label>
             {!visaLetterFile && (
               <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center">
                 <input
@@ -418,11 +420,11 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
                       : "Click to upload PDF file"}
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Max size: 10MB • PDF files only
+                    {t("message1")}
                   </span>
                   {visaLetterFile && (
                     <div className="mt-2 text-sm text-green-600 font-medium">
-                      File selected: {visaLetterFile.name}
+                      {t("message2")} {visaLetterFile.name}
                     </div>
                   )}
                 </label>
@@ -432,7 +434,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
 
           {pdfPreviewUrl && (
             <div className="space-y-2">
-              <label className="text-sm font-medium">Document Preview</label>
+              <label className="text-sm font-medium">{t("title3")}</label>
               <div
                 className="border rounded-lg overflow-hidden"
                 style={{ height: "400px" }}
@@ -448,7 +450,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
         </CardContent>
         <CardFooter className="flex justify-between">
           <Button variant="outline" onClick={() => setStep(2)}>
-            Back
+            {t("back")}
           </Button>
           <Button
             onClick={handleNext}
@@ -457,11 +459,12 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
           >
             {isLoading ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" /> Processing...
+                <Loader2 className="h-4 w-4 animate-spin" />
+                {t("processing")}
               </>
             ) : (
               <>
-                Submit <ChevronRight className="h-4 w-4" />
+                {t("submit")} <ChevronRight className="h-4 w-4" />
               </>
             )}
           </Button>

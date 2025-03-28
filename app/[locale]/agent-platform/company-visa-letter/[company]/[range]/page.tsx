@@ -3,7 +3,6 @@ import AppSidebar from "@/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
@@ -20,6 +19,7 @@ import {
 } from "@/actions/agent-platform/visa-letter";
 import VisaLetterCard from "@/components/agent-platform/send-visa-letter/visa-letter-applications";
 import { serializeData } from "@/config/serialize";
+import { getTranslations } from "next-intl/server";
 const CompanyVisaLetterPage = async ({
   params,
 }: {
@@ -27,6 +27,7 @@ const CompanyVisaLetterPage = async ({
 }) => {
   const { company, range } = await params;
   const Companies = await getAllCompanies();
+  const t = await getTranslations("companyVisaLetter");
 
   const VisaLetters = await getAllVisaLettersByCompany(company);
   const SvisaLetter = await serializeData(VisaLetters);
@@ -43,7 +44,7 @@ const CompanyVisaLetterPage = async ({
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Applications</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

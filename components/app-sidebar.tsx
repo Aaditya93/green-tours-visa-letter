@@ -67,15 +67,15 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
           //   url: `/agent-platform/billing/677b88cc3c6259f5025f6645/from=${seven}&to=${to}`,
           // },
           {
-            title: "Create Bill",
+            title: t("menu.createBill"),
             url: `/agent-platform/create-bill`,
           },
           {
-            title: "Send Visa Letter",
+            title: t("menu.sendVisaLetter"),
             url: `/agent-platform/send-visa-letter`,
           },
           {
-            title: "Visa Letter",
+            title: t("menu.visaLetter"),
             url: `/agent-platform/company-visa-letter/67d11373b89197434cbe8c3f/10`,
           },
         ],

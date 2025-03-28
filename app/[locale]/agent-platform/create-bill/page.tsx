@@ -14,8 +14,10 @@ import {
 import AppSidebar from "@/components/app-sidebar";
 import CreateBill from "@/components/agent-platform/create-bill/create-bill";
 import { getAllCompaniesBill } from "@/actions/bill/create-bill";
+import { getTranslations } from "next-intl/server";
 const CreateBillPage = async () => {
   const companies = (await getAllCompaniesBill()) || [];
+  const t = await getTranslations("createBill");
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -28,7 +30,7 @@ const CreateBillPage = async () => {
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Create Bill</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
