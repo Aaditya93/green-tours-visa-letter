@@ -3,6 +3,7 @@
 import * as z from "zod";
 import ContactForm from "@/db/models/ContactFrom";
 import { getTranslations } from "next-intl/server";
+import { sendNewAgentInterestEmail } from "@/lib/mail";
 
 export const contactUs = async (values) => {
   const t = await getTranslations("contactUs");
@@ -25,8 +26,7 @@ export const contactUs = async (values) => {
       mobile,
       date: new Date(),
     });
-    // Send admin mail
-    //send user mail about how to apply for visa
+    await sendNewAgentInterestEmail(name, email, mobile);
 
     return { success: "Form submitted successfully" };
   } catch (error) {

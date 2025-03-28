@@ -947,3 +947,235 @@ export const sendVisaLetterReadyEmail = async (
 </html>`,
   });
 };
+
+// Add this function to your mail.ts file
+export const sendNewAgentInterestEmail = async (
+  name: string,
+  email: string,
+  mobile: string
+) => {
+  await resend.emails.send({
+    from: "VISACAR <noreply@visacar.vn>",
+    // Change this to your admin/sales email
+    to: "sales@visacar.vn",
+    subject: "New Travel Agent Inquiry - VISACAR Partner Program",
+    html: `<!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>New Travel Agent Inquiry - VISACAR</title>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+      <style>
+          * {
+              margin: 0;
+              padding: 0;
+              box-sizing: border-box;
+          }
+          body {
+              font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+              line-height: 1.6;
+              color: #2c3e50;
+              background-color: #f0f4f2;
+              -webkit-font-smoothing: antialiased;
+          }
+          .email-container {
+              max-width: 650px;
+              margin: 30px auto;
+              background-color: white;
+              border-radius: 16px;
+              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+              overflow: hidden;
+          }
+          .header {
+              background: linear-gradient(135deg, #2ecc71, #27ae60);
+              color: white;
+              padding: 40px 30px;
+              text-align: center;
+              position: relative;
+          }
+          .header::before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-image: 
+                  linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%),
+                  linear-gradient(-45deg, rgba(255,255,255,0.1) 25%, transparent 25%);
+              background-size: 50px 50px;
+              opacity: 0.2;
+              z-index: 1;
+          }
+          .header-content {
+              position: relative;
+              z-index: 2;
+          }
+          .header h1 {
+              font-size: 32px;
+              font-weight: 700;
+              margin-bottom: 10px;
+              letter-spacing: -0.5px;
+          }
+          .header p {
+              font-size: 16px;
+              opacity: 0.9;
+          }
+          .content {
+              padding: 40px 30px;
+          }
+          .agent-details {
+              background-color: #f0f7f4;
+              border: 1px solid #d4eddf;
+              border-radius: 12px;
+              padding: 25px;
+              margin: 25px 0;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+          }
+          .agent-row {
+              display: flex;
+              justify-content: space-between;
+              padding: 12px 0;
+              border-bottom: 1px solid #d4eddf;
+          }
+          .agent-row:last-child {
+              border-bottom: none;
+          }
+          .agent-label {
+              font-weight: 600;
+              color: #2c3e50;
+              opacity: 0.7;
+          }
+          .agent-value {
+              font-weight: 500;
+              color: #27ae60;
+              text-align: right;
+          }
+          .highlight-box {
+              background-color: #e8f6f3;
+              border-left: 5px solid #2ecc71;
+              padding: 20px;
+              border-radius: 8px;
+              margin: 25px 0;
+          }
+          .highlight-box p {
+              color: #2c3e50;
+              margin: 0;
+          }
+          .action-button {
+              display: block;
+              background: linear-gradient(145deg, #2ecc71, #27ae60);
+              color: white !important;
+              text-align: center;
+              padding: 15px 25px;
+              text-decoration: none !important;
+              border-radius: 10px;
+              font-weight: 600;
+              margin: 25px 0;
+              transition: transform 0.3s ease, box-shadow 0.3s ease;
+              box-shadow: 0 10px 20px rgba(46, 204, 113, 0.2);
+          }
+          .action-button:hover {
+              transform: translateY(-3px);
+              box-shadow: 0 15px 25px rgba(46, 204, 113, 0.3);
+              color: white !important;
+          }
+          .urgency-tag {
+              display: inline-block;
+              background-color: #ff7675;
+              color: white;
+              font-size: 12px;
+              font-weight: 600;
+              padding: 5px 10px;
+              border-radius: 20px;
+              margin-bottom: 15px;
+          }
+          .footer {
+              background-color: #f0f4f2;
+              text-align: center;
+              padding: 25px;
+              font-size: 14px;
+              color: #7f8c8d;
+          }
+          .footer a {
+              color: #27ae60;
+              text-decoration: none;
+              font-weight: 600;
+          }
+          .footer a:hover {
+              text-decoration: underline;
+          }
+          @media screen and (max-width: 600px) {
+              .email-container {
+                  margin: 0;
+                  border-radius: 0;
+              }
+              .content, .header {
+                  padding: 20px;
+              }
+          }
+      </style>
+  </head>
+  <body>
+      <div class="email-container">
+          <div class="header">
+              <div class="header-content">
+                  <h1>New Travel Agent Inquiry</h1>
+                  <p>A potential partner is interested in VISACAR services</p>
+              </div>
+          </div>
+          
+          <div class="content">
+              <div class="urgency-tag">New Lead</div>
+              
+              <p>A new travel agent has expressed interest in partnering with VISACAR. Please find their contact details below:</p>
+              
+              <div class="agent-details">
+                  <div class="agent-row">
+                      <span class="agent-label">Name:</span>
+                      <span class="agent-value">${name}</span>
+                  </div>
+                  <div class="agent-row">
+                      <span class="agent-label">Email:</span>
+                      <span class="agent-value">${email}</span>
+                  </div>
+                  <div class="agent-row">
+                      <span class="agent-label">Mobile:</span>
+                      <span class="agent-value">${mobile}</span>
+                  </div>
+                  <div class="agent-row">
+                      <span class="agent-label">Submission Date:</span>
+                      <span class="agent-value">${new Date().toLocaleDateString(
+                        "en-US",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        }
+                      )}</span>
+                  </div>
+              </div>
+              
+              <div class="highlight-box">
+                  <p><strong>Recommendation:</strong> Contact this travel agent within 24 hours to discuss partnership opportunities and provide information about our services.</p>
+              </div>
+              
+              <p>Click the button below to directly respond to this inquiry:</p>
+              
+              <a href="mailto:${email}?subject=VISACAR%20Partnership%20Information&body=Dear%20${name}%2C%0A%0AThank%20you%20for%20your%20interest%20in%20partnering%20with%20VISACAR.%20We%20appreciate%20your%20inquiry%20and%20would%20like%20to%20provide%20you%20with%20more%20information%20about%20our%20services.%0A%0A" class="action-button" style="color: white !important; text-decoration: none !important;">Reply to ${name}</a>
+              
+              <p>Alternatively, you can call them directly at: <strong>${mobile}</strong></p>
+          </div>
+          
+          <div class="footer">
+              <p>© ${new Date().getFullYear()} VISACAR. All rights reserved.</p>
+              <p>This is an automated message from your website contact system.</p>
+          </div>
+      </div>
+  </body>
+  </html>`,
+  });
+};

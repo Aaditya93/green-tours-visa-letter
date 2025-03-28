@@ -503,6 +503,22 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
                   label: user.username,
                 })),
               },
+              {
+                name: "company",
+                key: "companyId",
+                options: companies.map((company) => ({
+                  value: company.id,
+                  label: company.name,
+                })),
+              },
+              {
+                name: "immigration",
+                key: "immigration",
+                options: [
+                  { value: "Hanoi", label: "Hanoi" },
+                  { value: "Ho Chi Minh", label: "Ho Chi Minh" },
+                ],
+              },
             ].map(({ name, options }) => (
               <div key={name} className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -600,7 +616,7 @@ const VisaSearch = ({ Users, data, companies }: SearchProps) => {
             </Button>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="bg-secondary-foreground">
+                <Button variant="outline" className="bg-secondary-background">
                   <span className="sr-only">Open menu</span>
                   <DownloadIcon />
                   {t("download")}
