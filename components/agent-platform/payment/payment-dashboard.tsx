@@ -254,8 +254,8 @@ const PaymentDashboard = ({
                             </Badge>
                           ) : (
                             <Badge
-                              variant="destructive"
-                              className="px-2.5 py-0.5"
+                              variant="outline"
+                              className="px-2.5 py-0.5 bg-red-100 text-red-800 border-red-200 hover:bg-red-200"
                             >
                               Unpaid
                             </Badge>

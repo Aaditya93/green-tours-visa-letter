@@ -1,12 +1,6 @@
 "use client";
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeDollarSign, Users, CheckCircle, FileText } from "lucide-react";
 
 import {
@@ -170,22 +164,22 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
                   <TableHeader>
                     <TableRow>
                       <TableHead className="text-center py-2 px-3">
-                        Bill ID
+                        {t("table.id")}
                       </TableHead>
                       <TableHead className="text-center py-2 px-3">
-                        Created Date
+                        {t("table.createdDate")}
                       </TableHead>
                       <TableHead className="text-center py-2 px-3">
-                        Applications
+                        {t("table.applications")}
                       </TableHead>
                       <TableHead className="text-center py-2 px-3">
-                        Amount
+                        {t("table.amount")}
                       </TableHead>
                       <TableHead className="text-center py-2 px-3">
-                        Status
+                        {t("table.status")}
                       </TableHead>
                       <TableHead className="text-center py-2 px-3">
-                        Actions
+                        {t("table.actions")}
                       </TableHead>
                     </TableRow>
                   </TableHeader>
@@ -217,14 +211,14 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
                               variant="outline"
                               className="px-2.5 py-0.5 bg-green-100 text-green-800 border-green-200 hover:bg-green-200"
                             >
-                              Paid
+                              {t("table.paid")}
                             </Badge>
                           ) : (
                             <Badge
-                              variant="destructive"
-                              className="px-2.5 py-0.5"
+                              variant="outline"
+                              className="px-2.5 py-0.5 bg-red-100 text-red-800 border-red-200 hover:bg-red-200"
                             >
-                              Unpaid
+                              {t("table.unpaid")}
                             </Badge>
                           )}
                         </TableCell>
@@ -233,7 +227,7 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
                             href={`/travel-agent/bill/${bill._id}`}
                             className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium text-primary bg-primary/10 hover:bg-primary/20 transition-colors"
                           >
-                            View Details
+                            {t("table.view")}
                           </Link>
                         </TableCell>
                       </TableRow>
@@ -244,9 +238,7 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
             ) : (
               <div className="py-6 text-center text-muted-foreground">
                 <FileText className="h-10 w-10 mx-auto mb-2 text-muted-foreground/50" />
-                <p className="text-sm">
-                  No bills found for this company in the selected date range.
-                </p>
+                <p className="text-sm">{t("message")}</p>
               </div>
             )}
           </CardContent>

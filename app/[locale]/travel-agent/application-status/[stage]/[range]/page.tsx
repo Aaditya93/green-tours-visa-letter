@@ -38,7 +38,7 @@ const ApplicationPage = async ({
   const pendingApplications =
     stage === "Incomplete"
       ? (await getIncompleteApplicationsTravelAgent()) || []
-      : stage === "Complete"
+      : stage === "Delivered"
       ? (await getCompleteApplicationsTravelAgent()) || []
       : (await getProcessingApplicationTravelAgent()) || [];
 

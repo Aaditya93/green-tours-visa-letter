@@ -7,7 +7,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import { toast } from "sonner";
+
 import {
   Download,
   FileText,
@@ -18,8 +18,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { useEffect } from "react";
+
 import PaginationComponent from "./pagination";
+import { useTranslations } from "next-intl";
 
 interface VisaLetter {
   _id: any;
@@ -46,14 +47,7 @@ const VisaLetterCard = (props: VisaLetterListProps) => {
   const totalPages = Math.ceil(visaLetters.length / 10);
   const currentPage = NumRange / 10;
   const itemsPerPage = 10; // Items per page
-
-  const [calltoast, setCallToast] = React.useState(false);
-  useEffect(() => {
-    if (calltoast) {
-      toast.success("Visa letter email sent successfully", {});
-      setCallToast(false);
-    }
-  }, [calltoast]);
+  const t = useTranslations("companyVisaLetter");
 
   const formatDateTime = (date: Date) => {
     return new Date(date).toLocaleString("en-US", {
@@ -82,13 +76,14 @@ const VisaLetterCard = (props: VisaLetterListProps) => {
       <CardHeader className="p-4 sm:p-3 bg-primary text-primary-foreground rounded-t-md">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
           <CardTitle className="text-xl font-bold text-center sm:text-left">
-            Visa Letters
+            {t("title")}
           </CardTitle>
           <Badge
             variant="secondary"
             className="bg-white/20 text-primary-foreground border-none"
           >
-            {visaLetters.length} Total Documents
+            {visaLetters.length}
+            {t("total")}
           </Badge>
         </div>
       </CardHeader>
@@ -97,7 +92,7 @@ const VisaLetterCard = (props: VisaLetterListProps) => {
         <div className="divide-y divide-border">
           {visaLetters.length === 0 ? (
             <div className="py-8 text-center text-muted-foreground">
-              No visa letters found
+              {t("message")}
             </div>
           ) : (
             visaLetters
@@ -113,19 +108,19 @@ const VisaLetterCard = (props: VisaLetterListProps) => {
                         variant="outline"
                         className="bg-primary/10 text-primary border-primary/20"
                       >
-                        ID: {getShortId(letter.visaLetterId)}
+                        {t("id")}: {getShortId(letter.visaLetterId)}
                       </Badge>
                       <Badge variant="secondary">
                         {letter.passportIds.length}{" "}
                         {letter.passportIds.length === 1
-                          ? "Passport"
-                          : "Passports"}
+                          ? `${t("application")}`
+                          : `${t("applications")}`}
                       </Badge>
                     </div>
                   </div>
 
                   <Link
-                    href={`/agent-platform/visa-letter/${letter._id}`}
+                    href={`/travel-agent/visa-letter/${letter._id}`}
                     className="block"
                   >
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
@@ -133,7 +128,7 @@ const VisaLetterCard = (props: VisaLetterListProps) => {
                         <Building className="w-4 h-4 flex-shrink-0 text-primary mt-0.5" />
                         <div>
                           <p className="text-xs text-muted-foreground">
-                            Company
+                            {t("company")}
                           </p>
                           <p className="font-medium text-sm">
                             {letter.companyName}
@@ -145,7 +140,7 @@ const VisaLetterCard = (props: VisaLetterListProps) => {
                         <Calendar className="w-4 h-4 flex-shrink-0 text-primary mt-0.5" />
                         <div>
                           <p className="text-xs text-muted-foreground">
-                            Created
+                            {t("created")}
                           </p>
                           <p className="text-sm">
                             {formatDateTime(letter.createdDate)}
@@ -157,7 +152,7 @@ const VisaLetterCard = (props: VisaLetterListProps) => {
                         <FileText className="w-4 h-4 flex-shrink-0 text-primary mt-0.5" />
                         <div>
                           <p className="text-xs text-muted-foreground">
-                            Filename
+                            {t("file")}
                           </p>
                           <p className="text-xs font-mono truncate max-w-[180px]">
                             {getFileName(letter.visaLetter)}
@@ -174,9 +169,9 @@ const VisaLetterCard = (props: VisaLetterListProps) => {
                       className="text-primary hover:text-primary/80 hover:bg-primary/5"
                       asChild
                     >
-                      <Link href={`/agent-platform/visa-letter/${letter._id}`}>
+                      <Link href={`/travel-agent/visa-letter/${letter._id}`}>
                         <ExternalLink className="w-3.5 h-3.5 mr-1.5" />
-                        View Details
+                        {t("view")}
                       </Link>
                     </Button>
                     <Button variant="default" size="sm" asChild>
@@ -187,7 +182,7 @@ const VisaLetterCard = (props: VisaLetterListProps) => {
                         download
                       >
                         <Download className="w-3.5 h-3.5 mr-1.5" />
-                        Download
+                        {t("download")}
                       </a>
                     </Button>
                   </div>
@@ -200,7 +195,7 @@ const VisaLetterCard = (props: VisaLetterListProps) => {
       {visaLetters.length > 0 && (
         <CardFooter className="bg-muted p-4 sm:p-3 flex justify-between items-center border-t border-border">
           <p className="text-sm text-muted-foreground">
-            Last Updated: {formatDateTime(new Date())}
+            {t("message2")}: {formatDateTime(new Date())}
           </p>
           <PaginationComponent
             currentPage={currentPage}

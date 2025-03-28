@@ -26,7 +26,7 @@ const StatusSelect = () => {
       <SelectContent>
         <SelectItem value="Incomplete">{t("incomplete")}</SelectItem>
         <SelectItem value="Processing">{t("processing")}</SelectItem>
-        <SelectItem value="Complete">{t("complete")}</SelectItem>
+        <SelectItem value="Delivered">{t("delivered")}</SelectItem>
       </SelectContent>
     </Select>
   );

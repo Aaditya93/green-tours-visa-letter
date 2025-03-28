@@ -16,6 +16,8 @@ import { getAllVisaLettersByCompany } from "@/actions/agent-platform/visa-letter
 import VisaLetterCard from "@/components/travel-agent/visa-letter/visa-letter-card";
 import { serializeData } from "@/config/serialize";
 import { auth } from "@/auth";
+
+import { getTranslations } from "next-intl/server";
 const CompanyVisaLetterPage = async ({
   params,
 }: {
@@ -23,6 +25,7 @@ const CompanyVisaLetterPage = async ({
 }) => {
   const { range } = await params;
   const session = await auth();
+  const t = await getTranslations("companyVisaLetter");
 
   const VisaLetters = await getAllVisaLettersByCompany(session?.user.companyId);
   const SvisaLetter = await serializeData(VisaLetters);
@@ -39,7 +42,7 @@ const CompanyVisaLetterPage = async ({
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Visa Letters</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

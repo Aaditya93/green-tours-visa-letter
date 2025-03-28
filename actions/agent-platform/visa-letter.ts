@@ -172,7 +172,7 @@ export const getCompleteApplicationsTravelAgent = async () => {
     const applications = await Application.find({
       isCompleted: true,
       isProcessing: true,
-      "passportDetails.0.stage": "Processed",
+      "passportDetails.0.stage": "Delivered",
       "creator.companyId": session.user.companyId,
     })
       .sort({ createdAt: -1 })
@@ -198,7 +198,7 @@ export const getProcessingApplicationTravelAgent = async () => {
       isCompleted: true,
       isProcessing: true,
       "passportDetails.0.stage": {
-        $in: ["Not Processed", "Processing", "Blacklist", "Overstayed"],
+        $in: ["Processing", "Blacklist", "Overstayed"],
       },
       "creator.companyId": session.user.companyId,
     })

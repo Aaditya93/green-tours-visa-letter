@@ -17,11 +17,12 @@ import PricingPage from "@/components/travel-agent/visa-letter/visa-letter";
 import { auth } from "@/auth";
 import { getVisaLetterPriceByCompany } from "@/actions/agent-platform/visa-letter";
 import { serializeIApplication } from "@/config/serialize";
+import { getTranslations } from "next-intl/server";
 
 const VisaLetterPage = async () => {
   const session = await auth();
   const priceData = await getVisaLetterPriceByCompany(session?.user.companyId);
-
+  const t = await getTranslations("visa-letter");
   const planObj = serializeIApplication(priceData.visaLetterPrices[0]);
 
   return (
@@ -40,7 +41,7 @@ const VisaLetterPage = async () => {
                 </BreadcrumbItem> */}
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Visa Letter</BreadcrumbPage>
+                  <BreadcrumbPage>{t("title")}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

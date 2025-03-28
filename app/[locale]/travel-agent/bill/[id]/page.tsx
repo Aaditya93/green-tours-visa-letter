@@ -16,6 +16,7 @@ import { getBillById } from "@/actions/bill/create-bill";
 import { getApplicationByBillId } from "@/actions/bill/create-bill";
 import BillDetail from "@/components/travel-agent/bill/bill";
 import { serializeData, serializeIApplication } from "@/config/serialize";
+import { getTranslations } from "next-intl/server";
 
 const BillPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -23,6 +24,7 @@ const BillPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const Sbill = serializeData(bill);
   const Applications = await getApplicationByBillId(id);
   const SApplications = serializeIApplication(Applications);
+  const t = await getTranslations("bill");
 
   return (
     <SidebarProvider>
@@ -37,7 +39,7 @@ const BillPage = async ({ params }: { params: Promise<{ id: string }> }) => {
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
                   <BreadcrumbPage>
-                    Bill ID: {bill ? Sbill._id.toString() : "N/A"}
+                    {t("title")} {bill ? Sbill._id.toString() : "N/A"}
                   </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>

@@ -535,11 +535,11 @@ const VisaSearch = ({ Users, data }: SearchProps) => {
                           className={`
     px-2 py-1 rounded-full text-xs font-semibold
     ${
-      item.stage === "Not Processed"
+      item.stage === "Submitted"
         ? "bg-yellow-100 text-yellow-800"
         : item.stage === "Processing"
         ? "bg-gray-100 text-gray-800"
-        : item.stage === "Processed"
+        : item.stage === "Delivered"
         ? "bg-green-100 text-green-800"
         : item.stage === "Blacklist"
         ? "bg-red-100 text-red-800"

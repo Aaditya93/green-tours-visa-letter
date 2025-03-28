@@ -157,7 +157,7 @@
     "title2": "Pending Applications",
     "status": {
       "incomplete": "Incomplete",
-      "complete": "Complete",
+      "delivered": "Delivered",
       "processing": "Processing"
     },
     "details": {
@@ -199,7 +199,7 @@
       "selectStatus": "Select status",
       "incomplete": "Incomplete",
       "processing": "Processing",
-      "complete": "Complete"
+      "delivered": "Delivered"
     },
     "pagination": {
       "previous": "Previous",
@@ -335,7 +335,7 @@
     "limitedTimeOffer": "Limited Time Offer",
     "heroTitle": "Streamline Your Visa Process",
     "heroDescription": "Fast, secure, and reliable visa letter processing tailored to your timeline. Get started in minutes with our simple application process.",
-
+    "title": "Visa Letter",
     "stats": {
       "processedValue": "50k+",
       "processedLabel": "Letters Processed",
@@ -701,18 +701,16 @@
     "subtitle4": "of total",
     "heading": "Recent Bills",
     "table": {
-      "code": "Code",
-      "name": "Full Name",
-      "country": "Passport",
-      "passportNumber": "Passport Number",
-      "visaType": "Visa Type",
-      "birthday": "Speed",
-      "duration": "Duration",
+      "id": "Bill ID",
+      "createdDate": "Created Date",
+      "applications": "Applications",
+      "amount": "Amount",
       "status": "Status",
-      "cost": "Cost",
-      "view": "View",
-      "speed": "Speed",
-      "days": "Days"
+      "paid": "Paid",
+      "view": "View Detials",
+      "unpaid": "Unpaid",
+      "actions": "Actions",
+      "message": "No bills found"
     },
 
     "selectCompany": "Select Company"
@@ -963,5 +961,59 @@
     "error": "Name must be at least 2 characters.",
     "error1": "Please enter a valid email address..",
     "error2": "Please enter a valid phone number."
+  },
+  "bill": {
+    "title": "Bill ID:",
+    "invoice": "Invoice",
+    "date": "Date",
+    "from": "From",
+    "to": "To",
+    "paid": "PAID",
+    "unpaid": "UNPAID",
+    "table": {
+      "applicationId": "Application ID",
+      "name": "Name",
+      "passportNumber": "Passport Number",
+      "speed": "Speed",
+      "duration": "Duration",
+      "cost": "Cost",
+      "total": "Total",
+      "print": "print Invoice",
+      "processing": "Processing"
+    },
+    "heading": "Payment Information",
+    "message1": "Please include invoice number",
+    "message3": "in your payment reference.",
+    "message2": "For any queries, please contact our support team."
+  },
+  "companyVisaLetter": {
+    "title": "Visa Letters",
+    "applications": "Applications",
+    "application": "Application",
+    "company": "Company",
+    "created": "Created on",
+    "file": "File Name",
+    "view": "View Detials",
+    "download": "Download",
+    "total": "Total Documents",
+    "message": "No Visa Letter Found",
+    "message2": "Last Updated",
+    "id": "ID"
+  },
+  "visaLetter": {
+    "title1": "Visa Letter ID",
+    "title2": "Visa Letter Document",
+    "application": "Applications",
+    "download": "Download",
+    "name": "Name",
+    "passportNumber": "Passport Number",
+    "speed": "Speed",
+    "duration": "Duration",
+    "cost": "Cost",
+    "total": "Total",
+    "message1": "Unable to display PDF.",
+    "message2": "Click here to view the document",
+    "message3": "No document available",
+    "days": "Days"
   }
 }

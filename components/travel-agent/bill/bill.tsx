@@ -15,6 +15,7 @@ import {
 import { DollarSign, Printer, AlertCircle } from "lucide-react";
 import { format } from "date-fns";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useTranslations } from "next-intl";
 
 interface BillDetailProps {
   billId: string;
@@ -48,6 +49,7 @@ export default function BillDetail({
       setIsPrinting(false);
     }, 300);
   };
+  const t = useTranslations("bill");
 
   const formattedDate = format(new Date(bill.createdDate), "MMMM d, yyyy");
   const invoiceNumber = `INV-${billId.substring(0, 8).toUpperCase()}`;
@@ -59,7 +61,7 @@ export default function BillDetail({
         <div className="text-bg-primary p-6 rounded-lg print:bg-none print:border">
           <div className="flex justify-between items-start mb-4">
             <div>
-              <h1 className="text-3xl font-bold">Invoice</h1>
+              <h1 className="text-3xl font-bold">{t("invoice")}</h1>
               <p className="text-sm mt-1 text-bg-primary">{invoiceNumber}</p>
             </div>
             <div className="text-right">
@@ -67,10 +69,10 @@ export default function BillDetail({
                 variant={bill.payment ? "secondary" : "destructive"}
                 className=" py-1 px-3 text-xl"
               >
-                {bill.payment ? "PAID" : "UNPAID"}
+                {bill.payment ? `${t("paid")}` : `${t("unpaid")}`}
               </Badge>
               <p className="text-sm mt-2 text-bg-primary">
-                Date: {formattedDate}
+                {t("date")} : {formattedDate}
               </p>
             </div>
           </div>
@@ -78,7 +80,7 @@ export default function BillDetail({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <p className="text-sm font-medium uppercase mb-1 text-bg-primary">
-                From
+                {t("from")}
               </p>
               <h3 className="font-bold">VISACAR Visa Letter Services</h3>
               <p className="text-sm">123 Visa Street, Suite 101</p>
@@ -87,7 +89,7 @@ export default function BillDetail({
             </div>
             <div>
               <p className="text-sm font-medium uppercase mb-1 text-bg-primary">
-                To
+                {t("to")}
               </p>
               <h3 className="font-bold">{bill.companyName}</h3>
               <p className="text-sm text-bg-primary">{bill.companyId}</p>
@@ -107,7 +109,7 @@ export default function BillDetail({
             disabled={isPrinting}
           >
             <Printer className="h-4 w-4" />
-            {isPrinting ? "Preparing..." : "Print Invoice"}
+            {isPrinting ? `${t("table.processing")}` : `${t("table.print")}`}
           </Button>
         </div>
 
@@ -115,18 +117,23 @@ export default function BillDetail({
           <TableHeader className="bg-primary">
             <TableRow>
               <TableHead className="text-primary-foreground">
-                Application ID
-              </TableHead>
-              <TableHead className="text-primary-foreground">Name</TableHead>
-              <TableHead className="text-primary-foreground">
-                Passport Number
+                {t("table.applicationId")}
               </TableHead>
               <TableHead className="text-primary-foreground">
-                Duration
+                {" "}
+                {t("table.name")}
               </TableHead>
-              <TableHead className="text-primary-foreground">Speed</TableHead>
+              <TableHead className="text-primary-foreground">
+                {t("table.passportNumber")}
+              </TableHead>
+              <TableHead className="text-primary-foreground">
+                {t("table.duration")}
+              </TableHead>
+              <TableHead className="text-primary-foreground">
+                {t("table.speed")}
+              </TableHead>
               <TableHead className="text-primary-foreground text-right">
-                Cost
+                {t("table.cost")}
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -166,7 +173,7 @@ export default function BillDetail({
             ))}
             <TableRow className="bg-muted/50 font-bold">
               <TableCell colSpan={5} className="text-right">
-                Total
+                {t("table.total")}
               </TableCell>
               <TableCell className="text-right">
                 {bill.amount} {bill.currency}
@@ -179,12 +186,12 @@ export default function BillDetail({
           <CardHeader className="pb-2 border-b">
             <CardTitle className="text-lg flex items-center gap-2">
               <DollarSign className="h-5 w-5 text-primary" />
-              Payment Information
+              {t("heading")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 pt-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="border rounded-md p-4 bg-white">
+              <div className="border rounded-md p-4 ">
                 <div className="flex items-center justify-between mb-2">
                   <p className="font-medium text-sm">Bank Details (India)</p>
                   <Badge variant="outline" className="text-xs">
@@ -193,33 +200,31 @@ export default function BillDetail({
                 </div>
                 <div className="space-y-1.5 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Account name</span>
+                    <span className="">Account name</span>
                     <span className="font-medium">
                       VISACAR Visa Letter Services
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Bank</span>
+                    <span className="">Bank</span>
                     <span>Kotak Mahindra Bank Ltd</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">
-                      Account number
-                    </span>
+                    <span className="">Account number</span>
                     <span className="font-mono">6546648379</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">IFSC</span>
+                    <span className="">IFSC</span>
                     <span className="font-mono">KKBK0001416</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">SWIFT</span>
+                    <span className="">SWIFT</span>
                     <span className="font-mono">KKBKINBB</span>
                   </div>
                 </div>
               </div>
 
-              <div className="border rounded-md p-4 bg-white">
+              <div className="border rounded-md p-4 ">
                 <div className="flex items-center justify-between mb-2">
                   <p className="font-medium text-sm">Bank Details (Vietnam)</p>
                   <Badge variant="outline" className="text-xs">
@@ -228,27 +233,25 @@ export default function BillDetail({
                 </div>
                 <div className="space-y-1.5 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Beneficiary</span>
+                    <span className="">Beneficiary</span>
                     <span className="font-medium">LÊ THỊ PHƯƠNG THẢO</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">
-                      Account No / USD Payment
-                    </span>
+                    <span className="">Account No / USD Payment</span>
                     <span className="font-mono">038-01-37-900196-5</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Bank</span>
+                    <span className="">Bank</span>
                     <span className="text-right">
                       Vietnam Maritime Commercial Bank
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">SWIFT Code</span>
+                    <span className="">SWIFT Code</span>
                     <span className="font-mono">MCOBVNVX</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Address</span>
+                    <span className="">Address</span>
                     <span className="text-right text-xs">
                       54 Nguyen Chi Thanh Street, Lang Thuong Ward, Dong Da
                       District, Hanoi, Vietnam
@@ -260,9 +263,9 @@ export default function BillDetail({
             <Alert className="bg-accent border border-accent/20">
               <AlertCircle className="h-4 w-4 text-primary" />
               <AlertDescription>
-                Please include invoice number{" "}
-                <span className="font-medium">{invoiceNumber}</span> in your
-                payment reference.
+                {t("message1")}{" "}
+                <span className="font-medium">{invoiceNumber}</span>{" "}
+                {t("message3")}
               </AlertDescription>
             </Alert>
           </CardContent>
@@ -270,10 +273,7 @@ export default function BillDetail({
 
         {/* Footer notes - print friendly */}
         <div className="text-sm text-muted-foreground mt-4 p-4 border-t">
-          <p>
-            Thank you for your business. If you have any questions, please
-            contact billing@greentours.com
-          </p>
+          <p>{t("message2")} billing@greentours.com</p>
         </div>
       </div>
     </div>

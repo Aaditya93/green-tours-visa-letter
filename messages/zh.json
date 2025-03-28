@@ -158,7 +158,7 @@
     "title3": "申请详情",
     "status": {
       "incomplete": "未完成",
-      "complete": "已完成",
+      "delivered": "已提交",
       "processing": "处理中"
     },
     "details": {
@@ -200,7 +200,7 @@
       "selectStatus": "选择状态",
       "incomplete": "未完成",
       "processing": "处理中",
-      "complete": "已完成"
+      "delivered": "已提交"
     }
   },
 
@@ -331,7 +331,7 @@
     "limitedTimeOffer": "限时优惠",
     "heroTitle": "简化您的签证流程",
     "heroDescription": "快速、安全、可靠的签证信处理，符合您的时间需求。通过简单的申请流程，几分钟内即可开始。",
-
+    "title": "签证信处理",
     "stats": {
       "processedValue": "50k+",
       "processedLabel": "已处理信件",
@@ -698,31 +698,18 @@
     "subtitle4": "占总数",
     "heading": "最近账单",
     "table": {
-      "code": "代码",
-      "name": "全名",
-      "country": "护照",
-      "passportNumber": "护照号码",
-      "visaType": "签证类型",
-      "birthday": "速度",
-      "duration": "持续时间",
+      "id": "账单编号",
+      "createdDate": "创建日期",
+      "applications": "申请",
+      "amount": "金额",
       "status": "状态",
-      "cost": "费用",
-      "view": "查看",
-      "speed": "速度",
-      "days": "天数"
+      "paid": "已支付",
+      "view": "查看详情",
+      "unpaid": "未支付",
+      "actions": "操作",
+      "message": "未找到账单"
     },
-    "speeds": {
-      "all": "所有速度",
-      "1hour": "1 小时",
-      "2hours": "2 小时",
-      "4hours": "4 小时",
-      "8hours": "8 小时",
-      "1day": "1 天",
-      "2days": "2 天",
-      "3days": "3 天",
-      "4days": "4 天",
-      "normal": "正常"
-    },
+
     "selectCompany": "选择公司"
   },
   "immigrationPrices": {
@@ -972,5 +959,59 @@
     "error": "姓名至少需 2 个字符。",
     "error1": "请输入有效的电子邮件地址。",
     "error2": "请输入有效的电话号码。"
+  },
+  "bill": {
+    "title": "账单 ID:",
+    "invoice": "发票",
+    "date": "日期",
+    "from": "从",
+    "to": "到",
+    "paid": "已支付",
+    "unpaid": "未支付",
+    "table": {
+      "applicationId": "申请 ID",
+      "name": "姓名",
+      "passportNumber": "护照号码",
+      "speed": "速度",
+      "duration": "时长",
+      "cost": "费用",
+      "total": "总计",
+      "print": "打印发票",
+      "processing": "处理中"
+    },
+    "heading": "付款信息",
+    "message1": "请包含发票编号",
+    "message3": "在您的付款备注中。",
+    "message2": "如有任何疑问，请联系我们的支持团队。"
+  },
+  "companyVisaLetter": {
+    "title": "签证信件",
+    "applications": "申请",
+    "application": "申请",
+    "company": "公司",
+    "created": "创建于",
+    "file": "文件名称",
+    "view": "查看详情",
+    "download": "下载",
+    "total": "总文件数",
+    "message": "未找到签证信件",
+    "message2": "最后更新",
+    "id": "ID"
+  },
+  "visaLetter": {
+    "title1": "签证信件 ID",
+    "title2": "签证信件文件",
+    "application": "申请",
+    "download": "下载",
+    "name": "姓名",
+    "passportNumber": "护照号码",
+    "speed": "速度",
+    "duration": "时长",
+    "cost": "费用",
+    "total": "总计",
+    "message1": "无法显示 PDF。",
+    "message2": "点击此处查看文件",
+    "message3": "没有可用的文件",
+    "days": "天数"
   }
 }
