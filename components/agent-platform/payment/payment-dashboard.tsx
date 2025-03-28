@@ -263,7 +263,7 @@ const PaymentDashboard = ({
                         </TableCell>
                         <TableCell className="text-center py-2 px-3">
                           <Link
-                            href={`/travel-agent/bill/${bill._id}`}
+                            href={`/agent-platform/bill/${bill._id}`}
                             className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium text-primary bg-primary/10 hover:bg-primary/20 transition-colors"
                           >
                             View Details
