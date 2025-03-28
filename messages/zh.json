@@ -435,6 +435,7 @@
       "search": "搜索",
       "report": "报告",
       "billing": "账单",
+      "visaLetterPrices": "签证信",
       "visaLetter": "签证信"
     }
   },
@@ -474,6 +475,7 @@
       "search": "搜索",
       "report": "报告",
       "billing": "账单",
+      "visaLetterPrices": "签证信",
       "visaLetter": "签证信"
     }
   },
@@ -685,17 +687,16 @@
   },
   "agentPayment": {
     "title": "A-支付",
-    "title1": "支付仪表盘",
-    "parameter1": "预计费用",
-    "subtitle1": "所有申请的总费用",
-    "parameter2": "实际费用",
-    "subtitle2": "已完成申请的费用",
+    "title1": "支付仪表板",
+    "parameter1": "预估费用",
+    "subtitle1": "所有申请的总额",
+    "parameter2": "已支付金额",
+    "subtitle2": "已支付的总金额",
     "parameter3": "总申请数",
     "subtitle3": "总申请数",
-    "parameter4": "平均费用",
-    "subtitle4": "每个申请的费用",
-    "heading": "申请详情",
-    "description": "所有已完成申请及其费用的列表。",
+    "parameter4": "已交付申请",
+    "subtitle4": "占总数",
+    "heading": "最近账单",
     "table": {
       "code": "代码",
       "name": "全名",

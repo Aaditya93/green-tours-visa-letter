@@ -71,7 +71,6 @@ const BillingPage = async ({
     dateRange.to
   );
   const session = await auth();
-  const companies = await getAllCompanies();
 
   const bills = await getBills(
     session?.user?.companyId,

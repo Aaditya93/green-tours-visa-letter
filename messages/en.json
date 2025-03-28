@@ -437,6 +437,7 @@
       "search": "Search",
       "report": "Report",
       "billing": "Billing",
+      "visaLetterPrices": "Visa Letter Prices",
       "visaLetter": "Visa Letter"
     }
   },
@@ -478,7 +479,8 @@
       "search": "Search",
       "report": "Report",
       "billing": "Billing",
-      "visaLetter": "Visa Letter"
+      "visaLetter": "Visa Letter",
+      "visaLetterPrices": "Visa Letter Prices"
     }
   },
   "travelReport": {
@@ -691,14 +693,13 @@
     "title1": "Payment Dashboard",
     "parameter1": "Estimated Cost",
     "subtitle1": "Total from all applications",
-    "parameter2": "Actual Cost",
-    "subtitle2": "From completed applications",
+    "parameter2": "Amount Paid",
+    "subtitle2": "  Total Amount Paid",
     "parameter3": "Total Applications",
     "subtitle3": "Total applications",
-    "parameter4": "Average Cost",
-    "subtitle4": "Per application",
-    "heading": "Applications Detail",
-    "description": "A list of all Complete applications and their cost.",
+    "parameter4": "Delivered Applications",
+    "subtitle4": "of total",
+    "heading": "Recent Bills",
     "table": {
       "code": "Code",
       "name": "Full Name",
@@ -713,18 +714,7 @@
       "speed": "Speed",
       "days": "Days"
     },
-    "speeds": {
-      "all": "All Speeds",
-      "1hour": "1 Hour",
-      "2hours": "2 Hours",
-      "4hours": "4 Hours",
-      "8hours": "8 Hours",
-      "1day": "1 Day",
-      "2days": "2 Days",
-      "3days": "3 Days",
-      "4days": "4 Days",
-      "normal": "Normal"
-    },
+
     "selectCompany": "Select Company"
   },
   "immigrationPrices": {

@@ -262,14 +262,14 @@ const getData = (Users: { username: string }[]) => {
         icon: TbReportMoney,
       },
       {
-        name: t("menu.visaLetter"),
+        name: t("menu.visaLetterPrices"),
         url: "/travel-agent/visa-letter",
-        icon: RiVisaLine,
+        icon: IoPricetagOutline,
       },
       {
-        name: "Visa Letter",
+        name: t("menu.visaLetter"),
         url: "/travel-agent/company-visa-letter/10",
-        icon: IoPricetagOutline,
+        icon: RiVisaLine,
       },
     ],
   };

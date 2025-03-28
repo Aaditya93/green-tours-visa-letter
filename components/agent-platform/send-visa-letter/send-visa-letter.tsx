@@ -24,6 +24,7 @@ import { ChevronRight, FileText, Loader2 } from "lucide-react";
 import { getApplicationsVisaLetter } from "@/actions/application/application";
 import { toast } from "sonner";
 import { CreateVisaLetter } from "@/actions/bill/send-visa-letter";
+import { useRouter } from "next/navigation";
 
 // Define types
 type Company = {
@@ -53,6 +54,7 @@ export interface Application {
 }
 
 export default function VisaLetterPage({ companies }: CreateBillProps) {
+  const Router = useRouter();
   const [visaLetterFile, setVisaLetterFile] = useState<File | null>(null);
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
@@ -131,12 +133,13 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
       setIsLoading(true);
       try {
         const uu = uuid();
-        await CreateVisaLetter(
+        const id = await CreateVisaLetter(
           visaLetterFile,
           selectedCompany,
           selectedApplications,
           uu
         );
+        Router.push(`/agent-platform/visa-letter/${id}`);
 
         toast.success("Visa letter uploaded successfully!");
       } catch (error) {

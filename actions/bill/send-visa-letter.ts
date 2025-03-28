@@ -41,7 +41,7 @@ export const CreateVisaLetter = async (
     console.log("file", selectedApplicants);
     console.log("company", company);
     await uploadVisaLetter(file, id, file.name);
-    await VisaLetter.create({
+    const visaletter = await VisaLetter.create({
       visaLetterId: id,
       passportIds: selectedApplicants,
       companyName: company.name,
@@ -59,10 +59,7 @@ export const CreateVisaLetter = async (
       file.name
     );
 
-    return {
-      status: "success",
-      message: "File has been uploaded.",
-    };
+    return visaletter._id.toString();
   } catch (error) {
     console.error("Failed to upload file:", error);
     return {

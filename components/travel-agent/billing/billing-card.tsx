@@ -101,7 +101,10 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
           {/* Amount Paid */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Amount Paid</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                {" "}
+                {t("parameter2")}
+              </CardTitle>
               <CheckCircle className="h-4 w-4 " />
             </CardHeader>
             <CardContent>
@@ -110,7 +113,7 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
               </div>
               <div className="flex items-center gap-1.5 mt-1">
                 <p className="text-xs text-muted-foreground">
-                  Total Amount Paid
+                  {t("subtitle2")}
                 </p>
               </div>
             </CardContent>
@@ -135,7 +138,7 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Delivered Applications
+                {t("parameter4")}
               </CardTitle>
               <CheckCircle className="h-4 w-4 " />
             </CardHeader>
@@ -147,7 +150,7 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
                       (deliveredApplications / totalApplications) * 100
                     )
                   : 0}
-                % of total
+                % {t("subtitle4")}
               </p>
             </CardContent>
           </Card>
@@ -158,10 +161,7 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
           <CardHeader>
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
-                <CardTitle>Recent Bills</CardTitle>
-                <CardDescription>
-                  Recent billing information for this company
-                </CardDescription>
+                <CardTitle>{t("heading")}</CardTitle>
               </div>
             </div>
           </CardHeader>

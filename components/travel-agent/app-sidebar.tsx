@@ -67,12 +67,12 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
         icon: TbReportMoney,
       },
       {
-        name: t("menu.visaLetter"),
+        name: t("menu.visaLetterPrices"),
         url: "/travel-agent/visa-letter",
         icon: IoPricetagOutline,
       },
       {
-        name: "Visa Letter",
+        name: t("menu.visaLetter"),
         url: "/travel-agent/company-visa-letter/10",
         icon: RiVisaLine,
       },
