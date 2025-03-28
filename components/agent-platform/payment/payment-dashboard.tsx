@@ -1,12 +1,6 @@
 "use client";
 import React from "react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BadgeDollarSign, Users, CheckCircle, FileText } from "lucide-react";
 import {
   Select,
@@ -196,69 +190,94 @@ const PaymentDashboard = ({
         </div>
 
         {/* Bill List */}
-        <Card className="mt-4">
-          <CardHeader>
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-              <div>
-                <CardTitle>Recent Bills</CardTitle>
-                <CardDescription>
-                  Recent billing information for this company
-                </CardDescription>
-              </div>
+        <Card className="mt-4 shadow-sm">
+          <CardHeader className="bg-muted/5 py-3 px-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+              <CardTitle className="text-lg">{t("heading")}</CardTitle>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-3">
             {bills.length > 0 ? (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Bill ID</TableHead>
-                    <TableHead>Created Date</TableHead>
-                    <TableHead>Company</TableHead>
-                    <TableHead>Applications</TableHead>
-                    <TableHead>Amount</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {bills.map((bill) => (
-                    <TableRow key={bill._id}>
-                      <TableCell className="font-medium">
-                        {bill._id.toString().substring(0, 8)}...
-                      </TableCell>
-                      <TableCell>
-                        {format(new Date(bill.createdDate), "MMM d, yyyy")}
-                      </TableCell>
-                      <TableCell>{bill.companyName}</TableCell>
-                      <TableCell>{bill.applicationIds.length}</TableCell>
-                      <TableCell>
-                        {bill.amount.toLocaleString()} {bill.currency}
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          variant={bill.payment ? "outline" : "destructive"}
-                          className={`px-2 py-1 text-xs`}
-                        >
-                          {bill.payment ? "Paid" : "Unpaid"}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <Link
-                          href={`/agent-platform/bill/${bill._id}`}
-                          className="text-primary hover:underline"
-                        >
-                          View Details
-                        </Link>
-                      </TableCell>
+              <div className="overflow-x-auto -mx-2">
+                <Table className="w-full">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="text-center py-2 px-3">
+                        Bill ID
+                      </TableHead>
+                      <TableHead className="text-center py-2 px-3">
+                        Created Date
+                      </TableHead>
+                      <TableHead className="text-center py-2 px-3">
+                        Applications
+                      </TableHead>
+                      <TableHead className="text-center py-2 px-3">
+                        Amount
+                      </TableHead>
+                      <TableHead className="text-center py-2 px-3">
+                        Status
+                      </TableHead>
+                      <TableHead className="text-center py-2 px-3">
+                        Actions
+                      </TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHeader>
+                  <TableBody>
+                    {bills.map((bill) => (
+                      <TableRow key={bill._id} className="hover:bg-muted/5">
+                        <TableCell className="font-medium text-center py-2 px-3">
+                          <Badge
+                            variant="secondary"
+                            className="font-mono text-xs py-0.5 px-2"
+                          >
+                            {bill._id.toString().substring(0, 8)}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-center py-2 px-3">
+                          {format(new Date(bill.createdDate), "MMM d, yyyy")}
+                        </TableCell>
+                        <TableCell className="text-center py-2 px-3">
+                          <Badge variant="outline" className="py-0.5 px-2">
+                            {bill.applicationIds.length}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-center font-medium py-2 px-3">
+                          {bill.amount.toLocaleString()} {bill.currency}
+                        </TableCell>
+                        <TableCell className="text-center py-2 px-3">
+                          {bill.payment ? (
+                            <Badge
+                              variant="outline"
+                              className="px-2.5 py-0.5 bg-green-100 text-green-800 border-green-200 hover:bg-green-200"
+                            >
+                              Paid
+                            </Badge>
+                          ) : (
+                            <Badge
+                              variant="destructive"
+                              className="px-2.5 py-0.5"
+                            >
+                              Unpaid
+                            </Badge>
+                          )}
+                        </TableCell>
+                        <TableCell className="text-center py-2 px-3">
+                          <Link
+                            href={`/travel-agent/bill/${bill._id}`}
+                            className="inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium text-primary bg-primary/10 hover:bg-primary/20 transition-colors"
+                          >
+                            View Details
+                          </Link>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             ) : (
-              <div className="py-8 text-center text-muted-foreground">
-                <FileText className="h-12 w-12 mx-auto mb-3 text-muted-foreground/50" />
-                <p>
+              <div className="py-6 text-center text-muted-foreground">
+                <FileText className="h-10 w-10 mx-auto mb-2 text-muted-foreground/50" />
+                <p className="text-sm">
                   No bills found for this company in the selected date range.
                 </p>
               </div>
