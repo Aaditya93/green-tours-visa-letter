@@ -11,7 +11,7 @@ function Testimonials() {
       designation: t("designations.business_traveler", {
         country: t("countries.usa"),
       }),
-      src: "/sarah.jpg",
+      src: "https://visaletters123.s3.ap-southeast-1.amazonaws.com/public/sarah.jpg",
     },
     {
       quote: t("quotes.michael"),
@@ -27,7 +27,7 @@ function Testimonials() {
       designation: t("designations.corporate_executive", {
         country: t("countries.australia"),
       }),
-      src: "/Jia.jpg",
+      src: "https://visaletters123.s3.ap-southeast-1.amazonaws.com/public/Jia.jpg",
     },
     {
       quote: t("quotes.james"),

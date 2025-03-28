@@ -170,7 +170,14 @@ function ThreeDPhotoCarousel() {
   const [activeImg, setActiveImg] = useState<string | null>(null);
   const [isCarouselActive, setIsCarouselActive] = useState(true);
   const controls = useAnimation();
-  const cards = useMemo(() => keywords.map((keyword) => `/${keyword}`), []);
+  const cards = useMemo(
+    () =>
+      keywords.map(
+        (keyword) =>
+          `https://visaletters123.s3.ap-southeast-1.amazonaws.com/public/${keyword}`
+      ),
+    []
+  );
 
   useEffect(() => {
     console.log("Cards loaded:", cards);

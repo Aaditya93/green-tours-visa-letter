@@ -17,7 +17,7 @@ const SignUpPage = () => {
     <div className="grid lg:grid-cols-2 min-h-screen">
       <div className="relative h-[300px] lg:h-full">
         <Image
-          src="/register.jpg"
+          src="/https://visaletters123.s3.ap-southeast-1.amazonaws.com/public/register.jpg"
           alt="register"
           fill
           className="object-cover"

@@ -19,7 +19,7 @@ const SignUpPage = () => {
     <div className="grid lg:grid-cols-2 min-h-screen">
       <div className="relative hidden lg:block">
         <Image
-          src="/travel-agent.jpg"
+          src="https://visaletters123.s3.ap-southeast-1.amazonaws.com/public/travel-agent.jpg"
           alt="Travel agent working"
           fill
           className="object-cover"

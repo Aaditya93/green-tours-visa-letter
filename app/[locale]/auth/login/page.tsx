@@ -21,7 +21,7 @@ const LoginPage = () => {
     <div className="grid lg:grid-cols-2 min-h-screen">
       <div className="relative h-[300px] lg:h-full overflow-hidden">
         <Image
-          src="/login.jpg"
+          src="https://visaletters123.s3.ap-southeast-1.amazonaws.com/public/login.jpg"
           alt="login"
           fill
           className="object-cover scale-105 hover:scale-100 transition-transform duration-700"
