@@ -522,7 +522,7 @@ export const sendBillReadyEmail = async (
   currency: string,
   applicationCount: number
 ) => {
-  const billUrl = `${Domain}/agent-platform/bill/${billId}`;
+  const billUrl = `${Domain}/travel-agent/bill/${billId}`;
 
   await resend.emails.send({
     from: "VISACAR <noreply@visacar.vn>",

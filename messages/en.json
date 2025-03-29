@@ -978,6 +978,8 @@
     "to": "To",
     "paid": "PAID",
     "unpaid": "UNPAID",
+    "success": "Bill marked as paid successfully",
+    "error": "Failed to mark bill as paid",
     "table": {
       "applicationId": "Application ID",
       "name": "Name",
@@ -989,10 +991,17 @@
       "print": "print Invoice",
       "processing": "Processing"
     },
+    "title1": " Online Payment Options",
+    "message4": "Your payment will be processed securely by OnePay, Vietnam's trusted payment gateway. Credit/debit cards are accepted with instant confirmation.",
+    "message5": " PayPal accepts all major credit cards and provides buyer protection. No PayPal account required for payment.",
+    "pay": "Pay",
+    "with": "with",
+    "message6": "Contact Our Team They will send you a Invoice",
     "heading": "Payment Information",
     "message1": "Please include invoice number",
     "message3": "in your payment reference.",
-    "message2": "For any queries, please contact our support team."
+    "message2": "For any queries, please contact our support team.",
+    "markPaid": "Mark as Paid"
   },
   "companyVisaLetter": {
     "title": "Visa Letters",
@@ -1063,6 +1072,7 @@
     "description": " Choose the company and time period for which you want to create a bill",
     "error": "Please select company and date range",
     "error1": "Please select at least one application",
+    "error2": "Please Add OnePay link",
     "success": "Bill created successfully!",
     "company": "Company",
     "startDate": "Start Date",
@@ -1078,6 +1088,12 @@
     "deselectAll": "Deselect All",
     "passportNumber": "Passport Number",
     "code": "Code",
-    "message": "No applications found for the selected criteria"
+    "message": "No applications found for the selected criteria",
+    "uploadTitle": "OnePay Link",
+    "uploadDescription": "Add OnePay invoice link for the selected applications",
+    "applications": "Applications",
+    "billingSummary": "Billing Summary",
+    "invoiceLink": "Invoice Link",
+    "createBill": "Create Bill"
   }
 }

@@ -4,11 +4,13 @@ import Bill from "@/db/models/bill";
 import Application from "@/db/models/application";
 import Company from "@/db/models/company";
 import { sendBillReadyEmail, sendPaymentConfirmationEmail } from "@/lib/mail";
+
 export const createBill = async (
   company: any,
   applicationIds: string[],
   currency: string,
-  amount: number
+  amount: number,
+  link: string
 ) => {
   try {
     await dbConnect();
@@ -21,6 +23,7 @@ export const createBill = async (
       amount: amount,
       currency: currency,
       payment: false,
+      onePay: link,
       createdDate: new Date().setHours(0, 0, 0, 0),
     });
     await Application.updateMany(

@@ -12,6 +12,7 @@ interface IBill extends Document {
   createdDate: Date;
   companyAddress: string;
   companyEmail: string;
+  onePay: string;
 }
 
 const BillSechema = new Schema({
@@ -43,6 +44,9 @@ const BillSechema = new Schema({
     type: String,
   },
   companyEmail: {
+    type: String,
+  },
+  onePay: {
     type: String,
   },
 });

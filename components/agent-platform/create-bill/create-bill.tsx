@@ -60,7 +60,8 @@ export default function CreateBill({ companies }: CreateBillProps) {
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
-  const [step, setStep] = useState(1);
+  const [invoiceFileLink, setInvoiceFileLink] = useState("");
+  const [step, setStep] = useState(1); // Now will go up to 3
   const [applications, setApplications] = useState<Application[]>([]);
   const [selectedApplications, setSelectedApplications] = useState<string[]>(
     []
@@ -110,21 +111,35 @@ export default function CreateBill({ companies }: CreateBillProps) {
         toast.error(t("error1"));
         return;
       }
+
+      // Move to file upload step instead of creating bill immediately
+      setStep(3);
+    } else if (step === 3) {
+      if (!invoiceFileLink) {
+        toast.error(t("error2"));
+        return;
+      }
+      // Final step - create the bill with the invoice link
       const id = await createBill(
         selectedCompany,
         selectedApplications,
         applications[0].currency,
-        calculateTotalCost()
+        calculateTotalCost(),
+        invoiceFileLink
       );
       Router.push(`/agent-platform/bill/${id}`);
-      // Here you would submit the data to create the bill
       toast.success(t("success"));
     }
   };
 
+  // Modify handleBack to handle new flow
   const handleBack = () => {
-    setStep(1);
-    setSelectedApplications([]);
+    if (step === 3) {
+      setStep(2);
+    } else if (step === 2) {
+      setStep(1);
+      setSelectedApplications([]);
+    }
   };
 
   const toggleApplicationSelection = (id: string) => {
@@ -332,10 +347,83 @@ export default function CreateBill({ companies }: CreateBillProps) {
       </CardFooter>
     </Card>
   );
+  const renderFileUploadStep = () => (
+    <Card className="w-full max-w-4xl mx-auto">
+      <CardHeader>
+        <div className="flex justify-between items-center">
+          <CardTitle className="text-xl flex items-center gap-2">
+            <FileText className="h-5 w-5 text-primary" />
+            {t("uploadTitle")}
+          </CardTitle>
+          <Button variant="outline" onClick={handleBack}>
+            {t("back")}
+          </Button>
+        </div>
+        <CardDescription>{t("uploadDescription")}</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        <div className="bg-muted/20 rounded-lg p-6 border-2 border-dashed border-muted">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <label htmlFor="invoice-link" className="text-sm font-medium">
+                {t("invoiceLink")}
+              </label>
+              <div className="flex gap-2 items-center">
+                <input
+                  id="invoice-link"
+                  type="text"
+                  value={invoiceFileLink}
+                  onChange={(e) => setInvoiceFileLink(e.target.value)}
+                  placeholder="https://example.com/invoice.pdf"
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                />
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <Separator className="my-4" />
+              <div className="flex items-center justify-between text-sm">
+                <div className="font-medium">{t("billingSummary")}</div>
+                <div>
+                  <span className="font-medium text-primary">
+                    {selectedApplications.length} {t("applications")}
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between text-sm mt-2">
+                <div className="font-medium">{t("company")}</div>
+                <div className="font-medium">{selectedCompany?.name}</div>
+              </div>
+              <div className="flex items-center justify-between text-sm mt-2">
+                <div className="font-medium">{t("total")}</div>
+                <div className="font-medium text-primary">
+                  {calculateTotalCost()}{" "}
+                  {applications.length > 0 ? applications[0].currency : "USD"}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter className="flex justify-between">
+        <Button
+          onClick={handleNext}
+          disabled={isLoading}
+          className="flex items-center gap-1"
+        >
+          {t("createBill")} <ChevronRight className="h-4 w-4" />
+        </Button>
+      </CardFooter>
+    </Card>
+  );
 
   return (
     <div className="container py-8">
-      {step === 1 ? renderCompanySelection() : renderApplicationSelection()}
+      {step === 1
+        ? renderCompanySelection()
+        : step === 2
+        ? renderApplicationSelection()
+        : renderFileUploadStep()}
     </div>
   );
 }

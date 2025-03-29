@@ -16,7 +16,7 @@ import { DollarSign, Printer, AlertCircle } from "lucide-react";
 import { format } from "date-fns";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useTranslations } from "next-intl";
-
+import Image from "next/image";
 interface BillDetailProps {
   billId: string;
   bill: {
@@ -31,6 +31,8 @@ interface BillDetailProps {
     createdDate: Date;
     companyAddress: string;
     companyEmail: string;
+    onePay?: string;
+    paypalLink?: string;
   };
   applications: any[];
 }
@@ -53,7 +55,7 @@ export default function BillDetail({
 
   const formattedDate = format(new Date(bill.createdDate), "MMMM d, yyyy");
   const invoiceNumber = `INV-${billId.substring(0, 8).toUpperCase()}`;
-
+  const [isPaid, setIsPaid] = useState(bill.payment);
   return (
     <div className="container mx-auto  print:py-2 max-w-6xl">
       <div className="flex flex-col gap-6 print:gap-4 border border-border rounded-lg p-6 shadow-sm">
@@ -190,76 +192,133 @@ export default function BillDetail({
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4 pt-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="border rounded-md p-4 ">
-                <div className="flex items-center justify-between mb-2">
-                  <p className="font-medium text-sm">Bank Details (India)</p>
-                  <Badge variant="outline" className="text-xs">
-                    INR
-                  </Badge>
-                </div>
-                <div className="space-y-1.5 text-sm">
-                  <div className="flex justify-between">
-                    <span className="">Account name</span>
-                    <span className="font-medium">
-                      VISACAR Visa Letter Services
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="">Bank</span>
-                    <span>Kotak Mahindra Bank Ltd</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="">Account number</span>
-                    <span className="font-mono">6546648379</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="">IFSC</span>
-                    <span className="font-mono">KKBK0001416</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="">SWIFT</span>
-                    <span className="font-mono">KKBKINBB</span>
-                  </div>
+            {/* Optional online payment methods */}
+            {!isPaid && (
+              <div className="mb-5">
+                <h3 className="text-sm font-medium mb-3">{t("title1")}</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {bill.onePay && (
+                    <div className="border  rounded-md p-4  ">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-10 h-10 flex items-center bg-background justify-center  rounded-md p-1">
+                            <Image
+                              src="/onepay.webp"
+                              alt="OnePay"
+                              width={32}
+                              height={32}
+                              className="h-8 w-8 object-contain"
+                            />
+                          </div>
+                          <div>
+                            <p className="font-medium ">OnePay</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-xs border rounded-md p-2 mb-3">
+                        {t("message5")}
+                      </div>
+                      <Button
+                        asChild
+                        rel="noopener noreferrer"
+                        className="inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium w-full"
+                      >
+                        <a
+                          href={bill.onePay}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {" "}
+                          {t("pay")} {bill.amount} {bill.currency} {t("with")}{" "}
+                          OnePay
+                        </a>
+                      </Button>
+                    </div>
+                  )}
+
+                  {true && (
+                    <div className="border rounded-md p-4 ">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-10 h-10 flex items-center justify-center bg-background rounded-md p-1 shadow-sm border border-primary/10">
+                            <Image
+                              src="/PayPal.png"
+                              alt="PayPal"
+                              width={32}
+                              height={32}
+                              className="h-8 w-8 object-contain"
+                            />
+                          </div>
+                          <div>
+                            <p className="font-medium ">PayPal</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-xs  rounded-md p-2  mb-3 border ">
+                        {t("message5")}
+                      </div>
+                      {bill.paypalLink ? (
+                        <a
+                          href={bill.paypalLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="  inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium w-full transition-colors"
+                        >
+                          {t("pay")} {bill.amount} {bill.currency} {t("with")}{" "}
+                          PayPal
+                        </a>
+                      ) : (
+                        <Button className=" w-full cursor-not-allowed">
+                          {t("message6")}
+                        </Button>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
+            )}
 
-              <div className="border rounded-md p-4 ">
-                <div className="flex items-center justify-between mb-2">
-                  <p className="font-medium text-sm">Bank Details (Vietnam)</p>
-                  <Badge variant="outline" className="text-xs">
-                    USD
-                  </Badge>
+            {/* Bank Transfer - Only Vietnam account */}
+            <div className="border rounded-md p-4">
+              <div className="flex items-center justify-between mb-3">
+                <p className="font-medium text-sm ">Bank Transfer (Vietnam)</p>
+                <Badge variant="outline" className="text-xs ">
+                  USD
+                </Badge>
+              </div>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="">Beneficiary</span>
+                  <span className="font-medium">LÊ THỊ PHƯƠNG THẢO</span>
                 </div>
-                <div className="space-y-1.5 text-sm">
-                  <div className="flex justify-between">
-                    <span className="">Beneficiary</span>
-                    <span className="font-medium">LÊ THỊ PHƯƠNG THẢO</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="">Account No / USD Payment</span>
-                    <span className="font-mono">038-01-37-900196-5</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="">Bank</span>
-                    <span className="text-right">
-                      Vietnam Maritime Commercial Bank
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="">SWIFT Code</span>
-                    <span className="font-mono">MCOBVNVX</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="">Address</span>
-                    <span className="text-right text-xs">
-                      54 Nguyen Chi Thanh Street, Lang Thuong Ward, Dong Da
-                      District, Hanoi, Vietnam
-                    </span>
-                  </div>
+                <div className="flex justify-between">
+                  <span className="">Account No / USD Payment</span>
+                  <span className="font-mono bg-muted/20 px-1.5 py-0.5 rounded text-xs">
+                    038-01-37-900196-5
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="">Bank</span>
+                  <span className="text-right">
+                    Vietnam Maritime Commercial Bank
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="">SWIFT Code</span>
+                  <span className="font-mono bg-muted/20 px-1.5 py-0.5 rounded text-xs">
+                    MCOBVNVX
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="">Address</span>
+                  <span className="text-right text-xs">
+                    54 Nguyen Chi Thanh Street, Lang Thuong Ward, Dong Da
+                    District, Hanoi, Vietnam
+                  </span>
                 </div>
               </div>
             </div>
+
             <Alert className="bg-accent border border-accent/20">
               <AlertCircle className="h-4 w-4 text-primary" />
               <AlertDescription>

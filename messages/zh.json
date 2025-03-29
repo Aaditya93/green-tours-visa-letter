@@ -976,6 +976,8 @@
     "to": "到",
     "paid": "已支付",
     "unpaid": "未支付",
+    "success": "账单已成功标记为已支付",
+    "error": "标记账单为已支付失败",
     "table": {
       "applicationId": "申请 ID",
       "name": "姓名",
@@ -987,10 +989,17 @@
       "print": "打印发票",
       "processing": "处理中"
     },
-    "heading": "付款信息",
-    "message1": "请包含发票编号",
-    "message3": "在您的付款备注中。",
-    "message2": "如有任何疑问，请联系我们的支持团队。"
+    "title1": "在线支付选项",
+    "message4": "您的付款将由 OnePay（越南受信任的支付网关）安全处理。接受信用卡/借记卡，并即时确认。",
+    "message5": "PayPal 接受所有主要信用卡，并提供买家保护。无需 PayPal 账户即可支付。",
+    "pay": "支付",
+    "with": "使用",
+    "message6": "联系我们的团队，他们会向您发送发票",
+    "heading": "支付信息",
+    "message1": "请在支付时包含发票编号",
+    "message3": "作为您的付款参考。",
+    "message2": "如有任何疑问，请联系客户支持团队。",
+    "markPaid": "标记为已支付"
   },
   "companyVisaLetter": {
     "title": "签证信件",
@@ -1061,6 +1070,7 @@
     "description": "选择您要创建账单的公司和时间范围",
     "error": "请选择公司和日期范围",
     "error1": "请至少选择一个申请",
+    "error2": "请添加 OnePay 链接",
     "success": "账单创建成功！",
     "company": "公司",
     "startDate": "开始日期",
@@ -1076,6 +1086,12 @@
     "deselectAll": "取消全选",
     "passportNumber": "护照号码",
     "code": "代码",
-    "message": "未找到符合所选条件的申请"
+    "message": "未找到符合所选条件的申请",
+    "uploadTitle": "OnePay链接",
+    "uploadDescription": "为所选应用程序添加OnePay发票链接",
+    "applications": "应用程序",
+    "billingSummary": "账单摘要",
+    "invoiceLink": "发票链接",
+    "createBill": "创建账单"
   }
 }

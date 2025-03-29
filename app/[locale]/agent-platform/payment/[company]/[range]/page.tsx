@@ -18,7 +18,7 @@ import {
 } from "@/actions/agent-platform/visa-letter";
 import { convertToApplications } from "@/lib/data";
 
-import { serializedApplications } from "@/config/serialize";
+import { serializedApplications, serializeData } from "@/config/serialize";
 import PaymentDashboard from "@/components/agent-platform/payment/payment-dashboard";
 import AppSidebar from "@/components/app-sidebar";
 import { getTranslations } from "next-intl/server";
@@ -76,6 +76,7 @@ const PaymentPage = async ({
   const Applications = convertToApplications(applications);
   const PlanObject = serializedApplications(Applications);
   const bills = await getBills(company, dateRange.from, dateRange.to);
+  const sBill = await serializeData(bills);
 
   const t = await getTranslations("agentPayment");
 
@@ -103,7 +104,7 @@ const PaymentPage = async ({
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <PaymentDashboard
-            bills={bills}
+            bills={sBill}
             companies={companies ?? []}
             applications={PlanObject}
           />
