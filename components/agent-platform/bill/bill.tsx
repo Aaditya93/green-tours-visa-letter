@@ -1,8 +1,15 @@
 "use client";
-
+import { InfoIcon } from "lucide-react"; // Import InfoIcon from Lucide
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import {
   Card,
   CardContent,
@@ -82,6 +89,9 @@ export default function BillDetail({
       setIsPrinting(false);
     }, 300);
   };
+  const [paypalSurchargeOpen, setPaypalSurchargeOpen] = useState(false);
+  const paypalSurcharge = bill.amount * 0.035; // 3.5%
+  const totalWithSurcharge = bill.amount + paypalSurcharge;
 
   const formattedDate = format(new Date(bill.createdDate), "MMMM d, yyyy");
   const invoiceNumber = `INV-${billId.substring(0, 8).toUpperCase()}`;
@@ -228,7 +238,7 @@ export default function BillDetail({
               <div className="mb-5">
                 <h3 className="text-sm font-medium mb-3">{t("title1")}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {bill.onePay && (
+                  {true && (
                     <div className="border  rounded-md p-4  ">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
@@ -266,9 +276,8 @@ export default function BillDetail({
                       </Button>
                     </div>
                   )}
-
                   {true && (
-                    <div className="border rounded-md p-4 ">
+                    <div className="border rounded-md p-4">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
                           <div className="w-10 h-10 flex items-center justify-center bg-background rounded-md p-1 shadow-sm border border-primary/10">
@@ -281,30 +290,123 @@ export default function BillDetail({
                             />
                           </div>
                           <div>
-                            <p className="font-medium ">PayPal</p>
+                            <p className="font-medium">PayPal</p>
                           </div>
                         </div>
+                        <button
+                          onClick={() => setPaypalSurchargeOpen(true)}
+                          className="text-primary hover:text-primary/80 transition-colors"
+                          aria-label="PayPal fee information"
+                        >
+                          <InfoIcon className="h-4 w-4" />
+                        </button>
                       </div>
-                      <div className="text-xs  rounded-md p-2  mb-3 border ">
-                        {t("message5")}
+                      <div className="text-xs rounded-md p-2 mb-3 border">
+                        <div className="flex items-center gap-1">
+                          <span>{t("message5")}</span>
+                          <span className="text-primary font-medium">
+                            +3.5% fee applies
+                          </span>
+                        </div>
                       </div>
                       {bill.paypalLink ? (
-                        <a
-                          href={bill.paypalLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="  inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium w-full transition-colors"
+                        <Button
+                          asChild
+                          className="inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium w-full"
                         >
-                          {t("pay")} {bill.amount} {bill.currency} {t("with")}{" "}
-                          PayPal
-                        </a>
+                          <a
+                            href={bill.paypalLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => setPaypalSurchargeOpen(true)}
+                          >
+                            {t("pay")} {bill.amount} {bill.currency} {t("with")}{" "}
+                            PayPal
+                          </a>
+                        </Button>
                       ) : (
-                        <Button className=" w-full cursor-not-allowed">
+                        <Button className="w-full cursor-not-allowed">
                           {t("message6")}
                         </Button>
                       )}
                     </div>
                   )}
+
+                  {/* PayPal surcharge dialog */}
+                  <Dialog
+                    open={paypalSurchargeOpen}
+                    onOpenChange={setPaypalSurchargeOpen}
+                  >
+                    <DialogContent className="max-w-md">
+                      <DialogHeader>
+                        <DialogTitle className="flex items-center gap-2">
+                          <Image
+                            src="/PayPal.png"
+                            alt="PayPal"
+                            width={24}
+                            height={24}
+                            className="h-5 w-5 object-contain"
+                          />
+                          PayPal Payment Information
+                        </DialogTitle>
+                      </DialogHeader>
+                      <div className="py-4">
+                        <div className="rounded-md bg-amber-50 border border-amber-200 p-3 mb-4">
+                          <p className="text-amber-800 font-medium text-sm">
+                            A 3.5% surcharge will be added to your payment when
+                            using PayPal.
+                          </p>
+                        </div>
+
+                        <div className="space-y-3">
+                          <div className="flex justify-between items-center pb-2 border-b">
+                            <span className="text-muted-foreground">
+                              Original amount:
+                            </span>
+                            <span className="font-medium">
+                              {bill.amount.toFixed(2)} {bill.currency}
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center pb-2 border-b">
+                            <span className="text-muted-foreground">
+                              PayPal fee (3.5%):
+                            </span>
+                            <span className="text-orange-600 font-medium">
+                              +{paypalSurcharge.toFixed(2)} {bill.currency}
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center pt-1">
+                            <span className="font-medium">Total to pay:</span>
+                            <span className="text-primary font-bold text-lg">
+                              {totalWithSurcharge.toFixed(2)} {bill.currency}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <DialogFooter className="sm:justify-between">
+                        <Button
+                          variant="outline"
+                          onClick={() => setPaypalSurchargeOpen(false)}
+                        >
+                          Cancel
+                        </Button>
+                        {bill.paypalLink && (
+                          <Button
+                            asChild
+                            className="bg-[#0070ba] hover:bg-[#005ea6]"
+                          >
+                            <a
+                              href={bill.paypalLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Continue to PayPal
+                            </a>
+                          </Button>
+                        )}
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </div>
             )}
