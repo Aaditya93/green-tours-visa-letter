@@ -99,7 +99,7 @@ export const RegisterForm = () => {
                       <Input
                         {...field}
                         id="name"
-                        placeholder="John Doe"
+                        placeholder="Nora"
                         disabled={isPending}
                       />
                     </FormControl>
@@ -139,7 +139,7 @@ export const RegisterForm = () => {
                       <Input
                         {...field}
                         id="company"
-                        placeholder="MakeMyTrip"
+                        placeholder="GreenToursVietnam"
                         disabled={isPending}
                       />
                     </FormControl>
@@ -177,7 +177,7 @@ export const RegisterForm = () => {
                       {...field}
                       id="address"
                       type="text"
-                      placeholder="132 My Street, Kingston, New York 12401"
+                      placeholder="7th floor, Viet A Building, so 09 Duy Tan, Cau Giay, Hanoi"
                       disabled={isPending}
                     />
                   </FormControl>
