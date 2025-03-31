@@ -580,6 +580,7 @@
       "billing": "Billing",
       "dashboard": "Dashboard",
       "report": "Report",
+
       "pdf": "PDF",
       "search": "Search",
       "createBill": "Create Bill",
@@ -664,7 +665,7 @@
     "card": {
       "email": "Email",
       "country": "Country",
-      "Company": "Company",
+      "company": "Company",
       "address": "Address",
       "createdAt": "Created At",
       "approve": "Approve",

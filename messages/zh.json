@@ -663,7 +663,7 @@
     "card": {
       "email": "电子邮件",
       "country": "国家",
-      "Company": "公司",
+      "company": "公司",
       "address": "地址",
       "createdAt": "创建时间",
       "approve": "批准",

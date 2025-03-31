@@ -81,16 +81,7 @@ const LoginPage = () => {
           <CardContent className="p-6 pt-6">
             <LoginForm />
           </CardContent>
-          <CardFooter className="flex flex-col items-center p-6 pt-2 text-sm ">
-            <p>
-              {t("button1")}{" "}
-              <Link
-                href="/auth/register"
-                className="text-primary hover:underline font-medium transition-colors"
-              >
-                {t("button2")}
-              </Link>
-            </p>
+          <CardFooter className="flex flex-col items-center text-sm ">
             <p className="mt-3">
               {t("button3")}{" "}
               <Link
