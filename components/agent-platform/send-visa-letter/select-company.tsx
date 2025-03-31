@@ -28,7 +28,7 @@ const SelectCompany = ({
 }: SelectCompanyProps) => {
   const router = useRouter();
   const [selectedCompanyId, setSelectedCompanyId] = useState<string>(
-    defaultCompanyId || (companies.length > 0 ? companies[0].id : "")
+    companies.length > 0 ? companies[0].id : ""
   );
 
   // Navigate to the company visa letter page when selection changes
