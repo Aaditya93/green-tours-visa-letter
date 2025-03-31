@@ -117,18 +117,6 @@ const airportOptions = [
   "Da Nang Airport",
   "Lien Khuong Airport",
   "Cat Bi Airport",
-  "Cau Treo Frontier",
-  "Cha Lo Frontier",
-  "Ha Tien Frontier",
-  "Huu Nghi Frontier",
-  "Lao Bao Frontier",
-  "Lao Cai Frontier",
-  "Moc Bai Frontier",
-  "Mong Cai Frontier",
-  "Na Meo Frontier",
-  "Tay Trang Frontier",
-  "Thanh Thuy Frontier",
-  "Xa Mat Frontier",
 ];
 
 const VisaSearch = ({ Users, data, companies }: SearchProps) => {

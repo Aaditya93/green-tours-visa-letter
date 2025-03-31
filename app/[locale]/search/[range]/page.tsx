@@ -3,7 +3,6 @@ import VisaSearch from "@/components/search/search-card";
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,

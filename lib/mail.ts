@@ -299,7 +299,7 @@ export const sendTravelAgentApprovalEmail = async (
                       <p>To get started, please visit our portal using your registered credentials:</p>
                       <p style="margin-bottom: 10px;">Your login email: <strong>${email}</strong></p>
                   </div>
-                  <a href="https://visacar.vn/auth/login" class="login-button">Login to Portal</a>
+                  <a href="https://www.visacar.vn/auth/login" class="login-button">Login to Portal</a>
                   <p class="portal-info">
                       Portal URL:visacar.vn<br>
                       Please use your registered email address to login.

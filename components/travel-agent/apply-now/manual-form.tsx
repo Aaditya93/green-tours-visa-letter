@@ -53,26 +53,26 @@ interface ManualFormProps {
 }
 
 const airports = [
-  { value: "Noi Bai Airport", label: "Noi Bai Airport" },
-  { value: "Phu Bai Airport", label: "Phu Bai Airport" },
-  { value: "Phu Quoc Airport", label: "Phu Quoc Airport" },
-  { value: "Tan Son Nhat Airport", label: "Tan Son Nhat Airport" },
-  { value: "Cam Ranh Airport", label: "Cam Ranh Airport" },
-  { value: "Da Nang Airport", label: "Da Nang Airport" },
-  { value: "Lien Khuong Airport", label: "Lien Khuong Airport" },
-  { value: "Cat Bi Airport", label: "Cat Bi Airport" },
-  { value: "Cau Treo Frontier", label: "Cau Treo Frontier" },
-  { value: "Cha Lo Frontier", label: "Cha Lo Frontier" },
-  { value: "Ha Tien Frontier", label: "Ha Tien Frontier" },
-  { value: "Huu Nghi Frontier", label: "Huu Nghi Frontier" },
-  { value: "Lao Bao Frontier", label: "Lao Bao Frontier" },
-  { value: "Lao Cai Frontier", label: "Lao Cai Frontier" },
-  { value: "Moc Bai Frontier", label: "Moc Bai Frontier" },
-  { value: "Mong Cai Frontier", label: "Mong Cai Frontier" },
-  { value: "Na Meo Frontier", label: "Na Meo Frontier" },
-  { value: "Tay Trang Frontier", label: "Tay Trang Frontier" },
-  { value: "Thanh Thuy Frontier", label: "Thanh Thuy Frontier" },
-  { value: "Xa Mat Frontier", label: "Xa Mat Frontier" },
+  { value: "Noi Bai Airport", label: "Noi Bai Airport ( HAN - Hanoi)" },
+  { value: "Phu Bai Airport", label: "Phu Bai Airport ( HUI - Hue city)" },
+  {
+    value: "Phu Quoc Airport",
+    label: "Phu Quoc Airport (PQC - Phu Quoc city)",
+  },
+  {
+    value: "Tan Son Nhat Airport",
+    label: "Tan Son Nhat Airport (SGN - Ho Chi Minh city)",
+  },
+  {
+    value: "Cam Ranh Airport",
+    label: "Cam Ranh Airport ( CXR - Nha Trang city)",
+  },
+  { value: "Da Nang Airport", label: "Da Nang Airport (DAD - Da Nang city)" },
+  {
+    value: "Lien Khuong Airport",
+    label: "Lien Khuong Airport (DLI - Da Lat city)",
+  },
+  { value: "Cat Bi Airport", label: "Cat Bi Airport (HPH - Hai Phong city)" },
 ];
 
 const parseDate = (dateString: string | undefined): Date | undefined => {

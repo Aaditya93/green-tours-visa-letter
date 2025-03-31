@@ -209,15 +209,7 @@ export function useColumns() {
         accessorKey: "stage",
         header: t("stage"),
         cell: ({ row }) => (
-          <div className="capitalize">
-            {t(
-              `stage1.${
-                (row.getValue("stage") as string)
-                  ?.toLowerCase()
-                  ?.replace(/\s+/g, "_") || "unknown"
-              }`
-            )}
-          </div>
+          <div className="capitalize">{row.getValue("stage")}</div>
         ),
       },
       {
