@@ -12,10 +12,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/travel-agent/app-sidebar";
-import {
-  getAllCompanies,
-  getCompleteApplicationsTravelAgentBilling,
-} from "@/actions/agent-platform/visa-letter";
+import { getCompleteApplicationsTravelAgentBilling } from "@/actions/agent-platform/visa-letter";
 import { convertToApplications } from "@/lib/data";
 import BillingDashboard from "@/components/travel-agent/billing/billing-card";
 import { serializedApplications, serializeData } from "@/config/serialize";

@@ -202,11 +202,11 @@ export default function BillDetail({
           </CardHeader>
           <CardContent className="space-y-4 pt-4">
             {/* Optional online payment methods */}
-            {!isPaid && (
+            {true && (
               <div className="mb-5">
                 <h3 className="text-sm font-medium mb-3">{t("title1")}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {bill.onePay && (
+                  {true && (
                     <div className="border  rounded-md p-4  ">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">

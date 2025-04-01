@@ -17,7 +17,6 @@ import { Application } from "@/app/schemas/types";
 import Link from "next/link";
 import { DatePickerWithRange } from "./date-range";
 import { format } from "date-fns";
-import { Button } from "@/components/ui/button";
 
 interface SimplifiedCompany {
   name: string;
@@ -77,8 +76,9 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
       <CardContent className="p-4">
         {/* Application Metrics */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-4 mb-8">
-          <Card>
+        {/* Application Metrics */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 max-w-[1600px] mx-auto">
+          <Card className="w-full">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 {t("parameter1")}
@@ -94,7 +94,7 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
           </Card>
 
           {/* Amount Paid */}
-          <Card>
+          <Card className="w-full">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 {" "}
@@ -115,8 +115,7 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
           </Card>
 
           {/* Outstanding Amount */}
-
-          <Card>
+          <Card className="w-full">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 {t("parameter3")}
@@ -130,7 +129,7 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
           </Card>
 
           {/* Delivered Applications */}
-          <Card>
+          <Card className="w-full">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 {t("parameter4")}
@@ -150,7 +149,6 @@ const BillingDashboard = ({ applications, bills }: PaymentDashboard) => {
             </CardContent>
           </Card>
         </div>
-
         <Card className="mt-4 shadow-sm">
           <CardHeader className="bg-muted/5 py-3 px-4">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">

@@ -118,8 +118,9 @@ const PaymentDashboard = ({
       <CardContent className="p-4">
         {/* Application Metrics */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-4 mb-8">
-          <Card>
+        {/* Application Metrics */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 max-w-[1600px] mx-auto">
+          <Card className="w-full">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 {t("parameter1")}
@@ -135,9 +136,10 @@ const PaymentDashboard = ({
           </Card>
 
           {/* Amount Paid */}
-          <Card>
+          <Card className="w-full">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
+                {" "}
                 {t("parameter2")}
               </CardTitle>
               <CheckCircle className="h-4 w-4 " />
@@ -155,8 +157,7 @@ const PaymentDashboard = ({
           </Card>
 
           {/* Outstanding Amount */}
-
-          <Card>
+          <Card className="w-full">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 {t("parameter3")}
@@ -170,7 +171,7 @@ const PaymentDashboard = ({
           </Card>
 
           {/* Delivered Applications */}
-          <Card>
+          <Card className="w-full">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 {t("parameter4")}
