@@ -4,7 +4,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { addDays, differenceInDays } from "date-fns";
+import { addDays } from "date-fns";
 import { updateApplicationManualInfoTravelAgent } from "@/actions/agent-platform/apply-visa-letter";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
@@ -43,7 +43,7 @@ import { useRouter } from "next/navigation";
 import { Label } from "@/components/ui/label";
 import { format } from "date-fns";
 import { Input } from "@/components/ui/input";
-import { PassportDetail, SerializabledApplication } from "@/config/serialize";
+import { SerializabledApplication } from "@/config/serialize";
 import { Badge } from "@/components/ui/badge";
 import { useTranslations } from "next-intl";
 
@@ -167,38 +167,6 @@ const ManualFormTravelAgent = ({ id, Application }: ManualFormProps) => {
       {
         message: t("to_date_after_from"),
         path: ["to_date"],
-      }
-    )
-    .refine(
-      (data) => {
-        if (!Application.passportDetails[0].dateOfExpiry) {
-          return true;
-        }
-        const isPassportsValid = (
-          passportDetails: PassportDetail[],
-          fromDate: Date
-        ): boolean => {
-          return passportDetails.every((passport) => {
-            if (!passport.dateOfExpiry) return false;
-
-            const expiryDate = parseDate(passport.dateOfExpiry);
-            if (!expiryDate) return false;
-
-            const difference = differenceInDays(expiryDate, fromDate);
-
-            return difference >= 180; // 6 months validity check
-          });
-        };
-        const arePassportsValid = isPassportsValid(
-          Application.passportDetails,
-          data.from_date
-        );
-
-        return arePassportsValid;
-      },
-      {
-        message: t("passport_validity"),
-        path: ["from_date"],
       }
     );
 

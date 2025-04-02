@@ -26,6 +26,7 @@ import {
 const VisaPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const application = await getApplicationById(id);
+
   const t = await getTranslations("travelAgentApplication");
 
   if (!application) {
