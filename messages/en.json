@@ -825,7 +825,8 @@
     "error3": "Address should be at least 3 characters long",
     "error4": "Country should be at least 3 characters long",
     "error5": "Email is not valid",
-    "error6": "Password should be at least 8 characters long"
+    "error6": "Password should be at least 8 characters long",
+    "error7": "Phone number should be at least 6 digits long"
   },
   "report": {
     "title": "Report",

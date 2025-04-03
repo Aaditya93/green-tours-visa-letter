@@ -34,7 +34,9 @@ export const RegisterForm = () => {
     address: z.string().min(3, {
       message: t("error3"),
     }),
-    phoneNumber: z.string(),
+    phoneNumber: z.string().min(6, {
+      message: t("error7"),
+    }),
     country: z.string().min(3, {
       message: t("error4"),
     }),
