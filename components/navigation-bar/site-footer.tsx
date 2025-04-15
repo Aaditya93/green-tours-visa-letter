@@ -46,7 +46,10 @@ export const SiteFooter = () => {
             <div className="text-sm text-muted-foreground">
               <p>+84775390351</p>
               <p>support@VISACAR.vn</p>
-              <p>7th floor, Viet A Building, so 09 Duy Tan, Cau Giay, Hanoi</p>
+              <p>
+                7th Floor, Golden Field Building, 24 Nguyen Co Thach, Nam Tu
+                Liem, Hanoi
+              </p>
             </div>
           </div>
           {/* <div className="flex space-x-4">
