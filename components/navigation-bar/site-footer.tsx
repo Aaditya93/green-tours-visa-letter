@@ -44,7 +44,7 @@ export const SiteFooter = () => {
               />
             </div>
             <div className="text-sm text-muted-foreground">
-              <p>+84775390351</p>
+              <p>+91 98681 01944</p>
               <p>support@VISACAR.vn</p>
               <p>
                 7th Floor, Golden Field Building, 24 Nguyen Co Thach, Nam Tu
