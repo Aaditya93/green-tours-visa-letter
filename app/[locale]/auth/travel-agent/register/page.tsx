@@ -10,16 +10,21 @@ import { RegisterForm } from "@/components/agent-platform/auth/register-form";
 import RedirectLogin from "@/components/auth/redirect-login";
 import { ArrowRight, Briefcase } from "lucide-react";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslations } from "next-intl";
-const SignUpPage = () => {
-  const t = useTranslations("registerTravelAgent");
+interface SignUpPageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function SignUpPage({ params }: SignUpPageProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "registerTravelAgent" });
 
   return (
     <div className="grid lg:grid-cols-2 min-h-screen">
       <div className="relative hidden lg:block">
         <Image
-          src="https://visaletters123.s3.ap-southeast-1.amazonaws.com/public/travel-agent.jpg"
+          src="https://visacar.s3.ap-south-1.amazonaws.com/Vietnam/Vietnam_14.webp"
           alt="Travel agent working"
           fill
           className="object-cover"
@@ -31,24 +36,21 @@ const SignUpPage = () => {
             <h1 className="text-5xl font-bold text-white">{t("title")}</h1>
             <p className="text-lg text-white/80">{t("subtitle")}</p>
             <div className="pt-2">
-              <div className="flex items-center gap-2 mt-4">
-                <ArrowRight className="h-5 w-5 text-primary" />
-                <p className="text-white/90"> {t("marketing1")}</p>
-              </div>
-              <div className="flex items-center gap-2 mt-2">
-                <ArrowRight className="h-5 w-5 text-primary" />
-                <p className="text-white/90">{t("marketing2")}</p>
-              </div>
-              <div className="flex items-center gap-2 mt-2">
-                <ArrowRight className="h-5 w-5 text-primary" />
-                <p className="text-white/90">{t("marketing3")}</p>
-              </div>
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-2 mt-4 first:mt-4 even:mt-2 last:mt-2"
+                >
+                  <ArrowRight className="h-5 w-5 text-primary" />
+                  <p className="text-white/90">{t(`marketing${i}`)}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      <div className="bg-gradient-to-b from-background to-secondary/20">
+      <div className="bg-gradient-to-b from-background to-secondary/20 relative ">
         <RedirectLogin />
         <div className="flex items-center justify-center py-12 px-6 lg:px-10">
           <Card className="w-full max-w-md shadow-xl border-0 overflow-hidden">
@@ -68,14 +70,14 @@ const SignUpPage = () => {
                 {t("subtitle1")}{" "}
                 <Link
                   href="#"
-                  className="font-medium text-primary hover:text-primary/80 underline-offset-4 hover:underline"
+                  className="font-medium text-primary hover:text-primary/80 underline-offset-4 hover:underline transition-colors"
                 >
                   {t("subtitle2")}
                 </Link>{" "}
                 {t("subtitle3")}{" "}
                 <Link
                   href="#"
-                  className="font-medium text-primary hover:text-primary/80 underline-offset-4 hover:underline"
+                  className="font-medium text-primary hover:text-primary/80 underline-offset-4 hover:underline transition-colors"
                 >
                   {t("subtitle4")}
                 </Link>
@@ -86,6 +88,6 @@ const SignUpPage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SignUpPage;

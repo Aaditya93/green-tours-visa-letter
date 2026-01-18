@@ -30,9 +30,9 @@ const VerificationContent = () => {
 
     if (verification.success) {
       setVerificationState("success");
-      setStatusText(verification.success);
+      setStatusText(verification.data);
     }
-    if (verification.error) {
+    if (verification.success === false) {
       setVerificationState("error");
       setStatusText(verification.error);
     }

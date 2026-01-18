@@ -21,7 +21,7 @@ import {
 } from "@/actions/application/application";
 import ReportPage from "@/components/report/report-page";
 import { Application } from "@/app/schemas/types";
-import { getAllCompanies } from "@/actions/agent-platform/visa-letter";
+import { getAllCompanies } from "@/actions/agent-platform/admin-panel/get-all-companies";
 import { get } from "http";
 import { getTranslations } from "next-intl/server";
 
@@ -69,13 +69,13 @@ const SearchPage = async ({
   const dateRange = extractDateRange(range);
   const applications = await getCompleteApplicationsReportPage(
     dateRange.from,
-    dateRange.to
+    dateRange.to,
   );
   const companies = await getAllCompanies();
   const ClientList = await getAllClientList();
 
   const planObject = serializedApplications(
-    applications ?? []
+    applications ?? [],
   ) as Application[];
   const t = await getTranslations("report");
 

@@ -13,22 +13,28 @@ import { LoginForm } from "@/components/auth/login-form";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
-const LoginPage = () => {
-  const t = useTranslations("loginPage");
+interface LoginPageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function LoginPage({ params }: LoginPageProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "loginPage" });
+
   return (
     <div className="grid lg:grid-cols-2 min-h-screen">
       <div className="relative h-[300px] lg:h-full overflow-hidden">
         <Image
-          src="https://visaletters123.s3.ap-southeast-1.amazonaws.com/public/login.jpg"
-          alt="login"
+          src="https://visacar.s3.ap-south-1.amazonaws.com/Vietnam/Vietnam_25.webp"
+          alt="login background"
           fill
           className="object-cover scale-105 hover:scale-100 transition-transform duration-700"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-br  to-transparent" />
-        <div className="absolute inset-0  flex-col justify-end p-8 text-primary-foreground hidden lg:flex">
+        <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent" />
+        <div className="absolute inset-0 flex-col justify-end p-8 text-primary-foreground hidden lg:flex">
           <div className="backdrop-blur-sm bg-black/20 p-6 rounded-xl max-w-md border border-white/10">
             <div className="flex items-center gap-2 mb-4">
               <FaLeaf className="text-primary-foreground text-2xl" />
@@ -53,7 +59,7 @@ const LoginPage = () => {
         <Button
           asChild
           variant="outline"
-          className="absolute top-4 right-4  transition-all "
+          className="absolute top-4 right-4 transition-all"
         >
           <Link
             href="/auth/travel-agent/register"
@@ -96,6 +102,6 @@ const LoginPage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default LoginPage;

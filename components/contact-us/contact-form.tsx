@@ -27,7 +27,7 @@ import { FaWhatsapp } from "react-icons/fa6";
 import { useState } from "react";
 import { useTransition } from "react";
 
-import { submitContactForm } from "@/actions/contact-us";
+import { submitContactForm } from "@/actions/contact-us/submit-contact";
 
 import { FormError } from "../auth/form-error";
 import { FormSuccess } from "../auth/form-success";

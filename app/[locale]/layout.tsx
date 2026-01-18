@@ -25,9 +25,6 @@ export const metadata: Metadata = {
 };
 
 import ThemeProvider from "@/components/theme-provider";
-interface RootLayoutProps {
-  children: React.ReactNode;
-}
 
 export default async function RootLayout({
   children,

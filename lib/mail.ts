@@ -5,6 +5,7 @@ const Domain = process.env.DOMAIN;
 const AWS_URL = process.env.S3_AWS_URL || "";
 export const sendVerificationEmail = async (email: string, token: string) => {
   const ConfirmationLink = `${Domain}/auth/new-verification?token=${token}`;
+  console.log("ConfirmationLink", ConfirmationLink);
 
   await resend.emails.send({
     from: "VISACAR <noreply@visacar.vn>",

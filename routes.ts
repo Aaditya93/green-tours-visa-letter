@@ -3,13 +3,14 @@ export const publicRoutes = [
   "/home",
   "/contact-us",
   "/about-us",
+  "/",
 ];
 
 export const authRoutes = [
   "/auth/login",
   "/auth/register",
   "/auth/error",
-  "/auth/reset",
+  "/auth/password-reset",
   "/auth/new-password",
   "/auth/travel-agent/register",
 ];

@@ -18,18 +18,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   callbacks: {
-    // async authorized({ request, token }) {
-    //   if (request.nextUrl.pathname === "/travel-agent") {
-    //     if (token.role === "TravelAgent-1" || token.role === "TravelAgent-2") {
-    //       return true;
-    //     }
-    //     return false;
-    //   }
-    // },
-    // async signIn({ account }) {
-    //   if (account?.provider !== "credentials") return true;
-    // },
-
     async session({ session, token }) {
       if (token.sub && session.user) {
         session.user.id = token.sub;

@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, useEffect, useLayoutEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import {
   AnimatePresence,
   motion,
@@ -19,12 +20,14 @@ type UseMediaQueryOptions = {
 
 const IS_SERVER = typeof window === "undefined";
 
+const MotionImage = motion(Image);
+
 export function useMediaQuery(
   query: string,
   {
     defaultValue = false,
     initializeWithValue = true,
-  }: UseMediaQueryOptions = {}
+  }: UseMediaQueryOptions = {},
 ): boolean {
   const getMatches = (query: string): boolean => {
     if (IS_SERVER) {
@@ -58,16 +61,7 @@ export function useMediaQuery(
   return matches;
 }
 
-const keywords = [
-  "1.jpg",
-  "2.jpg",
-  "3.jpg",
-  "4.jpg",
-  "5.jpg",
-  "6.jpg",
-  "7.jpg",
-  "8.jpg",
-];
+const keywords = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
 const duration = 0.15;
 const transition = { duration, ease: [0.32, 0.72, 0, 1], filter: "blur(4px)" };
@@ -93,7 +87,7 @@ const Carousel = memo(
     const rotation = useMotionValue(0);
     const transform = useTransform(
       rotation,
-      (value) => `rotate3d(0, 1, 0, ${value}deg)`
+      (value) => `rotate3d(0, 1, 0, ${value}deg)`,
     );
 
     Carousel.displayName = "Carousel";
@@ -146,11 +140,13 @@ const Carousel = memo(
               }}
               onClick={() => handleClick(imgUrl, i)}
             >
-              <motion.img
+              <MotionImage
                 src={imgUrl}
-                alt={`keyword_${i} ${imgUrl}`}
+                alt={`keyword_${i}`}
                 layoutId={`img-${imgUrl}`}
-                className="pointer-events-none  w-full rounded-xl object-cover aspect-square"
+                className="pointer-events-none w-full rounded-xl object-cover aspect-square"
+                width={400}
+                height={400}
                 initial={{ filter: "blur(4px)" }}
                 layout="position"
                 animate={{ filter: "blur(0px)" }}
@@ -161,7 +157,7 @@ const Carousel = memo(
         </motion.div>
       </div>
     );
-  }
+  },
 );
 
 const hiddenMask = `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 30px, rgba(0,0,0,1) 30px, rgba(0,0,0,1) 30px)`;
@@ -174,9 +170,9 @@ function ThreeDPhotoCarousel() {
     () =>
       keywords.map(
         (keyword) =>
-          `https://visaletters123.s3.ap-southeast-1.amazonaws.com/public/${keyword}`
+          `https://visacar.s3.ap-south-1.amazonaws.com/Vietnam/Vietnam_${keyword}.webp`,
       ),
-    []
+    [],
   );
 
   useEffect(() => {
@@ -209,9 +205,12 @@ function ThreeDPhotoCarousel() {
             style={{ willChange: "opacity" }}
             transition={transitionOverlay}
           >
-            <motion.img
+            <MotionImage
               layoutId={`img-${activeImg}`}
               src={activeImg}
+              alt="Active image"
+              width={800}
+              height={800}
               className="max-w-full max-h-full rounded-lg shadow-lg"
               initial={{ scale: 0.5 }} // Start with a smaller scale
               animate={{ scale: 1 }} // Animate to full scale

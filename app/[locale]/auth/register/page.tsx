@@ -9,16 +9,22 @@ import {
 import Image from "next/image";
 import { RegisterForm } from "@/components/auth/register-form";
 import RedirectLogin from "@/components/auth/redirect-login";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
-const SignUpPage = () => {
-  const t = useTranslations("registerPage");
+interface SignUpPageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function SignUpPage({ params }: SignUpPageProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "registerPage" });
+
   return (
     <div className="grid lg:grid-cols-2 min-h-screen">
       <div className="relative h-[300px] lg:h-full">
         <Image
-          src="/https://visaletters123.s3.ap-southeast-1.amazonaws.com/public/register.jpg"
-          alt="register"
+          src="https://visacar.s3.ap-south-1.amazonaws.com/Vietnam/Vietnam_16.webp"
+          alt="register backdrop"
           fill
           className="object-cover"
           priority
@@ -31,7 +37,7 @@ const SignUpPage = () => {
           </p>
         </div>
       </div>
-      <div className="bg-background">
+      <div className="bg-background relative">
         <RedirectLogin />
         <div className="flex min-h-screen items-center justify-center py-12 px-6">
           <Card className="w-full max-w-md border-border shadow-lg">
@@ -48,11 +54,17 @@ const SignUpPage = () => {
               <div className="mt-8 pt-4 border-t border-border">
                 <p className="text-sm text-center text-muted-foreground">
                   {t("subtitle1")}{" "}
-                  <a href="#" className="text-primary hover:underline">
+                  <a
+                    href="#"
+                    className="text-primary hover:underline transition-colors"
+                  >
                     {t("subtitle2")}
                   </a>{" "}
                   {t("subtitle3")}{" "}
-                  <a href="#" className="text-primary hover:underline">
+                  <a
+                    href="#"
+                    className="text-primary hover:underline transition-colors"
+                  >
                     {t("subtitle4")}
                   </a>
                   .
@@ -64,6 +76,6 @@ const SignUpPage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SignUpPage;

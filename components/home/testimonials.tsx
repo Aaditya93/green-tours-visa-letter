@@ -11,7 +11,7 @@ function Testimonials() {
       designation: t("designations.business_traveler", {
         country: t("countries.usa"),
       }),
-      src: "https://visaletters123.s3.ap-southeast-1.amazonaws.com/public/sarah.jpg",
+      src: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       quote: t("quotes.michael"),
@@ -27,7 +27,7 @@ function Testimonials() {
       designation: t("designations.corporate_executive", {
         country: t("countries.australia"),
       }),
-      src: "https://visaletters123.s3.ap-southeast-1.amazonaws.com/public/Jia.jpg",
+      src: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?q=80&w=3871&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       quote: t("quotes.james"),

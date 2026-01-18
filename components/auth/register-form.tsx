@@ -22,7 +22,7 @@ import { useTranslations } from "next-intl";
 export const RegisterForm = () => {
   const t = useTranslations("registerPage");
   const [error, setError] = useState<string | undefined>("");
-  const [success, setScuccess] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
   const RegisterSchema = z.object({
@@ -38,11 +38,14 @@ export const RegisterForm = () => {
   });
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError("");
-    setScuccess("");
+    setSuccess("");
     startTransition(() => {
       register(values).then((data) => {
-        setError(data.error);
-        setScuccess(data.success);
+        if (data.success) {
+          setSuccess(data.message);
+        } else {
+          setError(data.error);
+        }
       });
     });
   };

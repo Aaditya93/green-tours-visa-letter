@@ -41,12 +41,12 @@ const ForgotPasswordCard = () => {
       if (response.success) {
         setStatus({
           type: "success",
-          message: response.success,
+          message: response.data,
         });
         form.reset();
       }
 
-      if (response.error) {
+      if (response.success === false) {
         setStatus({
           type: "error",
           message: response.error,

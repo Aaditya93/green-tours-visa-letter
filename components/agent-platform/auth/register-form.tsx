@@ -11,9 +11,8 @@ import {
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerTravelAgent } from "@/actions/agent-platform/auth/travel-agent-register";
+import { registerTravelAgent } from "@/actions/agent-platform/auth/register-travel-agent";
 import { useTransition, useState } from "react";
 import { FormError } from "@/components/auth/form-error";
 import { FormSuccess } from "@/components/auth/form-success";
@@ -49,7 +48,7 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = async (
-    values: z.infer<typeof TravelAgentRegisterSchema>
+    values: z.infer<typeof TravelAgentRegisterSchema>,
   ) => {
     setError("");
     setSuccess("");
@@ -58,12 +57,12 @@ export const RegisterForm = () => {
       try {
         const result = await registerTravelAgent(values);
 
-        if (result.error) {
+        if (result.success === false) {
           setError(result.error);
           return;
         }
 
-        setSuccess(result.success);
+        setSuccess(result.data);
         form.reset();
       } catch (error) {
         console.error(error);

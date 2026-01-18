@@ -52,8 +52,8 @@ const LoginFormContent = () => {
     setSuccess("");
     startTransition(() => {
       login(values).then((data) => {
-        setError(data?.error);
-        setSuccess(data?.success);
+        setError(data.success === false ? data.error : undefined);
+        setSuccess(data.success ? data.data : undefined);
       });
     });
   };
@@ -96,7 +96,10 @@ const LoginFormContent = () => {
               <FormItem>
                 <div className="flex items-center justify-between">
                   <FormLabel>{t("password")}</FormLabel>
-                  <Link href="/auth/reset" className="text-sm hover:underline">
+                  <Link
+                    href="/auth/password-reset"
+                    className="text-sm hover:underline"
+                  >
                     {t("forgot")}
                   </Link>
                 </div>

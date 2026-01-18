@@ -30,6 +30,12 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "visacar.s3.ap-south-1.amazonaws.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "images.unsplash.com",
         port: "",
         pathname: "/**",
