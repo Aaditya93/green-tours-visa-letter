@@ -1,4 +1,4 @@
-import { getCompleteApplications } from "@/actions/application/application";
+import { getCompleteApplications } from "@/actions/application/get-applications/get-complete-applications";
 import Dashboard from "@/components/dashboard/dashboard";
 import { extractUniqueCreators } from "@/lib/application/utils";
 import { notFound } from "next/navigation";
