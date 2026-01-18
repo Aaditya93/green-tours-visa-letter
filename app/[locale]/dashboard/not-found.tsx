@@ -1,7 +1,7 @@
 "use client";
+
 import { useState } from "react";
-import { ColumnFiltersState } from "@tanstack/react-table";
-import AppSidebar from "./app-sidebar";
+import AppSidebar from "@/components/dashboard/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,32 +15,25 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import DataTable from "./data-table";
-import { Application } from "@/app/schemas/types";
-import { columns } from "./columns";
 import { useTranslations } from "next-intl";
 
-interface DashboardProps {
-  data: Application[];
-  users: { username: string }[];
-}
-
-const Dashboard = ({ users, data }: DashboardProps) => {
+export default function NotFound() {
   const t = useTranslations("travelAgentDashboard");
   const [searchSelections, setSearchSelections] = useState<string>("fullName");
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnFilters, setColumnFilters] = useState<any[]>([]);
+
   return (
     <SidebarProvider>
       <AppSidebar
-        users={users}
+        users={[]}
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
         searchSelections={searchSelections}
         setSearchSelections={setSearchSelections}
       />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2">
-          <div className="flex items-center gap-2 px-4">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-6">
+          <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
@@ -53,19 +46,11 @@ const Dashboard = ({ users, data }: DashboardProps) => {
             </Breadcrumb>
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <DataTable
-            columnFilters={columnFilters}
-            setColumnFilters={setColumnFilters}
-            setSearchSelections={setSearchSelections}
-            searchSelections={searchSelections}
-            columns={columns}
-            data={data}
-          />
-        </div>
+
+        <main className="flex flex-1 items-center justify-center p-6 text-muted-foreground">
+          Unable to load dashboard data. Please check your connection.
+        </main>
       </SidebarInset>
     </SidebarProvider>
   );
-};
-
-export default Dashboard;
+}

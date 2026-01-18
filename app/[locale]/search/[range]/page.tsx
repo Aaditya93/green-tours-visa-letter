@@ -68,11 +68,12 @@ const SearchPage = async ({
 }) => {
   const { range } = await params;
   const dateRange = extractDateRange(range);
-  const applications = await getCompleteApplicationsDate(
+  const response = await getCompleteApplicationsDate(
     dateRange.from,
     dateRange.to
   );
-  const planObject = serializedApplications(applications ?? []);
+  const applications = response.success ? (response.data as Application[]) : [];
+  const planObject = serializedApplications(applications);
   const Companies = (await getAllCompanies()) ?? [];
 
   const Users = extractUniqueUsernames(planObject);

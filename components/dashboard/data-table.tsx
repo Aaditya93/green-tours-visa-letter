@@ -3,7 +3,6 @@ import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
-
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -60,7 +59,7 @@ const DataTable = <TData extends { speed?: string }, TValue>({
   const t = useTranslations("travelAgentDashboard.dataTable");
   const tc = useTranslations("travelAgentDashboard.columns");
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const columns = useColumns(); // Use the hook to get translated columns
+  const columns = useColumns() as unknown as ColumnDef<TData, TValue>[]; // Use the hook to get translated columns
 
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({
@@ -205,7 +204,7 @@ const DataTable = <TData extends { speed?: string }, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -239,7 +238,7 @@ const DataTable = <TData extends { speed?: string }, TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

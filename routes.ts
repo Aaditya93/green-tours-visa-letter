@@ -3,7 +3,6 @@ export const publicRoutes = [
   "/home",
   "/contact-us",
   "/about-us",
-  "/",
 ];
 
 export const authRoutes = [

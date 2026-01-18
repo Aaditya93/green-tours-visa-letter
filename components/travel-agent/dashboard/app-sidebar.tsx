@@ -37,7 +37,7 @@ sevendaysAgo.setDate(today.getDate() - 7);
 const seven = sevendaysAgo.toISOString().split("T")[0];
 
 const to = today.toISOString().split("T")[0];
-const getData = (Users: { username: string }[]) => {
+const getData = (users: { username: string }[]) => {
   const t = useTranslations("traveldashboardsidebar");
   return {
     NavDashboard: [
@@ -135,7 +135,7 @@ const getData = (Users: { username: string }[]) => {
           {
             title: t("filter.parameter3"),
             key: "creator",
-            items: Users.map((user) => ({
+            items: users.map((user: any) => ({
               title: user.username,
             })) || [
               {
@@ -268,18 +268,18 @@ interface AppSidebarProps {
   setSearchSelections: Dispatch<SetStateAction<string>>;
   columnFilters: ColumnFiltersState;
   setColumnFilters: Dispatch<SetStateAction<ColumnFiltersState>>;
-  Users: { username: string }[];
+  users: { username: string }[];
 }
 
 const AppSidebar = ({
-  Users,
+  users,
   searchSelections,
   setSearchSelections,
   columnFilters,
   setColumnFilters,
   ...props
 }: AppSidebarProps) => {
-  const data = getData(Users);
+  const data = getData(users);
   const t = useTranslations("travelsidebar");
   return (
     <Sidebar variant="inset" {...props}>

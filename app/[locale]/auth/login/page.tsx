@@ -33,22 +33,6 @@ export async function LoginPage({ params }: LoginPageProps) {
           className="object-cover scale-105 hover:scale-100 transition-transform duration-700"
           priority
         />
-        <div className="absolute inset-0  " />
-        <div className="absolute inset-0 flex-col justify-end p-8  hidden lg:flex">
-          <div className="backdrop-blur-sm  p-6 rounded-xl max-w-md r ">
-            <div className="flex items-center gap-2 mb-4">
-              <FaLeaf className="text-primary text-2xl" />
-              <h2 className="text-3xl font-bold ">{t("brand")}</h2>
-            </div>
-            <p className="text-lg mt-2 opacity-90 leading-relaxed">
-              {t("marketing1")}
-            </p>
-            <div className="flex items-center gap-2 mt-4 text-sm">
-              <FaRegCompass className="text-primary" />
-              <span>{t("marketing2")}</span>
-            </div>
-          </div>
-        </div>
       </div>
       <div className="flex flex-col items-center justify-center p-4 lg:py-12 lg:px-8 bg-gradient-to-br from-background via-background to-secondary/50 relative">
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl"></div>

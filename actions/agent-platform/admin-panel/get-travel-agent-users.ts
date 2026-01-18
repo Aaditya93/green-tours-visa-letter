@@ -1,10 +1,12 @@
 "use server";
 
 import dbConnect from "@/db/db";
-import TravelAgentUser from "@/db/models/travelAgentUser";
+import TravelAgentUser, { ITravelAgentUser } from "@/db/models/travelAgentUser";
 import { ActionResponse } from "@/actions/types";
 
-export const getTravelAgentUsers = async (): Promise<ActionResponse<any[]>> => {
+export const getTravelAgentUsers = async (): Promise<
+  ActionResponse<ITravelAgentUser[]>
+> => {
   try {
     await dbConnect();
     const travelAgentUsers = await TravelAgentUser.find({});

@@ -1,22 +1,24 @@
 import { getCompleteApplications } from "@/actions/application/application";
 import Dashboard from "@/components/dashboard/dashboard";
-import { serializedApplications } from "@/config/serialize";
-
-import { Application } from "@/app/schemas/types";
-
-function extractUniqueUsernames(data: Application[]) {
-  // Get unique creator names
-  const uniqueCreators = [...new Set(data.map((item) => item.creator))];
-
-  // Transform into required format
-  return uniqueCreators.map((username) => ({ username }));
-}
+import { extractUniqueCreators } from "@/lib/application/utils";
+import { notFound } from "next/navigation";
 
 const DashboardPage = async () => {
-  const applications = await getCompleteApplications();
-  const planObject = serializedApplications(applications ?? []);
-  const Users = extractUniqueUsernames(planObject);
-  return <Dashboard Users={Users} data={planObject} />;
+  // Fetch completed applications (includes admin check for role-based scoping)
+  const response = await getCompleteApplications();
+
+  if (!response.success) {
+    console.error("Failed to fetch dashboard applications:", response.error);
+    notFound();
+  }
+
+  // Serialize data for Client Components (handles ObjectId and Date serialization)
+  const applications = response.data || [];
+
+  // Extract unique creators for sidebar filters
+  const creators = extractUniqueCreators(applications);
+
+  return <Dashboard users={creators} data={applications} />;
 };
 
 export default DashboardPage;

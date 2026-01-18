@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/sidebar";
 import NavDashboard from "@/components/nav-dashboard";
 import { useTranslations } from "next-intl";
+import { ICreator } from "@/db/models/application";
 const today = new Date();
 const thirtyDaysAgo = new Date(today);
 const sevendaysAgo = new Date(today);
@@ -34,7 +35,7 @@ sevendaysAgo.setDate(today.getDate() - 7);
 const seven = sevendaysAgo.toISOString().split("T")[0];
 const to = today.toISOString().split("T")[0];
 
-const getData = (Users: { username: string }[]) => {
+const getData = (users: { username: ICreator }[]) => {
   const t = useTranslations("appSiderbarDashboard");
   return {
     navMain: [
@@ -179,7 +180,7 @@ const getData = (Users: { username: string }[]) => {
           {
             title: t("filter.parameter3"),
             key: "creator",
-            items: Users.map((user) => ({
+            items: users.map((user) => ({
               title: user.username,
             })) || [
               {
@@ -292,18 +293,18 @@ interface AppSidebarProps {
   setSearchSelections: Dispatch<SetStateAction<string>>;
   columnFilters: ColumnFiltersState;
   setColumnFilters: Dispatch<SetStateAction<ColumnFiltersState>>;
-  Users: { username: string }[];
+  users: { username: ICreator }[];
 }
 
 const AppSidebar = ({
-  Users,
+  users,
   searchSelections,
   setSearchSelections,
   columnFilters,
   setColumnFilters,
   ...props
 }: AppSidebarProps) => {
-  const data = getData(Users);
+  const data = getData(users);
   const t = useTranslations("appSiderbarDashboard");
   return (
     <Sidebar variant="inset" {...props}>

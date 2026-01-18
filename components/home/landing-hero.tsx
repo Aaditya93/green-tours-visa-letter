@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { LayoutGroup, motion } from "framer-motion";
 import { TextRotate } from "@/components/ui/text-rotate";
@@ -34,7 +35,7 @@ const exampleImages = [
 function LandingHero() {
   const t = useTranslations("home.hero");
   return (
-    <section className="w-full h-screen overflow-hidden md:overflow-visible flex flex-col items-center justify-center relative">
+    <section className="w-full h-[calc(100vh-3.5rem)] overflow-hidden flex flex-col items-center justify-center relative">
       <Floating sensitivity={-0.5} className="h-full">
         <FloatingElement
           depth={0.5}
@@ -107,9 +108,9 @@ function LandingHero() {
         </FloatingElement>
       </Floating>
 
-      <div className="flex flex-col justify-center items-center w-[250px] sm:w-[300px] md:w-[500px] lg:w-[700px] z-50 pointer-events-auto">
+      <div className="flex flex-col justify-center items-center w-[280px] sm:w-[400px] md:w-[600px] lg:w-[800px] z-50 pointer-events-auto px-4">
         <motion.h1
-          className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl text-center w-full justify-center items-center flex-col flex whitespace-pre leading-tight font-calendas tracking-tight space-y-1 md:space-y-4"
+          className="text-2xl sm:text-4xl md:text-6xl lg:text-7xl text-center w-full justify-center items-center flex-col flex whitespace-normal md:whitespace-pre leading-tight font-calendas tracking-tight space-y-1 md:space-y-2"
           animate={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.2, ease: "easeOut", delay: 0.3 }}
@@ -141,14 +142,14 @@ function LandingHero() {
           </LayoutGroup>
         </motion.h1>
         <motion.p
-          className="text-sm sm:text-lg md:text-xl lg:text-2xl text-center font-overusedGrotesk pt-4 sm:pt-8 md:pt-10 lg:pt-12"
+          className="text-sm sm:text-lg md:text-xl lg:text-2xl text-center font-overusedGrotesk pt-2 sm:pt-4 md:pt-6"
           animate={{ opacity: 1, y: 0 }}
           initial={{ opacity: 0, y: 20 }}
           transition={{ duration: 0.2, ease: "easeOut", delay: 0.5 }}
         >
           {t("description")}
         </motion.p>
-        <div className="flex flex-row justify-center space-x-4 items-center mt-10 sm:mt-16 md:mt-20 lg:mt-20 text-xs">
+        <div className="flex flex-row justify-center space-x-4 items-center mt-6 sm:mt-10 md:mt-12 text-xs">
           <motion.button
             className="sm:text-base md:text-lg lg:text-xl font-semibold tracking-tight text-background bg-foreground px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-3 rounded-full z-20 shadow-2xl font-calendas"
             animate={{ opacity: 1, y: 0 }}

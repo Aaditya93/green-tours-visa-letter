@@ -1,16 +1,12 @@
 "use server";
 
 import dbConnect from "@/db/db";
-import Application from "@/db/models/application";
+import Application, { IApplication } from "@/db/models/application";
 import { ActionResponse } from "@/actions/types";
-import {
-  serializeIApplication,
-  SerializabledApplication,
-} from "@/config/serialize";
 
 export const getApplicationById = async (
   id: string,
-): Promise<ActionResponse<SerializabledApplication>> => {
+): Promise<ActionResponse<IApplication>> => {
   try {
     await dbConnect();
     const application = await Application.findById(id);
@@ -21,7 +17,7 @@ export const getApplicationById = async (
 
     return {
       success: true,
-      data: serializeIApplication(application) as SerializabledApplication,
+      data: JSON.parse(JSON.stringify(application)),
     };
   } catch (error) {
     console.error("Failed to get application by ID:", error);

@@ -2,15 +2,11 @@
 
 import { auth } from "@/auth";
 import dbConnect from "@/db/db";
-import Application from "@/db/models/application";
+import Application, { IApplication } from "@/db/models/application";
 import { ActionResponse } from "@/actions/types";
-import {
-  serializeIApplication,
-  SerializabledApplication,
-} from "@/config/serialize";
 
 export const getIncompleteApplications = async (): Promise<
-  ActionResponse<SerializabledApplication[]>
+  ActionResponse<IApplication[]>
 > => {
   try {
     await dbConnect();
@@ -36,7 +32,7 @@ export const getIncompleteApplications = async (): Promise<
 
     return {
       success: true,
-      data: serializeIApplication(applications) as SerializabledApplication[],
+      data: JSON.parse(JSON.stringify(applications)),
     };
   } catch (error) {
     console.error("Failed to get incomplete applications:", error);

@@ -1,4 +1,4 @@
-import { getTravelAgentUsers } from "@/actions/agent-platform/admin-panel/admin-panel";
+import { getTravelAgentUsers } from "@/actions/agent-platform/admin-panel/get-travel-agent-users";
 import AppSidebar from "@/components/app-sidebar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -21,7 +21,10 @@ import { getTranslations } from "next-intl/server";
 
 const AdminPanel = async () => {
   const TravelAgent = await getTravelAgentUsers();
-  const plainObject = JSON.parse(JSON.stringify(TravelAgent));
+  if (!TravelAgent.success) {
+    throw new Error("Failed to fetch travel agent users");
+  }
+
   const t = await getTranslations("adminPanel");
 
   return (
@@ -51,12 +54,14 @@ const AdminPanel = async () => {
                 </CardTitle>
                 <Badge variant={"secondary"}>
                   {t("title2")} :{" "}
-                  {Array.isArray(plainObject) ? plainObject.length : 0}
+                  {Array.isArray(TravelAgent.data)
+                    ? TravelAgent.data.length
+                    : 0}
                 </Badge>
               </div>
             </CardHeader>
             <CardContent className=" space-y-4 p-0 ">
-              <UserApprovalCards data={plainObject} />
+              <UserApprovalCards data={TravelAgent.data} />
             </CardContent>
           </Card>
         </div>

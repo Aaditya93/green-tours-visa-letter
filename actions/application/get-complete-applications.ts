@@ -2,12 +2,12 @@
 
 import { auth } from "@/auth";
 import dbConnect from "@/db/db";
-import Application from "@/db/models/application";
+import Application, { IApplication } from "@/db/models/application";
 import { convertToApplications } from "@/lib/data";
 import { ActionResponse } from "@/actions/types";
 
 export const getCompleteApplications = async (): Promise<
-  ActionResponse<any[]>
+  ActionResponse<IApplication[]>
 > => {
   const threeMonthsAgo = new Date();
   threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
@@ -35,7 +35,7 @@ export const getCompleteApplications = async (): Promise<
       .limit(100)
       .exec();
 
-    const data = await convertToApplications(applications);
+    const data = await JSON.parse(JSON.stringify(applications));
     return { success: true, data };
   } catch (error) {
     console.error("Failed to get complete applications:", error);

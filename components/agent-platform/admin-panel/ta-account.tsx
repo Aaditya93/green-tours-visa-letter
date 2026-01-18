@@ -17,29 +17,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useTranslations } from "next-intl";
-import {
-  approveTravelAgent,
-  regjectTravelAgent,
-} from "@/actions/agent-platform/admin-panel/admin-panel";
+import { approveTravelAgent } from "@/actions/agent-platform/admin-panel/approve-travel-agent";
+import { rejectTravelAgent } from "@/actions/agent-platform/admin-panel/reject-travel-agent";
 import { toast } from "sonner";
 import { useState } from "react";
+import { ITravelAgentUser } from "@/db/models/travelAgentUser";
 
-interface UserApprovalCardsProps {
-  data: {
-    _id: string;
-    name: string;
-    email: string;
-    company: string;
-    address: string;
-    phoneNumber: string;
-    country: string;
-    createdAt: string;
-  }[];
-}
-
-export const UserApprovalCards = (
-  UserApprovalCardsProps: UserApprovalCardsProps
-) => {
+export const UserApprovalCards = (UserApprovalCardsProps: {
+  data: ITravelAgentUser[];
+}) => {
   const t = useTranslations("adminPanel.card");
   const { data } = UserApprovalCardsProps;
   const [selectedStaff, setSelectedStaff] = useState("");
@@ -86,9 +72,10 @@ export const UserApprovalCards = (
     if (!selectedStaff) return toast.error("Please select a staff member");
     try {
       const result = await approveTravelAgent(id, selectedStaff);
-      if (!result) return toast.error("No response from server");
-      if (result.error) return toast.error(result.error);
-      toast.success(result.success);
+      if (result.success == false)
+        return toast.error("No response from server");
+
+      toast.success(result.data);
     } catch (error) {
       console.error(error);
       toast.error("Internal server error");
@@ -97,9 +84,11 @@ export const UserApprovalCards = (
 
   const handleReject = async (id: string) => {
     try {
-      const result = await regjectTravelAgent(id);
-      if (result.error) return toast.error(result.error);
-      toast.success(result.success);
+      const result = await rejectTravelAgent(id);
+      if (result.success == false)
+        return toast.error("No response from server");
+
+      toast.success(result.data);
     } catch (error) {
       console.error(error);
       toast.error("Internal server error");

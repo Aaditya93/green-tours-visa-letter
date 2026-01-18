@@ -2,7 +2,8 @@
 import mongoose, { Document, Model, Schema } from "mongoose";
 
 export interface ITravelAgentUser extends Document {
-  id: string;
+  _id: string;
+
   name: string;
   email: string;
   password: string;
@@ -11,6 +12,7 @@ export interface ITravelAgentUser extends Document {
   country: string;
   address: string;
   phoneNumber: string;
+  createdAt: string;
 }
 
 // Create schema
@@ -50,7 +52,7 @@ const TravelAgentUserSchema = new Schema<ITravelAgentUser>(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const TravelAgentUser: Model<ITravelAgentUser> =

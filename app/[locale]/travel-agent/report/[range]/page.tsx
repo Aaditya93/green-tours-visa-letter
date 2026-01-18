@@ -62,12 +62,13 @@ const SearchPage = async ({
 }) => {
   const { range } = await params;
   const dateRange = extractDateRange(range);
-  const applications = await getCompleteApplicationsReportPageTravelAgent(
+  const response = await getCompleteApplicationsReportPageTravelAgent(
     dateRange.from,
     dateRange.to
   );
+  const applications = response.success ? (response.data as Application[]) : [];
   const planObject = serializedApplications(
-    applications ?? []
+    applications
   ) as Application[];
   const t = await getTranslations("travelReport");
 

@@ -67,15 +67,16 @@ const SearchPage = async ({
 }) => {
   const { range } = await params;
   const dateRange = extractDateRange(range);
-  const applications = await getCompleteApplicationsReportPage(
+  const response = await getCompleteApplicationsReportPage(
     dateRange.from,
     dateRange.to,
   );
+  const applications = response.success ? (response.data as Application[]) : [];
   const companies = await getAllCompanies();
   const ClientList = await getAllClientList();
 
   const planObject = serializedApplications(
-    applications ?? [],
+    applications,
   ) as Application[];
   const t = await getTranslations("report");
 

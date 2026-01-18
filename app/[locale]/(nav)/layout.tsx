@@ -10,7 +10,7 @@ export default async function NavLayout({ children }: NavLayoutProps) {
   return (
     <div className="relative flex min-h-screen flex-col">
       <div data-wrapper="" className="border-border/40 dark:border-border">
-        <div className="mx-auto w-full border-border/40 dark:border-border min-[1800px]:max-w-[1536px] min-[1800px]:border-x">
+        <div className=" w-full border-border/40 dark:border-border ">
           <SiteHeader />
           <main className="flex-1">{children}</main>
         </div>

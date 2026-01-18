@@ -48,8 +48,8 @@ function Testimonials() {
   ];
 
   return (
-    <div className="py-12">
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-primary mb-8">
+    <div className="py-4">
+      <h2 className="text-2xl md:text-3xl font-bold text-center text-primary mb-4">
         {t("section_title")}
       </h2>
       <AnimatedTestimonials testimonials={testimonials} />

@@ -2,19 +2,28 @@ import { getCompleteApplicationsTravelAgent } from "@/actions/application/applic
 import { Application } from "@/app/schemas/types";
 import Dashboard from "@/components/travel-agent/dashboard/dashboard";
 import { serializedApplications } from "@/config/serialize";
+import { extractUniqueCreators } from "@/lib/application/utils";
 
-function extractUniqueUsernames(data: Application[]) {
-  // Get unique creator names
-  const uniqueCreators = [...new Set(data.map((item) => item.creator))];
-
-  // Transform into required format
-  return uniqueCreators.map((username) => ({ username }));
-}
 const TravelAgentDashboardPage = async () => {
-  const applications = await getCompleteApplicationsTravelAgent();
-  const planObject = serializedApplications(applications ?? []);
-  const Users = extractUniqueUsernames(planObject);
-  return <Dashboard Users={Users} data={planObject} />;
+  // Fetch completed applications for the agent's company
+  const response = await getCompleteApplicationsTravelAgent();
+
+  if (!response.success) {
+    return (
+      <div className="flex flex-1 items-center justify-center p-6 text-muted-foreground">
+        Unable to load dashboard data. Please check your connection.
+      </div>
+    );
+  }
+
+  // Serialize data for Client Components
+  const applications = (response.data as Application[]) || [];
+  const serializedData = serializedApplications(applications) as Application[];
+
+  // Extract unique creators for sidebar filters
+  const creators = extractUniqueCreators(serializedData);
+
+  return <Dashboard users={creators} data={serializedData} />;
 };
 
 export default TravelAgentDashboardPage;
