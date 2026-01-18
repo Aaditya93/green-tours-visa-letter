@@ -17,7 +17,7 @@ import { convertToApplications } from "@/lib/data";
 import BillingDashboard from "@/components/travel-agent/billing/billing-card";
 import { serializedApplications, serializeData } from "@/config/serialize";
 import { getTranslations } from "next-intl/server";
-import { getBills } from "@/actions/bill/create-bill";
+import { getBillsByCompany } from "@/actions/bill/get-bills";
 
 import { auth } from "@/auth";
 
@@ -65,15 +65,16 @@ const BillingPage = async ({
   const dateRange = extractDateRange(range);
   const applications = await getCompleteApplicationsTravelAgentBilling(
     dateRange.from,
-    dateRange.to
+    dateRange.to,
   );
   const session = await auth();
 
-  const bills = await getBills(
-    session?.user?.companyId,
+  const billsResult = await getBillsByCompany(
+    session?.user?.companyId || "",
     dateRange.from,
-    dateRange.to
+    dateRange.to,
   );
+  const bills = billsResult.success ? billsResult.data : [];
   const sBill = serializeData(bills);
 
   const t = await getTranslations("agentPayment");

@@ -11,10 +11,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import {
-  getApplicationsByPassportIds,
-  getVisaLetter,
-} from "@/actions/bill/send-visa-letter";
+import { getApplicationsByPassportIds } from "@/actions/bill/visa-letter/get-applications-by-passports";
+import { getVisaLetterById } from "@/actions/bill/visa-letter/get-visa-letter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Download, FileText } from "lucide-react";
@@ -34,12 +32,18 @@ import { getTranslations } from "next-intl/server";
 
 const VisaLetterPage = async ({ params }: { params: { id: string } }) => {
   const { id } = await params;
-  const visaLetter = await getVisaLetter(id);
-  // Check if visaLetter is an array and get the first item, or use it directly if it's an object
-  const visaLetterData = Array.isArray(visaLetter) ? visaLetter[0] : visaLetter;
-  const applications =
-    (await getApplicationsByPassportIds(visaLetterData?.passportIds || [])) ||
-    [];
+  const visaLetterResult = await getVisaLetterById(id);
+  const visaLetterData = visaLetterResult.success
+    ? visaLetterResult.data
+    : null;
+
+  const applicationsResult = await getApplicationsByPassportIds(
+    visaLetterData?.passportIds || [],
+  );
+  const applications = applicationsResult.success
+    ? applicationsResult.data
+    : [];
+
   const Application = await convertToApplications(applications);
   const totalCost = applications.reduce((sum, app) => sum + app.cost, 0);
   const currency = applications[0]?.currency || "USD";

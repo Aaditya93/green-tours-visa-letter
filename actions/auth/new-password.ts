@@ -1,49 +1,50 @@
 "use server";
 import { PasswordResetSchema } from "@/app/schemas";
-import * as z from 'zod';
-import PasswordReset, { getPasswordResetTokenByToken } from "@/db/models/PasswordToken";
-import User, {getUserByEmail } from "@/db/models/User";
-import bcrypt from 'bcryptjs';
+import * as z from "zod";
+import PasswordReset, {
+  getPasswordResetTokenByToken,
+} from "@/db/models/PasswordToken";
+import User, { getUserByEmail } from "@/db/models/User";
+import bcrypt from "bcryptjs";
 import dbConnect from "@/db/db";
 
-export const newPassword = async (values : z.infer<typeof PasswordResetSchema>,token?:string | null) => {
-    await dbConnect();
-    if(token === null){
-        return {error: "Missing token"};
-    
-    }
-    const validatedFields = PasswordResetSchema.safeParse(values); 
+import { ActionResponse } from "@/actions/types";
 
-    if(!validatedFields.success){
-        return {error: "Invalid input fields"};
-    }
-   
-    const {password} = validatedFields.data;
+export const newPassword = async (
+  values: z.infer<typeof PasswordResetSchema>,
+  token?: string | null,
+): Promise<ActionResponse<any>> => {
+  await dbConnect();
+  if (!token) {
+    return { success: false, error: "Missing token" };
+  }
 
-    const existingToken = await getPasswordResetTokenByToken(token as string);
+  const validatedFields = PasswordResetSchema.safeParse(values);
+  if (!validatedFields.success) {
+    return { success: false, error: "Invalid input fields" };
+  }
 
-    if(!existingToken){
-        return {error: "Invalid token"};
-    }
-   
+  const { password } = validatedFields.data;
+  const existingToken = await getPasswordResetTokenByToken(token);
 
-    const hasexpired = new Date(existingToken.expires) < new Date();  
- 
-    if(hasexpired){
-       
-        return {error: "Token has expired"};
-    }
-    const existingUser = await getUserByEmail(existingToken.email);
-    if(!existingUser){
-        return {error: "User not found"};
-    }
+  if (!existingToken) {
+    return { success: false, error: "Invalid token" };
+  }
 
-    const hashedPassword = await bcrypt.hash(password,12);
-    
-    await User.findByIdAndUpdate(existingUser.id,{password: hashedPassword});
+  const hasExpired = new Date(existingToken.expires) < new Date();
+  if (hasExpired) {
+    return { success: false, error: "Token has expired" };
+  }
 
-    await PasswordReset.findByIdAndDelete(existingToken.id);
+  const existingUser = await getUserByEmail(existingToken.email);
+  if (!existingUser) {
+    return { success: false, error: "User not found" };
+  }
 
-    return {success: "Password updated"};
+  const hashedPassword = await bcrypt.hash(password, 12);
 
-}
+  await User.findByIdAndUpdate(existingUser.id, { password: hashedPassword });
+  await PasswordReset.findByIdAndDelete(existingToken.id);
+
+  return { success: true, data: null, message: "Password updated" };
+};

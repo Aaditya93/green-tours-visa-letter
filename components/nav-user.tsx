@@ -18,7 +18,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useSession } from "next-auth/react";
-import { SignOut } from "@/actions/auth/sign-out";
+import { signOutAction } from "@/actions/auth/sign-out";
 import ModeToggle from "./theme-button";
 import LanguageSwitcher from "./navigation-bar/language-switcher";
 import { useTranslations } from "next-intl";
@@ -92,7 +92,10 @@ const NavUser = () => {
             </DropdownMenuItem>
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem className=" text-red-600 " onClick={SignOut}>
+            <DropdownMenuItem
+              className=" text-red-600 "
+              onClick={() => signOutAction()}
+            >
               <LogOut />
               {t("logout")}
             </DropdownMenuItem>

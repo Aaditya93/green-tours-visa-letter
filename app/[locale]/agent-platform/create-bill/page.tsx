@@ -13,10 +13,11 @@ import {
 } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/app-sidebar";
 import CreateBill from "@/components/agent-platform/create-bill/create-bill";
-import { getAllCompaniesBill } from "@/actions/bill/create-bill";
+import { getAllCompaniesForBilling } from "@/actions/bill/get-companies";
 import { getTranslations } from "next-intl/server";
 const CreateBillPage = async () => {
-  const companies = (await getAllCompaniesBill()) || [];
+  const companiesResult = await getAllCompaniesForBilling();
+  const companies = companiesResult.success ? companiesResult.data : [];
   const t = await getTranslations("createBill");
   return (
     <SidebarProvider>

@@ -20,8 +20,8 @@ import { Progress } from "../ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Image from "next/image";
 import { AspectRatio } from "../ui/aspect-ratio";
-import { getSignedURL } from "@/actions/upload/s3";
-import { run } from "@/actions/upload/gemini";
+import { getSignedURL } from "@/actions/upload/get-signed-url";
+import { run } from "@/actions/upload/extract-passport";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -100,7 +100,7 @@ const PhotoUpload = () => {
         try {
           processedFile = await compress(
             selectedImage,
-            IMAGE_COMPRESSION_OPTIONS
+            IMAGE_COMPRESSION_OPTIONS,
           );
         } catch (compressionError) {
           console.error("Image compression failed:", compressionError);
@@ -141,7 +141,7 @@ const PhotoUpload = () => {
           id,
           1,
           response,
-          fileName
+          fileName,
         );
 
         router.push(`/application/visa/${result}`);
@@ -177,7 +177,7 @@ const PhotoUpload = () => {
     } catch (error) {
       console.error("Camera access error:", error);
       setCameraError(
-        "Unable to access camera. Please check permissions and try again."
+        "Unable to access camera. Please check permissions and try again.",
       );
     }
   };
@@ -415,10 +415,10 @@ const PhotoUpload = () => {
                   {processingProgress < 30
                     ? "Preparing files..."
                     : processingProgress < 60
-                    ? "Uploading..."
-                    : processingProgress < 90
-                    ? "Almost there..."
-                    : "Finalizing..."}
+                      ? "Uploading..."
+                      : processingProgress < 90
+                        ? "Almost there..."
+                        : "Finalizing..."}
                 </p>
               </div>
             </motion.div>

@@ -22,7 +22,7 @@ import { serializedApplications, serializeData } from "@/config/serialize";
 import PaymentDashboard from "@/components/agent-platform/payment/payment-dashboard";
 import AppSidebar from "@/components/app-sidebar";
 import { getTranslations } from "next-intl/server";
-import { getBills } from "@/actions/bill/create-bill";
+import { getBillsByCompany } from "@/actions/bill/get-bills";
 
 function extractDateRange(dateString: string) {
   try {
@@ -70,12 +70,17 @@ const PaymentPage = async ({
   const applications = await getAllCompleteApplicationsTravelAgentBilling(
     company,
     dateRange.from,
-    dateRange.to
+    dateRange.to,
   );
   const companies = await getAllCompanies();
   const Applications = convertToApplications(applications);
   const PlanObject = serializedApplications(Applications);
-  const bills = await getBills(company, dateRange.from, dateRange.to);
+  const billsResult = await getBillsByCompany(
+    company,
+    dateRange.from,
+    dateRange.to,
+  );
+  const bills = billsResult.success ? billsResult.data : [];
   const sBill = await serializeData(bills);
 
   const t = await getTranslations("agentPayment");

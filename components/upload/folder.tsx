@@ -25,8 +25,8 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { v4 as uuid } from "uuid";
-import { getSignedURL } from "@/actions/upload/s3";
-import { run } from "@/actions/upload/gemini";
+import { getSignedURL } from "@/actions/upload/get-signed-url";
+import { run } from "@/actions/upload/extract-passport";
 import { Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 interface FolderUploadProps {
@@ -101,7 +101,7 @@ const FolderUpload: React.FC<FolderUploadProps> = ({
     Array.from(files).forEach((file) => {
       const isSystemFile = systemFilePatterns.some(
         (pattern) =>
-          pattern.test(file.name) || pattern.test(file.webkitRelativePath)
+          pattern.test(file.name) || pattern.test(file.webkitRelativePath),
       );
 
       if (isSystemFile) {
@@ -117,7 +117,7 @@ const FolderUpload: React.FC<FolderUploadProps> = ({
           validFiles.push(file);
         } else {
           validationErrors.push(
-            `Exceeded maximum file count of ${maxTotalFiles}`
+            `Exceeded maximum file count of ${maxTotalFiles}`,
           );
         }
       } catch (error) {
@@ -207,7 +207,7 @@ const FolderUpload: React.FC<FolderUploadProps> = ({
 
             if (!signedURLResult.success) {
               throw new Error(
-                `Failed to get signed URL for ${processedFile.name}`
+                `Failed to get signed URL for ${processedFile.name}`,
               );
             }
 
@@ -251,7 +251,7 @@ const FolderUpload: React.FC<FolderUploadProps> = ({
 
             if (!signedURLResult.success) {
               throw new Error(
-                `Failed to get signed URL for ${processedFile.name}`
+                `Failed to get signed URL for ${processedFile.name}`,
               );
             }
 
@@ -298,7 +298,7 @@ const FolderUpload: React.FC<FolderUploadProps> = ({
       for (let i = 0; i < totalFiles; i += MAX_CONCURRENT_UPLOADS) {
         const batch = selectedFiles.slice(i, i + MAX_CONCURRENT_UPLOADS);
         const batchResults = await Promise.all(
-          batch.map((file) => uploadFile(file))
+          batch.map((file) => uploadFile(file)),
         );
         uploadResults.push(...batchResults);
       }
@@ -489,10 +489,10 @@ const FolderUpload: React.FC<FolderUploadProps> = ({
                   {processingProgress < 30
                     ? "Preparing files..."
                     : processingProgress < 60
-                    ? "Uploading..."
-                    : processingProgress < 90
-                    ? "Almost there..."
-                    : "Finalizing..."}
+                      ? "Uploading..."
+                      : processingProgress < 90
+                        ? "Almost there..."
+                        : "Finalizing..."}
                 </p>
               </div>
             </motion.div>

@@ -64,7 +64,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
   const [step, setStep] = useState(1); // Now will go up to 3
   const [applications, setApplications] = useState<Application[]>([]);
   const [selectedApplications, setSelectedApplications] = useState<string[]>(
-    []
+    [],
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -77,7 +77,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
         const applicationData = await getApplicationsBill(
           selectedCompany.id,
           startDate,
-          endDate
+          endDate,
         );
 
         if (applicationData && Array.isArray(applicationData)) {
@@ -120,15 +120,20 @@ export default function CreateBill({ companies }: CreateBillProps) {
         return;
       }
       // Final step - create the bill with the invoice link
-      const id = await createBill(
+      const result = await createBill(
         selectedCompany,
         selectedApplications,
         applications[0].currency,
         calculateTotalCost(),
-        invoiceFileLink
+        invoiceFileLink,
       );
-      Router.push(`/agent-platform/bill/${id}`);
-      toast.success(t("success"));
+
+      if (result.success) {
+        Router.push(`/agent-platform/bill/${result.data}`);
+        toast.success(t("success"));
+      } else {
+        toast.error(result.error);
+      }
     }
   };
 
@@ -144,7 +149,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
 
   const toggleApplicationSelection = (id: string) => {
     setSelectedApplications((prev) =>
-      prev.includes(id) ? prev.filter((appId) => appId !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((appId) => appId !== id) : [...prev, id],
     );
   };
 
@@ -268,7 +273,7 @@ export default function CreateBill({ companies }: CreateBillProps) {
                     setSelectedApplications([]);
                   } else {
                     setSelectedApplications(
-                      applications.map((app) => app.passportId)
+                      applications.map((app) => app.passportId),
                     );
                   }
                 }}
@@ -422,8 +427,8 @@ export default function CreateBill({ companies }: CreateBillProps) {
       {step === 1
         ? renderCompanySelection()
         : step === 2
-        ? renderApplicationSelection()
-        : renderFileUploadStep()}
+          ? renderApplicationSelection()
+          : renderFileUploadStep()}
     </div>
   );
 }

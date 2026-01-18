@@ -13,12 +13,13 @@ import {
 } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/app-sidebar";
 
-import { getAllCompaniesBill } from "@/actions/bill/create-bill";
+import { getAllCompaniesForBilling } from "@/actions/bill/get-companies";
 import VisaLetterPage from "@/components/agent-platform/send-visa-letter/send-visa-letter";
 import { getTranslations } from "next-intl/server";
 
 const SendVisaLetterPage = async () => {
-  const companies = (await getAllCompaniesBill()) || [];
+  const companiesResult = await getAllCompaniesForBilling();
+  const companies = companiesResult.success ? companiesResult.data : [];
   const t = await getTranslations("sendVisaLetter");
 
   return (

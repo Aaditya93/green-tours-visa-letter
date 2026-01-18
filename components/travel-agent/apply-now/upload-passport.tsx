@@ -20,8 +20,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { v4 as uuid } from "uuid";
-import { getSignedURL } from "@/actions/upload/s3";
-import { run } from "@/actions/upload/gemini";
+import { getSignedURL } from "@/actions/upload/get-signed-url";
+import { run } from "@/actions/upload/extract-passport";
 import {
   createApplicationIndiviualTravelAgent,
   createApplicationTravelAgent,
@@ -128,7 +128,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
       }
       setErrors(validationErrors);
     },
-    [selectedFiles, onFileSelected]
+    [selectedFiles, onFileSelected],
   );
 
   const validateAndFilterFiles = (files: FileList) => {
@@ -223,7 +223,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
           cost,
           currency,
           speed,
-          entryType
+          entryType,
         );
         setId(id ?? "");
       }
@@ -257,7 +257,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
             if (!signedURLResult.success) {
               throw new Error(
-                `Failed to get signed URL for ${processedFile.name}`
+                `Failed to get signed URL for ${processedFile.name}`,
               );
             }
 
@@ -286,7 +286,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
                 cost,
                 currency,
                 speed,
-                entryType
+                entryType,
               );
               setcalltoast(true);
               setProcessingProgress(100);
@@ -313,7 +313,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
             if (!signedURLResult.success) {
               throw new Error(
-                `Failed to get signed URL for ${processedFile.name}`
+                `Failed to get signed URL for ${processedFile.name}`,
               );
             }
 
@@ -360,7 +360,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
       for (let i = 0; i < totalFiles; i += MAX_CONCURRENT_UPLOADS) {
         const batch = selectedFiles.slice(i, i + MAX_CONCURRENT_UPLOADS);
         const batchResults = await Promise.all(
-          batch.map((file) => uploadFile(file))
+          batch.map((file) => uploadFile(file)),
         );
         uploadResults.push(...batchResults);
       }
@@ -459,16 +459,16 @@ const FileUpload: React.FC<FileUploadProps> = ({
                       {dragActive
                         ? t("dropzone.active")
                         : isGroup
-                        ? t("dropzone.group", {
-                            count: groupSize,
-                            plural: groupSize > 1 ? "s" : "",
-                          }) +
-                          " " +
-                          t("dropzone.uploaded", {
-                            current: selectedFiles.length,
-                            total: groupSize,
-                          })
-                        : t("dropzone.individual")}
+                          ? t("dropzone.group", {
+                              count: groupSize,
+                              plural: groupSize > 1 ? "s" : "",
+                            }) +
+                            " " +
+                            t("dropzone.uploaded", {
+                              current: selectedFiles.length,
+                              total: groupSize,
+                            })
+                          : t("dropzone.individual")}
                     </p>
                     <p className="text-sm text-gray-500">
                       {dragActive
@@ -577,10 +577,10 @@ const FileUpload: React.FC<FileUploadProps> = ({
                       {processingProgress < 30
                         ? t("progress.preparing")
                         : processingProgress < 60
-                        ? t("progress.uploading")
-                        : processingProgress < 90
-                        ? t("progress.almostDone")
-                        : t("progress.finalizing")}
+                          ? t("progress.uploading")
+                          : processingProgress < 90
+                            ? t("progress.almostDone")
+                            : t("progress.finalizing")}
                     </p>
                   </div>
                 </motion.div>

@@ -12,17 +12,22 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { getBillById } from "@/actions/bill/create-bill";
-import { getApplicationByBillId } from "@/actions/bill/create-bill";
+import { getBillById } from "@/actions/bill/get-bill";
+import { getApplicationsByBillId } from "@/actions/bill/get-applications-by-bill";
 import BillDetail from "@/components/travel-agent/bill/bill";
 import { serializeData, serializeIApplication } from "@/config/serialize";
 import { getTranslations } from "next-intl/server";
 
 const BillPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
-  const bill = await getBillById(id);
+  const billResult = await getBillById(id);
+  const bill = billResult.success ? billResult.data : null;
   const Sbill = serializeData(bill);
-  const Applications = await getApplicationByBillId(id);
+
+  const applicationsResult = await getApplicationsByBillId(id);
+  const Applications = applicationsResult.success
+    ? applicationsResult.data
+    : [];
   const SApplications = serializeIApplication(Applications);
   const t = await getTranslations("bill");
 

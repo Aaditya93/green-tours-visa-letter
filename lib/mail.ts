@@ -3,7 +3,7 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 const Domain = process.env.DOMAIN;
 const AWS_URL = process.env.S3_AWS_URL || "";
-export const sendVarificationEmail = async (email: string, token: string) => {
+export const sendVerificationEmail = async (email: string, token: string) => {
   const ConfirmationLink = `${Domain}/auth/new-verification?token=${token}`;
 
   await resend.emails.send({
@@ -100,7 +100,7 @@ export const sendVarificationEmail = async (email: string, token: string) => {
   });
 };
 
-export const PasswordResetEmail = async (email: string, token: string) => {
+export const sendPasswordResetEmail = async (email: string, token: string) => {
   const ConfirmationLink = `${Domain}/auth/new-password?token=${token}`;
 
   await resend.emails.send({
@@ -191,7 +191,7 @@ export const PasswordResetEmail = async (email: string, token: string) => {
 
 export const sendTravelAgentApprovalEmail = async (
   name: string,
-  email: string
+  email: string,
 ) => {
   await resend.emails.send({
     from: "VISACAR <noreply@visacar.vn>",
@@ -326,7 +326,7 @@ export const sendPaymentConfirmationEmail = async (
   invoiceNumber: string,
   amount: number,
   currency: string,
-  applicationCount: number
+  applicationCount: number,
 ) => {
   await resend.emails.send({
     from: "VISACAR <noreply@visacar.vn>",
@@ -487,7 +487,7 @@ export const sendPaymentConfirmationEmail = async (
                     <span class="details-label">Payment Date</span>
                     <span class="details-value">${new Date().toLocaleDateString(
                       "en-US",
-                      { year: "numeric", month: "long", day: "numeric" }
+                      { year: "numeric", month: "long", day: "numeric" },
                     )}</span>
                 </div>
                 <div class="details-row">
@@ -520,7 +520,7 @@ export const sendBillReadyEmail = async (
   billId: string,
   billAmount: number,
   currency: string,
-  applicationCount: number
+  applicationCount: number,
 ) => {
   const billUrl = `${Domain}/travel-agent/bill/${billId}`;
 
@@ -700,7 +700,7 @@ export const sendBillReadyEmail = async (
                           year: "numeric",
                           month: "long",
                           day: "numeric",
-                        }
+                        },
                       )}</span>
                   </div>
               </div>
@@ -729,7 +729,7 @@ export const sendVisaLetterReadyEmail = async (
   companyEmail: string,
   visaLetterId: string,
   applicationCount: number,
-  fileName: string
+  fileName: string,
 ) => {
   const downloadUrl = `${AWS_URL}visaletter/${visaLetterId}/${fileName}`;
 
@@ -916,7 +916,7 @@ export const sendVisaLetterReadyEmail = async (
                         year: "numeric",
                         month: "long",
                         day: "numeric",
-                      }
+                      },
                     )}</span>
                 </div>
                 <div class="letter-row">
@@ -952,7 +952,7 @@ export const sendVisaLetterReadyEmail = async (
 export const sendNewAgentInterestEmail = async (
   name: string,
   email: string,
-  mobile: string
+  mobile: string,
 ) => {
   await resend.emails.send({
     from: "VISACAR <noreply@visacar.vn>",
@@ -1154,7 +1154,7 @@ export const sendNewAgentInterestEmail = async (
                           day: "numeric",
                           hour: "2-digit",
                           minute: "2-digit",
-                        }
+                        },
                       )}</span>
                   </div>
               </div>

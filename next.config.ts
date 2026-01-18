@@ -4,16 +4,6 @@ import createNextIntlPlugin from "next-intl/plugin";
 const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
-  async redirects() {
-    return [
-      // Basic redirect
-      {
-        source: "/",
-        destination: "/home",
-        permanent: true,
-      },
-    ];
-  },
   reactStrictMode: true,
   env: {
     BASE_URL: process.env.BASE_URL,

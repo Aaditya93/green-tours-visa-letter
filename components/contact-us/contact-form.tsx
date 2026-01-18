@@ -27,30 +27,31 @@ import { FaWhatsapp } from "react-icons/fa6";
 import { useState } from "react";
 import { useTransition } from "react";
 
-import { contactUs } from "@/actions/contact-us/contact-us";
+import { submitContactForm } from "@/actions/contact-us";
 
 import { FormError } from "../auth/form-error";
 import { FormSuccess } from "../auth/form-success";
 import { useTranslations } from "next-intl";
+import { getContactFormSchema } from "@/actions/contact-us/schema";
+
 export const CallbackForm = () => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
   const t = useTranslations("contactUs");
-  const contactFormSchema = z.object({
-    name: z.string().min(2, { message: t("error") }),
-    email: z.string().email({ message: t("error1") }),
-    mobile: z.string().min(5, { message: t("error2") }),
-  });
+  const contactFormSchema = getContactFormSchema(t);
 
   const onSubmit = (values: z.infer<typeof contactFormSchema>) => {
     setError("");
     setSuccess("");
 
     startTransition(() => {
-      contactUs(values).then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
+      submitContactForm(values).then((data) => {
+        if (data.success) {
+          setSuccess(data.message);
+        } else {
+          setError(data.error);
+        }
       });
     });
   };

@@ -31,7 +31,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
-import { markBillAsPaid } from "@/actions/bill/create-bill";
+import { markBillAsPaid } from "@/actions/bill/mark-paid";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
@@ -69,11 +69,19 @@ export default function BillDetail({
   const handleMarkAsPaid = async () => {
     setIsLoading(true);
     try {
-      await markBillAsPaid(bill, applications.length, invoiceNumber);
+      const result = await markBillAsPaid(
+        bill._id,
+        applications.length,
+        invoiceNumber,
+      );
 
-      setIsPaid(true);
-      toast.success(t("success"));
-      router.refresh();
+      if (result.success) {
+        setIsPaid(true);
+        toast.success(t("success"));
+        router.refresh();
+      } else {
+        toast.error(result.error);
+      }
     } catch (error) {
       console.error(error);
       toast.error(t("error"));

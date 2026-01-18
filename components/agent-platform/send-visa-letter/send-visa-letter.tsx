@@ -64,7 +64,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
   const [step, setStep] = useState(1);
   const [applications, setApplications] = useState<Application[]>([]);
   const [selectedApplications, setSelectedApplications] = useState<string[]>(
-    []
+    [],
   );
   const [isLoading, setIsLoading] = useState(false);
   // Move this state to the top level
@@ -92,7 +92,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
         const applicationData = await getApplicationsVisaLetter(
           selectedCompany.id,
           startDate,
-          endDate
+          endDate,
         );
 
         if (applicationData && Array.isArray(applicationData)) {
@@ -135,15 +135,18 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
       setIsLoading(true);
       try {
         const uu = uuid();
-        const id = await CreateVisaLetter(
+        const result = await createVisaLetter(
           visaLetterFile,
           selectedCompany,
           selectedApplications,
-          uu
+          uu,
         );
-        Router.push(`/agent-platform/visa-letter/${id}`);
-
-        toast.success(t("success"));
+        if (result.success) {
+          Router.push(`/agent-platform/visa-letter/${result.data}`);
+          toast.success(t("success"));
+        } else {
+          toast.error(result.error);
+        }
       } catch (error) {
         console.error("Failed to upload visa letter", error);
         toast.error(t("error4"));
@@ -177,7 +180,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
 
   const toggleApplicationSelection = (id: string) => {
     setSelectedApplications((prev) =>
-      prev.includes(id) ? prev.filter((appId) => appId !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((appId) => appId !== id) : [...prev, id],
     );
   };
 
@@ -301,7 +304,7 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
                     setSelectedApplications([]);
                   } else {
                     setSelectedApplications(
-                      applications.map((app) => app.passportId)
+                      applications.map((app) => app.passportId),
                     );
                   }
                 }}
@@ -479,8 +482,8 @@ export default function VisaLetterPage({ companies }: CreateBillProps) {
       {step === 1
         ? renderCompanySelection()
         : step === 2
-        ? renderApplicationSelection()
-        : renderVisaLetterUpload()}
+          ? renderApplicationSelection()
+          : renderVisaLetterUpload()}
     </div>
   );
 }
