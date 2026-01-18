@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import dbConnect from "@/db/db";
 import Application from "@/db/models/application";
-import { deleteS3Folder } from "../upload/delete-folder";
+import { deleteS3Folder } from "../delete-application/delete-folder";
 
 import { ActionResponse } from "@/actions/types";
 

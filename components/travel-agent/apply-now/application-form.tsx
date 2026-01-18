@@ -1,6 +1,5 @@
 "use client";
 import { AiOutlineDelete } from "react-icons/ai";
-import { SerializabledApplication } from "@/config/serialize";
 import PassportFormTravelAgent from "./passport-form";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
@@ -50,7 +49,7 @@ const ApplicationFormTravelAgent = ({ Application }: ApplicationFormProps) => {
             onClick={() => {
               deleteApplication(
                 Application?._id.toString() || "",
-                Application?.id.toString() || ""
+                Application?.id.toString() || "",
               );
               router.push("/application/10");
 

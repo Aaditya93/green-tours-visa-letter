@@ -3,11 +3,10 @@
 import dbConnect from "@/db/db";
 import Application from "@/db/models/application";
 import { convertToApplications } from "@/lib/data";
-import { convertToPassportBillings } from "./utils";
-
+import { convertToPassportBillings } from "../utils";
 import { ActionResponse } from "@/actions/types";
 
-export const getApplicationsBill = async (
+export const getApplicationsVisaLetter = async (
   companyId: string,
   startDate: Date,
   endDate: Date,
@@ -25,7 +24,7 @@ export const getApplicationsBill = async (
       "creator.companyId": companyId,
       passportDetails: {
         $elemMatch: {
-          billId: { $exists: false },
+          stage: "Processing",
         },
       },
       isCompleted: true,
@@ -39,9 +38,13 @@ export const getApplicationsBill = async (
 
     const formattedApplications = await convertToApplications(applications);
     const data = await convertToPassportBillings(formattedApplications);
+
     return { success: true, data };
   } catch (error) {
-    console.error("Failed to get applications for billing:", error);
-    return { success: false, error: "Failed to get applications for billing" };
+    console.error("Failed to get applications for visa letter:", error);
+    return {
+      success: false,
+      error: "Failed to get applications for visa letter",
+    };
   }
 };

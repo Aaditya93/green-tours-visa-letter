@@ -1,16 +1,5 @@
 import { GenerationConfig, SchemaType } from "@google/generative-ai";
 
-export const ALLOWED_FILE_TYPES = [
-  "image/jpeg",
-  "image/png",
-  "image/jpg",
-  "image/webp",
-  "video/mp4",
-  "video/quicktime",
-];
-
-export const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
-
 export const PASSPORT_RECOGNITION_CONFIG: GenerationConfig = {
   temperature: 0.1, // Lower temperature for more deterministic OCR
   topP: 0.8,

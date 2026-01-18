@@ -10,8 +10,8 @@ import {
   removeHyphens,
   parseDate,
   getworkplace,
-} from "./utils";
-import { PassportDetails } from "./types";
+} from "../utils";
+import { PassportDetails } from "../types";
 import { ActionResponse } from "@/actions/types";
 
 export const createApplicationIndiviual = async (

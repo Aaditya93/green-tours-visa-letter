@@ -11,9 +11,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { getVisaLetterPrices } from "@/actions/agent-platform/visa-letter";
 
-import { serializeIApplication } from "@/config/serialize";
+import { getVisaLetterPrices } from "@/actions/agent-platform/visa-letter/get-visa-letter-prices";
 import AppSidebar from "@/components/app-sidebar";
 import VisaPriceCard from "@/components/agent-platform/admin-panel/visa-price-card";
 import CommandMenu from "@/components/agent-platform/admin-panel/command-menu";
@@ -26,7 +25,6 @@ const VisaLetterPrices = async ({
 }) => {
   const { range } = await params;
   const prices = await getVisaLetterPrices();
-  const planObj = serializeIApplication(prices);
   const t = await getTranslations("visaLetterPrices");
 
   return (
@@ -48,9 +46,9 @@ const VisaLetterPrices = async ({
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <CommandMenu companies={planObj} />
+          <CommandMenu companies={prices.data} />
 
-          <VisaPriceCard companies={planObj} range={range} />
+          <VisaPriceCard companies={prices.data} range={range} />
         </div>
       </SidebarInset>
     </SidebarProvider>

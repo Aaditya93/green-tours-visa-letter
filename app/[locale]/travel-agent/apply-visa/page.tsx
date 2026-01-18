@@ -14,16 +14,15 @@ import {
 import AppSidebar from "@/components/travel-agent/app-sidebar";
 import ApplyNow from "@/components/travel-agent/apply-now/apply-now";
 import { auth } from "@/auth";
-import { getVisaLetterPriceByCompany } from "@/actions/agent-platform/visa-letter";
-import { serializeIApplication } from "@/config/serialize";
+import { getVisaLetterPriceByCompany } from "@/actions/agent-platform/visa-letter/get-visa-letter-price-by-company";
 import { getTranslations } from "next-intl/server";
 
 const ApplyVisaPage = async () => {
   const session = await auth();
   const priceData = await getVisaLetterPriceByCompany(session?.user.companyId);
   const t = await getTranslations("applyVisa");
-
-  const planObj = serializeIApplication(priceData.visaLetterPrices[0]);
+  const currency = priceData.data?.currency || "USD";
+  const planObj = priceData.data || { prices: [] };
 
   return (
     <SidebarProvider>
@@ -48,7 +47,7 @@ const ApplyVisaPage = async () => {
         </header>
         <div className="justify-center items-center flex flex-1 flex-col gap-4 p-4 pt-0">
           <ApplyNow
-            currency={planObj.currency}
+            currency={.currency}
             initialPriceData={planObj.prices}
           />
         </div>

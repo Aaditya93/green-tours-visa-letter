@@ -26,27 +26,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { SelectTrigger } from "@radix-ui/react-select";
-import { updateVisaPrices } from "@/actions/agent-platform/visa-letter";
+
+import { updateVisaPrices } from "@/actions/agent-platform/visa-letter/update-visa-prices";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast, Toaster } from "sonner";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-
-interface PriceData {
-  _id: string;
-  name: string;
-  visaLetterPrices: Array<{
-    currency: string;
-    prices: {
-      singleEntry: Array<{ speed: string; price: number }>;
-      multipleEntry: Array<{ speed: string; price: number }>;
-    };
-  }>;
-}
+import { ICompany } from "@/db/models/company";
 
 interface PriceFormProps {
-  priceData: PriceData & { id?: string };
+  priceData: ICompany;
 }
 
 type FormData = z.infer<typeof formSchema>;
@@ -183,7 +173,7 @@ const PriceForm = ({ priceData }: PriceFormProps) => {
                         <SelectItem key={country} value={currency}>
                           {country} ({currency})
                         </SelectItem>
-                      )
+                      ),
                     )}
                   </SelectContent>
                 </Select>

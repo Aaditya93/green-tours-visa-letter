@@ -3,7 +3,7 @@
 import { auth } from "@/auth";
 import dbConnect from "@/db/db";
 import Application from "@/db/models/application";
-import { generateFiveDigitNumber } from "./utils";
+import { generateFiveDigitNumber } from "../utils";
 import { ActionResponse } from "@/actions/types";
 
 export const createApplication = async (

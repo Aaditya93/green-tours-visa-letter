@@ -2,7 +2,7 @@
 
 import dbConnect from "@/db/db";
 import VisaLetter from "@/db/models/visaLetter";
-import { uploadVisaLetter } from "../../upload/upload-visa-letter";
+import { uploadVisaLetter } from "../../s3/upload-visa-letter";
 import { markApplicationsAsSent } from "./mark-sent";
 import { sendVisaLetterReadyEmail } from "@/lib/mail";
 import { ActionResponse } from "@/actions/types";

@@ -4,7 +4,7 @@ import fs from "fs/promises";
 import path from "path";
 import os from "os";
 import { geminiModel, fileManager } from "./gemini-client";
-import { PASSPORT_RECOGNITION_CONFIG, PASSPORT_PROMPT } from "./constants";
+import { PASSPORT_RECOGNITION_CONFIG, PASSPORT_PROMPT } from "../gemini/config";
 
 export interface PassportData {
   full_name: string;

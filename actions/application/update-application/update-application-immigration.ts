@@ -6,7 +6,7 @@ import Application from "@/db/models/application";
 import ImmigrationCost, {
   IImmigrationCost,
 } from "@/db/models/immigration-cost";
-import { extractUniqueIds } from "./utils";
+import { extractUniqueIds } from "../utils";
 
 import { ActionResponse } from "@/actions/types";
 

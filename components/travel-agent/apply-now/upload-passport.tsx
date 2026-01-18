@@ -20,12 +20,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { v4 as uuid } from "uuid";
-import { getSignedURL } from "@/actions/upload/get-signed-url";
-import { run } from "@/actions/upload/extract-passport";
-import {
-  createApplicationIndiviualTravelAgent,
-  createApplicationTravelAgent,
-} from "@/actions/agent-platform/apply-visa-letter";
+import { getSignedURL } from "@/actions/s3/get-signed-url";
+import { run } from "@/actions/gemini/extract-passport";
+
+import { createApplicationIndiviualTravelAgent } from "@/actions/agent-platform/application/create-individual-application";
+import { createApplicationTravelAgent } from "@/actions/agent-platform/application/create-application";
 import Image from "next/image";
 import { Loader2 } from "lucide-react";
 import { motion } from "framer-motion";

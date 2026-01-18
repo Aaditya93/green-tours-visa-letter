@@ -1,12 +1,12 @@
 "use server";
 
 import dbConnect from "@/db/db";
-import Company from "@/db/models/company";
+import Company, { ICompany } from "@/db/models/company";
 import { ActionResponse } from "@/actions/types";
 
 export const getVisaLetterPriceByCompany = async (
   id: string,
-): Promise<ActionResponse<any>> => {
+): Promise<ActionResponse<ICompany>> => {
   try {
     await dbConnect();
     const result = await Company.findById(id);

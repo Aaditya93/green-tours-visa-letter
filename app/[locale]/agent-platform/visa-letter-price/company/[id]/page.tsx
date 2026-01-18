@@ -11,9 +11,8 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { getVisaLetterPriceByCompany } from "@/actions/agent-platform/visa-letter";
 
-import { serializeIApplication } from "@/config/serialize";
+import { getVisaLetterPriceByCompany } from "@/actions/agent-platform/visa-letter/get-visa-letter-price-by-company";
 import AppSidebar from "@/components/app-sidebar";
 import PriceForm from "@/components/travel-agent/visa-letter/price-form";
 
@@ -24,8 +23,11 @@ const VisaLetterPricesEdit = async ({
 }) => {
   const { id } = await params;
 
-  const prices = await getVisaLetterPriceByCompany(id);
-  const planObj = serializeIApplication(prices);
+  const data = await getVisaLetterPriceByCompany(id);
+  const price = data.success ? data.data : null;
+  if (!price) {
+    return <div>Price data not found.</div>;
+  }
 
   return (
     <SidebarProvider>
@@ -39,14 +41,14 @@ const VisaLetterPricesEdit = async ({
               <BreadcrumbList>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>{planObj.name}</BreadcrumbPage>
+                  <BreadcrumbPage>{price?.name}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
           </div>
         </header>
         <div className="container mx-auto p-4">
-          <PriceForm priceData={planObj} />
+          <PriceForm priceData={price} />
         </div>
       </SidebarInset>
     </SidebarProvider>

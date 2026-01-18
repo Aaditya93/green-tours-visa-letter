@@ -25,8 +25,8 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { v4 as uuid } from "uuid";
-import { getSignedURL } from "@/actions/upload/get-signed-url";
-import { run } from "@/actions/upload/extract-passport";
+import { getSignedURL } from "@/actions/s3/get-signed-url";
+import { run } from "@/actions/gemini/extract-passport";
 import { Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 interface FolderUploadProps {

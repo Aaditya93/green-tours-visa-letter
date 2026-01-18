@@ -2,7 +2,7 @@
 
 import dbConnect from "@/db/db";
 import Application from "@/db/models/application";
-import { UpdatePassportDetails } from "./types";
+import { UpdatePassportDetails } from "../types";
 
 import { ActionResponse } from "@/actions/types";
 

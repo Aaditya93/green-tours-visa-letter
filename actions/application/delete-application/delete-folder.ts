@@ -1,7 +1,7 @@
 "use server";
 
 import { ListObjectsV2Command, DeleteObjectsCommand } from "@aws-sdk/client-s3";
-import { s3Client, BUCKET_NAME } from "./s3-client";
+import { s3Client, BUCKET_NAME } from "../../s3/s3-client";
 
 export async function deleteS3Folder(folderPath: string): Promise<void> {
   if (!folderPath) return;

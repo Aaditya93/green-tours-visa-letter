@@ -1,5 +1,3 @@
-import { Types } from "mongoose";
-
 export function generateFiveDigitNumber(): string {
   const min = 10000;
   const max = 99999;

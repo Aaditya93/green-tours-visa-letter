@@ -22,7 +22,7 @@ import { serializedApplications, serializeData } from "@/config/serialize";
 import PaymentDashboard from "@/components/agent-platform/payment/payment-dashboard";
 import AppSidebar from "@/components/app-sidebar";
 import { getTranslations } from "next-intl/server";
-import { getBillsByCompany } from "@/actions/bill/get-bills";
+import { getBillsByCompany } from "@/actions/bill/get-bill-company";
 
 function extractDateRange(dateString: string) {
   try {

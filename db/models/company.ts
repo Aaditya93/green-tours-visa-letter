@@ -44,6 +44,7 @@ const CompanySchema = new Schema({
 });
 
 export interface ICompany extends Document {
+  _id: string;
   name: string;
   email: string;
   address: string;

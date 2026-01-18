@@ -1,7 +1,7 @@
 "use server";
 
 import { VisaLetterPrice } from "@/config/docsConfig";
-import { PriceEntry } from "./types";
+import { PriceEntry } from "../../application/types";
 
 import { ActionResponse } from "@/actions/types";
 

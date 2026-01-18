@@ -2,7 +2,7 @@
 
 import dbConnect from "@/db/db";
 import Application from "@/db/models/application";
-import { extractUniqueIds } from "./utils";
+import { extractUniqueIds } from "../utils";
 
 import { ActionResponse } from "@/actions/types";
 

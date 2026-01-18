@@ -17,7 +17,7 @@ import { convertToApplications } from "@/lib/data";
 import BillingDashboard from "@/components/travel-agent/billing/billing-card";
 import { serializedApplications, serializeData } from "@/config/serialize";
 import { getTranslations } from "next-intl/server";
-import { getBillsByCompany } from "@/actions/bill/get-bills";
+import { getBillsByCompany } from "@/actions/bill/get-bill-company";
 
 import { auth } from "@/auth";
 
