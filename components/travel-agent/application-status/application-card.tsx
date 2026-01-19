@@ -16,22 +16,23 @@ import { CiMap, CiUser, CiPassport1, CiCalendar } from "react-icons/ci";
 import { IoCreateOutline } from "react-icons/io5";
 import { LiaMaleSolid, LiaFemaleSolid } from "react-icons/lia";
 import Link from "next/link";
-import { deleteApplication } from "@/actions/application/model";
+
+import { deleteApplication } from "@/actions/application/create-application/delete-application";
 import { useTranslations } from "next-intl"; // Import the translation hook
 
 import { useEffect } from "react";
 
-import { SerializabledApplication } from "@/config/serialize";
 import PaginationComponentTravelAgent from "./pangination";
+import { IApplication } from "@/db/models/application";
 
 interface ApplicationCardProps {
-  pendingApplications: SerializabledApplication[];
+  pendingApplications: IApplication[];
   range: string;
   stage: string;
 }
 
 const ApplicationCardTravelAgent = (
-  ApplicationCardProps: ApplicationCardProps
+  ApplicationCardProps: ApplicationCardProps,
 ) => {
   const t = useTranslations("travelAgentApplicationStatus"); // Initialize translations
 
@@ -80,8 +81,8 @@ const ApplicationCardTravelAgent = (
             {stage === "Incomplete"
               ? t("status.incomplete")
               : stage === "Complete"
-              ? t("status.complete")
-              : t("status.processing")}{" "}
+                ? t("status.complete")
+                : t("status.processing")}{" "}
             {t("title1")}
           </CardTitle>
           <Badge variant={"secondary"}>
@@ -94,7 +95,7 @@ const ApplicationCardTravelAgent = (
         <div className="">
           {pendingApplications
             .slice(NumRange - 10, NumRange)
-            .map((app: SerializabledApplication) => (
+            .map((app: IApplication) => (
               <div
                 key={app.code}
                 className="border-b p-4 hover:bg-secondary transition-colors duration-200 relative"
@@ -127,7 +128,7 @@ const ApplicationCardTravelAgent = (
                           onClick={() => {
                             deleteApplication(
                               app._id?.toString() || "",
-                              app.id?.toString() || ""
+                              app.id?.toString() || "",
                             );
 
                             setCallToast(true);
@@ -175,7 +176,7 @@ const ApplicationCardTravelAgent = (
                         <div>
                           <p className="text-xs">{t("details.birthday")}</p>
                           <p className="text-sm">
-                            {formatDate(app.passportDetails[0].birthday)}
+                            {formatDate(app.passportDetails[0].birthday as any)}
                           </p>
                         </div>
                       </div>

@@ -226,7 +226,7 @@ const applicationSchema = new Schema<IApplication>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const Application: Model<IApplication> =

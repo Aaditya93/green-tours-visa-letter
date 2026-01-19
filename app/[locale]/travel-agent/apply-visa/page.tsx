@@ -19,10 +19,25 @@ import { getTranslations } from "next-intl/server";
 
 const ApplyVisaPage = async () => {
   const session = await auth();
-  const priceData = await getVisaLetterPriceByCompany(session?.user.companyId);
+  const companyData = await getVisaLetterPriceByCompany(
+    session?.user.companyId,
+  );
   const t = await getTranslations("applyVisa");
-  const currency = priceData.data?.currency || "USD";
-  const planObj = priceData.data || { prices: [] };
+
+  if (!companyData.success) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] p-4 text-center">
+        <div className="bg-destructive/10 p-8 rounded-2xl max-w-md border border-destructive/20">
+          <p className="text-destructive font-semibold">
+            {t("errorFetchingData") ||
+              "Error fetching pricing data. Please try again later."}
+          </p>
+        </div>
+      </div>
+    );
+  }
+  const currency = companyData.data.visaLetterPrices?.[0]?.currency;
+  const prices = companyData.data.visaLetterPrices?.[0]?.prices;
 
   return (
     <SidebarProvider>
@@ -46,10 +61,7 @@ const ApplyVisaPage = async () => {
           </div>
         </header>
         <div className="justify-center items-center flex flex-1 flex-col gap-4 p-4 pt-0">
-          <ApplyNow
-            currency={.currency}
-            initialPriceData={planObj.prices}
-          />
+          <ApplyNow currency={currency} initialPriceData={prices} />
         </div>
       </SidebarInset>
     </SidebarProvider>

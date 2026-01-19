@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import ForgotPasswordCard from "@/components/auth/forgot-password-card";
 import { Lock } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { getTranslations } from "next-intl/server";
 
 interface ForgotPasswordPageProps {
@@ -32,11 +32,10 @@ export async function ForgotPasswordPage({ params }: ForgotPasswordPageProps) {
           </div>
           <div className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">
-              Password Reset
+              {t("title")}
             </CardTitle>
             <CardDescription className="text-center text-muted-foreground">
-              Enter your email address and we&apos;ll send you instructions to
-              reset your password.
+              {t("description")}
             </CardDescription>
           </div>
         </CardHeader>
@@ -45,7 +44,7 @@ export async function ForgotPasswordPage({ params }: ForgotPasswordPageProps) {
         </CardContent>
         <CardFooter className="flex justify-center">
           <Button asChild variant="link" className="text-sm">
-            <Link href="/auth/login">Back to Login</Link>
+            <Link href="/auth/login">{t("backToLogin")}</Link>
           </Button>
         </CardFooter>
       </Card>

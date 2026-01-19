@@ -779,6 +779,18 @@
     "error3": "Password is required",
     "error4": "Password should be at least 8 characters long"
   },
+  "forgotPasswordPage": {
+    "title": "Password Reset",
+    "description": "Enter your email address and we'll send you instructions to reset your password.",
+    "backToLogin": "Back to Login",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "name@example.com",
+    "sendButton": "Send Reset Instructions",
+    "sendingButton": "Sending...",
+    "errorMessage": "Something went wrong! Please try again later.",
+    "error1": "Email is required",
+    "error2": "Email is not valid"
+  },
   "registerPage": {
     "brand": "VISACAR",
     "title": "Welcome to VISACAR",

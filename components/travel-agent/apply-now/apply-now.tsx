@@ -24,6 +24,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import FileUpload from "./upload-passport";
+import { IPrices } from "@/db/models/company";
 
 interface PriceEntry {
   speed: string;
@@ -37,7 +38,7 @@ interface PriceData {
 
 interface ApplyNowProps {
   currency: string;
-  initialPriceData?: PriceData;
+  initialPriceData?: IPrices;
 }
 
 const ApplyNow = ({ currency, initialPriceData }: ApplyNowProps) => {

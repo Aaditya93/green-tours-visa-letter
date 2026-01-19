@@ -15,17 +15,11 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-import {
-  SerializabledApplication,
-  serializeIApplication,
-} from "@/config/serialize";
 import AppSidebar from "@/components/travel-agent/app-sidebar";
 import StatusSelect from "@/components/travel-agent/application-status/select-status";
-import {
-  getCompleteApplicationsTravelAgent,
-  getIncompleteApplicationsTravelAgent,
-  getProcessingApplicationTravelAgent,
-} from "@/actions/agent-platform/visa-letter";
+import { getCompleteApplicationsTravelAgent } from "@/actions/agent-platform/application/get-complete-applications";
+import { getIncompleteApplicationsTravelAgent } from "@/actions/agent-platform/application/get-incomplete-applications";
+import { getProcessingApplicationTravelAgent } from "@/actions/agent-platform/application/get-processing-applications";
 import { getTranslations } from "next-intl/server";
 const ApplicationPage = async ({
   params,
@@ -39,13 +33,23 @@ const ApplicationPage = async ({
     stage === "Incomplete"
       ? (await getIncompleteApplicationsTravelAgent()) || []
       : stage === "Delivered"
-      ? (await getCompleteApplicationsTravelAgent()) || []
-      : (await getProcessingApplicationTravelAgent()) || [];
+        ? (await getCompleteApplicationsTravelAgent()) || []
+        : (await getProcessingApplicationTravelAgent()) || [];
 
-  const pendingApplicationsObject = serializeIApplication(
-    pendingApplications
-  ) as SerializabledApplication[];
+  if (!pendingApplications.success) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] p-4 text-center">
+        <div className="bg-destructive/10 p-8 rounded-2xl max-w-md border border-destructive/20">
+          <p className="text-destructive font-semibold">
+            {t("errorFetchingData") ||
+              "Error fetching application data. Please try again later."}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
+  const applicationsData = pendingApplications.data;
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -68,7 +72,7 @@ const ApplicationPage = async ({
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           <div className="flex justify-between items-center w-full ">
             <div className="flex-shrink-0">
-              <CommandMenu pendingApplications={pendingApplicationsObject} />
+              <CommandMenu pendingApplications={applicationsData} />
             </div>
             <div className="flex-shrink-0">
               <StatusSelect />
@@ -77,7 +81,7 @@ const ApplicationPage = async ({
           <ApplicationCardTravelAgent
             range={range}
             stage={stage}
-            pendingApplications={pendingApplicationsObject}
+            pendingApplications={applicationsData}
           />
         </div>
       </SidebarInset>

@@ -4,8 +4,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { ResetSchema } from "@/app/schemas";
-import type { z } from "zod";
+import * as z from "zod";
 import { FormSuccess } from "@/components/auth/form-success";
 import { FormError } from "@/components/auth/form-error";
 import {
@@ -18,12 +17,21 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { resetPassword } from "@/actions/auth/reset-password";
+import { useTranslations } from "next-intl";
 
 const ForgotPasswordCard = () => {
+  const t = useTranslations("forgotPasswordPage");
   const [status, setStatus] = React.useState<{
     type: "error" | "success" | "";
     message: string;
   }>({ type: "", message: "" });
+
+  const ResetSchema = z.object({
+    email: z
+      .string()
+      .min(1, { message: t("error1") })
+      .email({ message: t("error2") }),
+  });
 
   const form = useForm<z.infer<typeof ResetSchema>>({
     resolver: zodResolver(ResetSchema),
@@ -55,7 +63,7 @@ const ForgotPasswordCard = () => {
     } catch (error) {
       setStatus({
         type: "error",
-        message: "Something went wrong! Please try again later.",
+        message: t("errorMessage"),
       });
     }
   }
@@ -67,10 +75,10 @@ const ForgotPasswordCard = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email address</FormLabel>
+              <FormLabel>{t("emailLabel")}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="name@example.com"
+                  placeholder={t("emailPlaceholder")}
                   type="text"
                   disabled={isLoading}
                   {...field}
@@ -84,7 +92,7 @@ const ForgotPasswordCard = () => {
         {status.type === "error" && <FormError message={status.message} />}
 
         <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Sending..." : "Send Reset Instructions"}
+          {isLoading ? t("sendingButton") : t("sendButton")}
         </Button>
       </form>
     </Form>

@@ -777,6 +777,18 @@
     "error3": "密码为必填项",
     "error4": "密码应至少包含 8 个字符"
   },
+  "forgotPasswordPage": {
+    "title": "重置密码",
+    "description": "输入您的电子邮件地址，我们将向您发送重置密码的说明。",
+    "backToLogin": "返回登录",
+    "emailLabel": "电子邮件地址",
+    "emailPlaceholder": "name@example.com",
+    "sendButton": "发送重置说明",
+    "sendingButton": "发送中...",
+    "errorMessage": "出了些问题！请稍后再试。",
+    "error1": "电子邮件为必填项",
+    "error2": "电子邮件地址无效"
+  },
   "registerPage": {
     "brand": "VISACAR",
     "title": "欢迎来到 VISACAR",

@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { imageFileSchema } from "@/app/schemas";
 import compress from "browser-image-compression";
 import { useRouter } from "next/navigation";
-import { updateApplication } from "@/actions/application/application";
+import { updateApplication } from "@/actions/application/update-application/update-application";
 import {
   Dialog,
   DialogContent,
@@ -116,7 +116,9 @@ const FileUpload: React.FC<FileUploadProps> = ({
       setDragActive(false);
 
       const files = Array.from(e.dataTransfer.files);
-      const { validFiles, validationErrors } = validateAndFilterFiles(files);
+      const { validFiles, validationErrors } = validateAndFilterFiles(
+        files as unknown as FileList,
+      );
 
       if (validationErrors.length === 0) {
         setSelectedFiles((prev) => [...prev, ...validFiles]);
@@ -224,7 +226,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
           speed,
           entryType,
         );
-        setId(id ?? "");
+        if (id.success && id.data) setId(id.data);
       }
 
       // Limit concurrent uploads to prevent overwhelming the system
